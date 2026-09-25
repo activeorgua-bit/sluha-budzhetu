@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+assets_src/raw/
+assets_src/review/
+assets_src/frames/
+assets_src/cost_log.csv
+assets_src/.cache/
+__pycache__/
+*.pyc
+.vite/
+
+# private reference photos (real people and places) — stay on this machine only
+assets_src/reference/photos/
+# Magnific upload/import scratch lists (signed URLs with account id)
+assets_src/.upload_batch*.txt
+assets_src/.import_*.txt

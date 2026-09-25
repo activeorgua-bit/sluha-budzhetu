@@ -1,0 +1,5 @@
+Pillow>=11.0
+numpy>=2.0
+requests>=2.32
+PyYAML>=6.0
+scipy>=1.14

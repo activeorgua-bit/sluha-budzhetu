@@ -1,0 +1,1591 @@
+{
+ "politician_idle": {
+  "atlas": "chars",
+  "frames": [
+   "politician_idle",
+   "politician_idle",
+   "politician_idle",
+   "politician_idle2"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "politician_walk": {
+  "atlas": "chars",
+  "frames": [
+   "politician_walk1",
+   "politician_walk2",
+   "politician_walk3",
+   "politician_walk4"
+  ],
+  "fps": 10,
+  "repeat": -1
+ },
+ "politician_jump": {
+  "atlas": "chars",
+  "frames": [
+   "politician_jump"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "politician_fall": {
+  "atlas": "chars",
+  "frames": [
+   "politician_fall"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "politician_throw": {
+  "atlas": "chars",
+  "frames": [
+   "politician_throw1",
+   "politician_throw2"
+  ],
+  "fps": 12,
+  "repeat": 0
+ },
+ "politician_hurt": {
+  "atlas": "chars",
+  "frames": [
+   "politician_hurt"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "politician_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "politician_stunned",
+   "politician_nervous"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "politician_victory": {
+  "atlas": "chars",
+  "frames": [
+   "politician_victory",
+   "politician_wave"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "journalist_idle": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_idle",
+   "journalist_idle",
+   "journalist_notepad",
+   "journalist_notes"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "journalist_walk": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_walk1",
+   "journalist_walk2",
+   "journalist_walk3",
+   "journalist_walk4"
+  ],
+  "fps": 9,
+  "repeat": -1
+ },
+ "journalist_mic": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_mic",
+   "journalist_shout"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "journalist_camera": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_camera"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "journalist_flash": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_flash1",
+   "journalist_camera",
+   "journalist_flash1",
+   "journalist_camera"
+  ],
+  "fps": 10,
+  "repeat": 0
+ },
+ "journalist_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_bribed"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "journalist_flee": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_flee1",
+   "journalist_flee2"
+  ],
+  "fps": 10,
+  "repeat": -1
+ },
+ "journalist_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "detective_idle": {
+  "atlas": "chars",
+  "frames": [
+   "detective_idle",
+   "detective_idle",
+   "detective_search",
+   "detective_idle2"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "detective_walk": {
+  "atlas": "chars",
+  "frames": [
+   "detective_walk1",
+   "detective_walk2",
+   "detective_walk3",
+   "detective_walk4"
+  ],
+  "fps": 9,
+  "repeat": -1
+ },
+ "detective_run": {
+  "atlas": "chars",
+  "frames": [
+   "detective_run1",
+   "detective_run2"
+  ],
+  "fps": 10,
+  "repeat": -1
+ },
+ "detective_throw": {
+  "atlas": "chars",
+  "frames": [
+   "detective_throw1",
+   "detective_throw2",
+   "detective_idle"
+  ],
+  "fps": 10,
+  "repeat": 0
+ },
+ "detective_emerge": {
+  "atlas": "chars",
+  "frames": [
+   "detective_emerge1",
+   "detective_emerge1",
+   "detective_emerge2",
+   "detective_point"
+  ],
+  "fps": 5,
+  "repeat": 0
+ },
+ "detective_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "detective_bribed"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "detective_arrest": {
+  "atlas": "chars",
+  "frames": [
+   "detective_arrest",
+   "detective_point"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "cop_idle": {
+  "atlas": "chars",
+  "frames": [
+   "cop_idle",
+   "cop_idle",
+   "cop_idle2"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "cop_walk": {
+  "atlas": "chars",
+  "frames": [
+   "cop_walk1",
+   "cop_walk2",
+   "cop_walk3",
+   "cop_walk4"
+  ],
+  "fps": 8,
+  "repeat": -1
+ },
+ "cop_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "cop_bribed"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "cop_whistle": {
+  "atlas": "chars",
+  "frames": [
+   "cop_whistle",
+   "cop_idle"
+  ],
+  "fps": 3,
+  "repeat": 0
+ },
+ "babusya_idle": {
+  "atlas": "chars",
+  "frames": [
+   "babusya_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "babusya_walk": {
+  "atlas": "chars",
+  "frames": [
+   "babusya_walk1",
+   "babusya_walk2",
+   "babusya_idle"
+  ],
+  "fps": 7,
+  "repeat": -1
+ },
+ "babusya_throw": {
+  "atlas": "chars",
+  "frames": [
+   "babusya_throw",
+   "babusya_idle"
+  ],
+  "fps": 6,
+  "repeat": 0
+ },
+ "babusya_wave": {
+  "atlas": "chars",
+  "frames": [
+   "babusya_wave",
+   "babusya_idle"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "tracksuit_idle": {
+  "atlas": "chars",
+  "frames": [
+   "tracksuit_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "tracksuit_walk": {
+  "atlas": "chars",
+  "frames": [
+   "tracksuit_walk1",
+   "tracksuit_walk2",
+   "tracksuit_idle"
+  ],
+  "fps": 9,
+  "repeat": -1
+ },
+ "tracksuit_throw": {
+  "atlas": "chars",
+  "frames": [
+   "tracksuit_throw",
+   "tracksuit_idle"
+  ],
+  "fps": 6,
+  "repeat": 0
+ },
+ "tracksuit_wave": {
+  "atlas": "chars",
+  "frames": [
+   "tracksuit_wave",
+   "tracksuit_idle"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "oligarch_idle": {
+  "atlas": "chars",
+  "frames": [
+   "oligarch_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "oligarch_dance": {
+  "atlas": "chars",
+  "frames": [
+   "oligarch_dance1",
+   "oligarch_dance2",
+   "oligarch_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "oligarch_offer": {
+  "atlas": "chars",
+  "frames": [
+   "oligarch_offer",
+   "oligarch_idle"
+  ],
+  "fps": 3,
+  "repeat": 0
+ },
+ "guard_idle": {
+  "atlas": "chars",
+  "frames": [
+   "guard_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "guard_walk": {
+  "atlas": "chars",
+  "frames": [
+   "guard_walk1",
+   "guard_walk2",
+   "guard_idle"
+  ],
+  "fps": 8,
+  "repeat": -1
+ },
+ "guard_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "guard_bribed",
+   "guard_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "guard_block": {
+  "atlas": "chars",
+  "frames": [
+   "guard_block",
+   "guard_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "coin_spin": {
+  "atlas": "props",
+  "frames": [
+   "coin",
+   "coin_spin2",
+   "coin_spin3",
+   "coin_spin4"
+  ],
+  "fps": 8,
+  "repeat": -1
+ },
+ "pigeon_fly": {
+  "atlas": "props",
+  "frames": [
+   "pigeon",
+   "pigeon_fly"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "oldlady_idle": {
+  "atlas": "chars",
+  "frames": [
+   "oldlady_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "oldlady_walk": {
+  "atlas": "chars",
+  "frames": [
+   "oldlady_walk1",
+   "oldlady_idle",
+   "oldlady_walk2",
+   "oldlady_idle"
+  ],
+  "fps": 5,
+  "repeat": -1
+ },
+ "oldlady_raise": {
+  "atlas": "chars",
+  "frames": [
+   "oldlady_raise"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "oldlady_strike": {
+  "atlas": "chars",
+  "frames": [
+   "oldlady_strike"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "oldlady_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "oldlady_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "oldlady_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "oldlady_bribed"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "oldlady_angry": {
+  "atlas": "chars",
+  "frames": [
+   "oldlady_angry",
+   "oldlady_idle"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "kid_idle": {
+  "atlas": "chars",
+  "frames": [
+   "kid_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "kid_walk": {
+  "atlas": "chars",
+  "frames": [
+   "kid_walk1",
+   "kid_idle",
+   "kid_walk2",
+   "kid_idle"
+  ],
+  "fps": 8,
+  "repeat": -1
+ },
+ "kid_run": {
+  "atlas": "chars",
+  "frames": [
+   "kid_run",
+   "kid_walk1",
+   "kid_run",
+   "kid_walk2"
+  ],
+  "fps": 12,
+  "repeat": -1
+ },
+ "kid_pick": {
+  "atlas": "chars",
+  "frames": [
+   "kid_pick"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "kid_windup": {
+  "atlas": "chars",
+  "frames": [
+   "kid_windup"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "kid_throw": {
+  "atlas": "chars",
+  "frames": [
+   "kid_throw"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "kid_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "kid_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "kid_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "kid_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "rat_idle": {
+  "atlas": "chars",
+  "frames": [
+   "rat_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "rat_walk": {
+  "atlas": "chars",
+  "frames": [
+   "rat_walk1",
+   "rat_walk2",
+   "rat_walk3",
+   "rat_walk2"
+  ],
+  "fps": 10,
+  "repeat": -1
+ },
+ "rat_run": {
+  "atlas": "chars",
+  "frames": [
+   "rat_run",
+   "rat_walk1"
+  ],
+  "fps": 12,
+  "repeat": -1
+ },
+ "rat_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "rat_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "rat_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "rat_bribed"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "ratboss_idle": {
+  "atlas": "chars",
+  "frames": [
+   "ratboss_idle",
+   "ratboss_strum1"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "ratboss_walk": {
+  "atlas": "chars",
+  "frames": [
+   "ratboss_walk",
+   "ratboss_idle"
+  ],
+  "fps": 5,
+  "repeat": -1
+ },
+ "ratboss_strum": {
+  "atlas": "chars",
+  "frames": [
+   "ratboss_strum1",
+   "ratboss_strum2"
+  ],
+  "fps": 8,
+  "repeat": -1
+ },
+ "ratboss_jump": {
+  "atlas": "chars",
+  "frames": [
+   "ratboss_jump"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "ratboss_hurt": {
+  "atlas": "chars",
+  "frames": [
+   "ratboss_hurt"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "ratboss_defeated": {
+  "atlas": "chars",
+  "frames": [
+   "ratboss_defeated"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "ratboss_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "ratboss_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "animator_idle": {
+  "atlas": "chars",
+  "frames": [
+   "animator_idle",
+   "animator_dance1"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "animator_walk": {
+  "atlas": "chars",
+  "frames": [
+   "animator_walk1",
+   "animator_walk2",
+   "animator_walk3",
+   "animator_walk4"
+  ],
+  "fps": 9,
+  "repeat": -1
+ },
+ "animator_crouch": {
+  "atlas": "chars",
+  "frames": [
+   "animator_crouch"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "animator_dash": {
+  "atlas": "chars",
+  "frames": [
+   "animator_dash"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "animator_jump": {
+  "atlas": "chars",
+  "frames": [
+   "animator_jump"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "animator_stomp": {
+  "atlas": "chars",
+  "frames": [
+   "animator_stomp"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "animator_beg": {
+  "atlas": "chars",
+  "frames": [
+   "animator_beg"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "animator_hurt": {
+  "atlas": "chars",
+  "frames": [
+   "animator_hurt"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "animator_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "animator_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "animator_defeated": {
+  "atlas": "chars",
+  "frames": [
+   "animator_headoff",
+   "animator_defeated"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "animator_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "animator_dance1",
+   "animator_dance2"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "speaker_idle": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "speaker_walk": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_walk1",
+   "speaker_walk2",
+   "speaker_walk3",
+   "speaker_walk4"
+  ],
+  "fps": 7,
+  "repeat": -1
+ },
+ "speaker_raise": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_raise"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "speaker_slam": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_slam"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "speaker_throw": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_throw"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "speaker_shout": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_shout"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "speaker_charge": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_charge"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "speaker_hurt": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_hurt"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "speaker_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "speaker_rage": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_rage"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "speaker_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_bribed"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "speaker_defeated": {
+  "atlas": "chars",
+  "frames": [
+   "speaker_defeated"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "oppmp_idle": {
+  "atlas": "chars",
+  "frames": [
+   "oppmp_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "oppmp_walk": {
+  "atlas": "chars",
+  "frames": [
+   "oppmp_walk1",
+   "oppmp_walk2",
+   "oppmp_walk3",
+   "oppmp_walk2"
+  ],
+  "fps": 8,
+  "repeat": -1
+ },
+ "oppmp_shout": {
+  "atlas": "chars",
+  "frames": [
+   "oppmp_shout",
+   "oppmp_idle"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "oppmp_throw": {
+  "atlas": "chars",
+  "frames": [
+   "oppmp_throw"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "oppmp_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "oppmp_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "oppmp_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "oppmp_bribed"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "seatedmp_sit": {
+  "atlas": "chars",
+  "frames": [
+   "seatedmp_sit"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "seatedmp_clap": {
+  "atlas": "chars",
+  "frames": [
+   "seatedmp_clap",
+   "seatedmp_sit"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "seatedmp_throw": {
+  "atlas": "chars",
+  "frames": [
+   "seatedmp_throw"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "seatedmp_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "seatedmp_sleep"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "journalist_f_idle": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_f_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "journalist_f_walk": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_f_walk1",
+   "journalist_f_walk2",
+   "journalist_f_walk3",
+   "journalist_f_walk4"
+  ],
+  "fps": 9,
+  "repeat": -1
+ },
+ "journalist_f_camera": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_f_mic"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "journalist_f_flash": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_f_flash"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "journalist_f_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_f_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "journalist_f_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "journalist_f_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "assistant_idle": {
+  "atlas": "chars",
+  "frames": [
+   "assistant_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "assistant_walk": {
+  "atlas": "chars",
+  "frames": [
+   "assistant_walk1",
+   "assistant_walk2",
+   "assistant_walk3",
+   "assistant_walk4"
+  ],
+  "fps": 7,
+  "repeat": -1
+ },
+ "assistant_phone": {
+  "atlas": "chars",
+  "frames": [
+   "assistant_phone"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "assistant_bow": {
+  "atlas": "chars",
+  "frames": [
+   "assistant_bow"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "assistant_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "assistant_drop"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "chestnut_spin": {
+  "atlas": "props",
+  "frames": [
+   "chestnut"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "politician_remorse": {
+  "atlas": "chars",
+  "frames": [
+   "politician_remorse1",
+   "politician_remorse1",
+   "politician_remorse2",
+   "politician_remorse2"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "politician_drink": {
+  "atlas": "chars",
+  "frames": [
+   "politician_drink"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "politician_drunk_idle": {
+  "atlas": "chars",
+  "frames": [
+   "politician_drunk_idle",
+   "politician_drunk_idle",
+   "politician_hiccup",
+   "politician_drunk_idle",
+   "politician_wipe"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "politician_drunk_walk": {
+  "atlas": "chars",
+  "frames": [
+   "politician_drunk_walk1",
+   "politician_drunk_walk2"
+  ],
+  "fps": 5,
+  "repeat": -1
+ },
+ "mpshirt_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_idle",
+   "mpshirt_idle",
+   "mpshirt_idle",
+   "mpshirt_idle2"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "mpshirt_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_walk1",
+   "mpshirt_walk2",
+   "mpshirt_walk3",
+   "mpshirt_walk4"
+  ],
+  "fps": 10,
+  "repeat": -1
+ },
+ "mpshirt_jump": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_jump"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "mpshirt_fall": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_fall"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "mpshirt_throw": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_throw1",
+   "mpshirt_throw2"
+  ],
+  "fps": 10,
+  "repeat": 0
+ },
+ "mpshirt_hurt": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_hurt"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "mpshirt_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mpshirt_remorse": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_remorse1"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mpshirt_drink": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_drink"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "mpshirt_drunk_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_drunk_walk1"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mpshirt_drunk_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_drunk_walk1",
+   "mpshirt_drunk_walk2"
+  ],
+  "fps": 5,
+  "repeat": -1
+ },
+ "mpshirt_victory": {
+  "atlas": "chars",
+  "frames": [
+   "mpshirt_idle2"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mafia_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mafia_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mafia_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mafia_walk1",
+   "mafia_idle",
+   "mafia_walk2",
+   "mafia_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "mafia_offer": {
+  "atlas": "chars",
+  "frames": [
+   "mafia_offer"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mafia_punch": {
+  "atlas": "chars",
+  "frames": [
+   "mafia_punch"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "mafia_stomp": {
+  "atlas": "chars",
+  "frames": [
+   "mafia_stomp"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "mafia_hurt": {
+  "atlas": "chars",
+  "frames": [
+   "mafia_hurt"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "mafia_defeated": {
+  "atlas": "chars",
+  "frames": [
+   "mafia_defeated"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mafia_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "mafia_offer"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "bandit_idle": {
+  "atlas": "chars",
+  "frames": [
+   "bandit_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "bandit_walk": {
+  "atlas": "chars",
+  "frames": [
+   "bandit_walk1",
+   "bandit_walk2",
+   "bandit_walk3",
+   "bandit_walk2"
+  ],
+  "fps": 8,
+  "repeat": -1
+ },
+ "bandit_punch": {
+  "atlas": "chars",
+  "frames": [
+   "bandit_punch"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "bandit_knuckles": {
+  "atlas": "chars",
+  "frames": [
+   "bandit_knuckles",
+   "bandit_idle"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "bandit_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "bandit_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "bandit_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "bandit_bribed"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "gopnik_idle": {
+  "atlas": "chars",
+  "frames": [
+   "gopnik_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "gopnik_walk": {
+  "atlas": "chars",
+  "frames": [
+   "gopnik_walk1",
+   "gopnik_idle",
+   "gopnik_walk2",
+   "gopnik_idle"
+  ],
+  "fps": 8,
+  "repeat": -1
+ },
+ "gopnik_run": {
+  "atlas": "chars",
+  "frames": [
+   "gopnik_run",
+   "gopnik_walk1"
+  ],
+  "fps": 10,
+  "repeat": -1
+ },
+ "gopnik_squat": {
+  "atlas": "chars",
+  "frames": [
+   "gopnik_squat"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "gopnik_pick": {
+  "atlas": "chars",
+  "frames": [
+   "gopnik_squat"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "gopnik_windup": {
+  "atlas": "chars",
+  "frames": [
+   "gopnik_windup"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "gopnik_throw": {
+  "atlas": "chars",
+  "frames": [
+   "gopnik_throw"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "gopnik_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "gopnik_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "citizen_idle": {
+  "atlas": "chars",
+  "frames": [
+   "citizen_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "citizen_walk": {
+  "atlas": "chars",
+  "frames": [
+   "citizen_walk1",
+   "citizen_idle",
+   "citizen_walk2",
+   "citizen_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "citizen_angry": {
+  "atlas": "chars",
+  "frames": [
+   "citizen_angry",
+   "citizen_idle"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "citizen_throw": {
+  "atlas": "chars",
+  "frames": [
+   "citizen_windup",
+   "citizen_throw"
+  ],
+  "fps": 6,
+  "repeat": 0
+ },
+ "citizen_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "citizen_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "citizen_wave": {
+  "atlas": "chars",
+  "frames": [
+   "citizen_wave",
+   "citizen_idle"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "citizen_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "citizen_wave"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "dogwalker_idle": {
+  "atlas": "chars",
+  "frames": [
+   "dogwalker_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "dogwalker_walk": {
+  "atlas": "chars",
+  "frames": [
+   "dogwalker_walk1",
+   "dogwalker_idle",
+   "dogwalker_walk2",
+   "dogwalker_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "dogwalker_shout": {
+  "atlas": "chars",
+  "frames": [
+   "dogwalker_shout",
+   "dogwalker_idle"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "dog_sit": {
+  "atlas": "chars",
+  "frames": [
+   "dog_sit"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "dog_run": {
+  "atlas": "chars",
+  "frames": [
+   "dog_run1",
+   "dog_run2"
+  ],
+  "fps": 10,
+  "repeat": -1
+ },
+ "dog_bark": {
+  "atlas": "chars",
+  "frames": [
+   "dog_bark",
+   "dog_run1"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "dog_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "dog_sit"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "gopboss_idle": {
+  "atlas": "chars",
+  "frames": [
+   "gopboss_idle",
+   "gopboss_swagger"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "gopboss_walk": {
+  "atlas": "chars",
+  "frames": [
+   "gopboss_walk1",
+   "gopboss_idle",
+   "gopboss_walk2",
+   "gopboss_idle"
+  ],
+  "fps": 7,
+  "repeat": -1
+ },
+ "gopboss_swagger": {
+  "atlas": "chars",
+  "frames": [
+   "gopboss_swagger"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "gopboss_punch": {
+  "atlas": "chars",
+  "frames": [
+   "gopboss_punch"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "gopboss_hurt": {
+  "atlas": "chars",
+  "frames": [
+   "gopboss_hurt"
+  ],
+  "fps": 1,
+  "repeat": 0
+ },
+ "gopboss_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "gopboss_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "gopboss_defeated": {
+  "atlas": "chars",
+  "frames": [
+   "gopboss_defeated"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "gopboss_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "gopboss_swagger"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mp_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mp_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mp_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mp_walk1",
+   "mp_idle",
+   "mp_walk2",
+   "mp_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "mp_phone": {
+  "atlas": "chars",
+  "frames": [
+   "mp_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mp_bow": {
+  "atlas": "chars",
+  "frames": [
+   "mp_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mp_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "mp_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ }
+}

@@ -1,0 +1,1618 @@
+# Every generated asset of the game. Run:  python tools/generate_assets.py --batch <name> [--dry-run]
+# References are relative to assets_src/reference/. The grid template named in `template` is always
+# sent as the first reference. {palette} expands to the canonical hex list, {style} to style_suffix.
+#
+# Batches: calibration -> A (characters) -> C (tilesets) -> B (props) -> D (parallax) -> E (story)
+
+defaults:
+  model: gpt-image-2-edit
+  quality: high
+  resolution: 1k
+  num_images: 2
+  background: opaque
+  moderation: low
+  aspect_ratio: square_1_1
+
+style_suffix: >-
+  STYLE LOCK: 16-bit retro platformer pixel art exactly like the reference sprites: crisp square pixels
+  (each art pixel is a clean 4x4 block at this size), no anti-aliasing, no blur, no gradients, 1-pixel
+  dark outline around every shape, flat cel shading with 2-3 tones per colour and light from the top-left,
+  chibi proportions (big head, short body). No text, no letters, no labels, no captions, no watermark,
+  no drop shadows, no ground plane, no background scenery.
+
+# ---------------------------------------------------------------------------------------------
+# Character prompts share these design sheets so every pose describes the same person.
+designs:
+  politician: &politician >-
+    THE POLITICIAN (the player): chubby middle-aged man, brown side-parted hair, thick dark eyebrows,
+    smug half-smile, small eyes, dark navy suit jacket, white shirt, red tie, dark trousers, black shoes.
+  journalist: &journalist >-
+    THE JOURNALIST: slim man with black rectangular glasses, messy dark hair, black jacket with a white
+    PRESS badge on the chest (a plain white rectangle, no readable letters), dark trousers, brown shoes.
+  detective: &detective >-
+    THE NABU DETECTIVE: man in a tan trench coat with a belt, brown fedora hat, white shirt, dark tie,
+    dark trousers, brown shoes, serious face, carrying a small blue magnifying glass.
+  cop: &cop >-
+    THE PATROL OFFICER: stocky man in a dark navy police uniform with light-blue reflective bands on the
+    chest and sleeves, black peaked cap with a small gold badge, black boots, friendly round face.
+  babusya: &babusya >-
+    THE GRANDMOTHER VOTER: short elderly woman, floral red-and-white headscarf, grey wool coat, long dark
+    skirt, brown boots, round glasses, holding a glass jar of pickles.
+  tracksuit: &tracksuit >-
+    THE COURTYARD GUY: young man in a black tracksuit with three white stripes down the sleeves and legs
+    (no logo), black flat cap, white sneakers, squatting posture, holding a small paper cone of seeds.
+  oligarch: &oligarch >-
+    THE OLIGARCH GUEST: heavy man in a white suit with a gold chain, black sunglasses, slicked black hair,
+    holding a champagne glass, big grin.
+  guard: &guard >-
+    THE BORDER GUARD: tall man in an olive-green uniform with a peaked green cap, shoulder patches,
+    black belt, dark trousers, holding a passport stamp.
+
+assets:
+  # ------------------------------------------------------------------ calibration (Phase 2a)
+  - id: calib_politician
+    batch: calibration
+    template: chars_4x2_256
+    aspect_ratio: horizontal_2_1
+    references: [crops/politician_idle.png, crops/politician_walk1.png, crops/politician_walk2.png, crops/politician_jump.png, crops/palette_strip.png]
+    prompt: >-
+      Sprite sheet of the SAME character as the reference images (reference 2-5 show him), redrawn
+      pixel-for-pixel in the same style. *politician* Cells row-major: 1 idle standing facing right,
+      2 walk frame A (left leg forward), 3 walk frame B (right leg forward), 4 jump with one fist raised,
+      5 idle standing, 6 walk frame A, 7 walk frame B, 8 jump. Feet on the baseline tick of every cell,
+      same size in every cell (the character fills about 85% of the cell height).
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [politician_idle_c, politician_walk1_c, politician_walk2_c, politician_jump_c, politician_idle_c2, politician_walk1_c2, politician_walk2_c2, politician_jump_c2]}
+
+  - id: calib_journalist
+    batch: calibration
+    template: chars_4x2_256
+    aspect_ratio: horizontal_2_1
+    references: [crops/journalist_idle.png, crops/journalist_walk1.png, crops/journalist_mic.png, crops/journalist_camera.png, crops/palette_strip.png]
+    prompt: >-
+      Sprite sheet of the SAME character as the reference images, redrawn in the same style.
+      *journalist* Cells row-major: 1 idle, 2 walk frame A, 3 walk frame B, 4 holding a microphone
+      toward the right, 5 holding a camera at eye level, 6 idle, 7 walk A, 8 walk B. Feet on the
+      baseline tick, same size in every cell.
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [journalist_idle_c, journalist_walk1_c, journalist_walk2_c, journalist_mic_c, journalist_camera_c, journalist_idle_c2, journalist_walk1_c2, journalist_walk2_c2]}
+
+  # ------------------------------------------------------------------ A: characters
+  - id: politician_extra
+    batch: A
+    template: chars_4x2_256
+    aspect_ratio: horizontal_2_1
+    references: [crops/politician_idle.png, crops/politician_walk1.png, crops/politician_jump.png, crops/palette_strip.png]
+    prompt: >-
+      New poses of the SAME character as the reference images, identical design and style. *politician*
+      Cells row-major: 1 falling with arms up and legs apart, 2 throwing a green banknote bundle (arm
+      back, wind-up), 3 throwing (arm extended forward, banknote leaving the hand), 4 hurt: knocked back,
+      eyes closed, mouth open, 5 victory: both arms raised, big grin, 6 stunned: dizzy, small stars over
+      the head, 7 walk frame C (mid-step), 8 walk frame D (mid-step).
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [politician_fall, politician_throw1, politician_throw2, politician_hurt, politician_victory, politician_stunned, politician_walk3, politician_walk4]}
+
+  - id: journalist_extra
+    batch: A
+    template: chars_4x2_256
+    aspect_ratio: horizontal_2_1
+    references: [crops/journalist_idle.png, crops/journalist_camera.png, crops/journalist_walk1.png, crops/palette_strip.png]
+    prompt: >-
+      New poses of the SAME character as the reference images, identical design and style. *journalist*
+      Cells row-major: 1 raising the camera, flash bulb about to fire, 2 camera flash: white burst in
+      front of the lens, 3 taking a money bag with a guilty smile (holding a small brown bag with a $),
+      4 running away scared, frame A, 5 running away scared, frame B, 6 stunned: dizzy with stars,
+      7 walk frame C, 8 walk frame D.
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [journalist_flash1, journalist_flash2, journalist_bribed, journalist_flee1, journalist_flee2, journalist_stunned, journalist_walk3, journalist_walk4]}
+
+  - id: detective_sheet
+    batch: A
+    template: chars_4x3_256
+    aspect_ratio: classic_4_3
+    references: [crops/detective_idle.png, crops/politician_idle.png, crops/journalist_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Full sprite sheet of the SAME character as reference image 2 (the detective in the trench coat),
+      drawn in exactly the style and proportions of the other reference sprites. *detective*
+      Cells row-major: 1 idle standing, 2 walk frame A, 3 walk frame B, 4 throwing a white paper
+      document (arm back), 5 throwing (arm extended, paper flying), 6 climbing out of a round manhole,
+      only the upper body visible, 7 standing up next to the manhole, 8 taking a money bag, looking away
+      guiltily, 9 holding up handcuffs, 10 looking through the magnifying glass, 11 idle variant
+      (hands in pockets), 12 walk frame C.
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [detective_idle_g, detective_walk1, detective_walk2, detective_throw1, detective_throw2, detective_emerge1, detective_emerge2, detective_bribed, detective_arrest, detective_search, detective_idle2, detective_walk3]}
+
+  - id: cop_sheet
+    batch: A
+    template: chars_4x2_256
+    aspect_ratio: horizontal_2_1
+    references: [crops/politician_idle.png, crops/journalist_walk1.png, crops/detective_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Sprite sheet of a NEW character drawn in exactly the style and proportions of the reference
+      sprites. *cop* Cells row-major: 1 idle standing, 2 walk frame A, 3 walk frame B, 4 saluting with a
+      money bag under the other arm and a happy face, 5 blowing a whistle, 6 idle variant with hands on
+      the belt, 7 walk frame C, 8 walk frame D.
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [cop_idle, cop_walk1, cop_walk2, cop_bribed, cop_whistle, cop_idle2, cop_walk3, cop_walk4]}
+
+  - id: babusya_sheet
+    batch: A
+    template: chars_4x2_256
+    aspect_ratio: horizontal_2_1
+    references: [crops/politician_idle.png, crops/journalist_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Sprite sheet of a NEW character drawn in exactly the style and proportions of the reference
+      sprites. *babusya* Cells row-major: 1 idle standing, 2 walk frame A, 3 walk frame B, 4 throwing
+      the pickle jar (arm extended), 5 waving happily, 6 angry: shaking a fist, 7 walk frame C,
+      8 holding a bag of buckwheat and smiling.
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [babusya_idle, babusya_walk1, babusya_walk2, babusya_throw, babusya_wave, babusya_angry, babusya_walk3, babusya_bribed]}
+
+  - id: tracksuit_sheet
+    batch: A
+    template: chars_4x2_256
+    aspect_ratio: horizontal_2_1
+    references: [crops/politician_idle.png, crops/journalist_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Sprite sheet of a NEW character drawn in exactly the style and proportions of the reference
+      sprites. *tracksuit* Cells row-major: 1 idle squatting, 2 walk frame A (standing), 3 walk frame B,
+      4 throwing a bottle (arm extended), 5 waving with a thumbs up, 6 angry: pointing forward,
+      7 walk frame C, 8 holding a money envelope and smirking.
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [tracksuit_idle, tracksuit_walk1, tracksuit_walk2, tracksuit_throw, tracksuit_wave, tracksuit_angry, tracksuit_walk3, tracksuit_bribed]}
+
+  - id: oligarch_sheet
+    batch: A
+    template: chars_4x2_256
+    aspect_ratio: horizontal_2_1
+    references: [crops/politician_idle.png, crops/journalist_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Sprite sheet of a NEW character drawn in exactly the style and proportions of the reference
+      sprites. *oligarch* Cells row-major: 1 idle standing with the champagne glass, 2 dancing frame A
+      (arms up), 3 dancing frame B (arms sideways), 4 offering a brown money bag forward, 5 laughing with
+      the head back, 6 drinking, 7 idle variant, 8 dancing frame C.
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [oligarch_idle, oligarch_dance1, oligarch_dance2, oligarch_offer, oligarch_laugh, oligarch_drink, oligarch_idle2, oligarch_dance3]}
+
+  - id: guard_sheet
+    batch: A
+    template: chars_4x2_256
+    aspect_ratio: horizontal_2_1
+    references: [crops/politician_idle.png, crops/detective_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Sprite sheet of a NEW character drawn in exactly the style and proportions of the reference
+      sprites. *guard* Cells row-major: 1 idle standing at attention, 2 walk frame A, 3 walk frame B,
+      4 pocketing an envelope with a wink, 5 blocking: arms crossed, stern face, 6 checking a passport,
+      7 talking into a radio, 8 idle variant, hands behind the back.
+    post: {kind: sheet, atlas: chars, frame_h: 56, names: [guard_idle, guard_walk1, guard_walk2, guard_bribed, guard_block, guard_check, guard_call, guard_idle2]}
+
+  # ------------------------------------------------------------------ C: tilesets (32 px tiles)
+  - id: tiles_w1
+    batch: C
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [crops/tile_stone.png, crops/tile_brick.png, crops/tile_steel.png, crops/scaffold.png, crops/bridge_girder.png, crops/mockup_bridge_small.png, crops/palette_strip.png]
+    prompt: >-
+      Tileset for a construction-site bridge level over a river, in exactly the style of the reference
+      tiles (stone platform, brick platform, steel platform, scaffold). Each cell is ONE 32x32 tile drawn
+      at 4x, filling its cell completely edge to edge, seamlessly tileable with its neighbours.
+      Cells row-major. Row 1: stone top-left corner, stone top edge, stone top-right corner, stone left
+      edge, stone centre fill, stone right edge, stone bottom-left, stone bottom edge. Row 2: stone
+      bottom-right, steel top-left, steel top edge, steel top-right, steel left edge, steel centre, steel
+      right edge, steel bottom-left. Row 3: steel bottom edge, steel bottom-right, brick top-left, brick
+      top edge, brick top-right, brick left edge, brick centre, brick right edge. Row 4: brick bottom-left,
+      brick bottom edge, brick bottom-right, rusty steel girder left end, girder middle, girder right end,
+      cracked girder middle, river water surface with small waves. Row 5: water surface variant, deep
+      water fill, grey metal spike cone on a base, wooden plank platform left half, wooden plank platform
+      right half, rebar platform left half, rebar platform right half, scaffold top-left. Row 6: scaffold
+      top-right, scaffold lower-left with X brace, scaffold lower-right with X brace, wooden ladder top,
+      wooden ladder middle, brick block with rivets, riveted metal block, wooden crate. Row 7: wooden box
+      with planks, striped hazard barrier, concrete block, dirt fill, empty, empty, empty, empty.
+      Row 8: all empty (solid magenta).
+    post:
+      kind: tiles
+      world: w1
+      # cell map for the approved candidate (the model merged the 9-slices into 7 cells per row)
+      cells:
+        stone_tl: 0
+        stone_t: 1
+        stone_tr: 3
+        stone_l: 4
+        stone_c: [1, bottom]
+        stone_r: [3, bottom]
+        stone_bl: 4
+        stone_b: [1, bottom]
+        stone_br: [3, bottom]
+        steel_tl: 8
+        steel_t: 9
+        steel_tr: 11
+        steel_l: 12
+        steel_c: [9, bottom]
+        steel_r: [11, bottom]
+        steel_bl: 12
+        steel_b: [9, bottom]
+        steel_br: [11, bottom]
+        brick_tl: 16
+        brick_t: 17
+        brick_tr: 19
+        brick_l: 20
+        brick_c: 25
+        brick_r: [19, bottom]
+        brick_bl: 20
+        brick_b: 25
+        brick_br: [19, bottom]
+        girder_l: 27
+        girder_m: 28
+        girder_r: 29
+        girder_cracked: 30
+        water_top: 31
+        water_top2: 32
+        water_fill: 33
+        spike: 34
+        wood_plat_l: 35
+        wood_plat_r: 36
+        rebar_plat_l: 37
+        rebar_plat_r: 38
+        scaffold_top_l: 39
+        scaffold_top_r: 40
+        scaffold_fill_l: 41
+        scaffold_fill_r: 42
+        ladder_top: 43
+        ladder_mid: 43
+        brick_block: 45
+        metal_block: 46
+        crate: 47
+        wood_box: 48
+        hazard_barrier: 49
+        concrete: 50
+        dirt_c: 51
+      names: [stone_tl, stone_t, stone_tr, stone_l, stone_c, stone_r, stone_bl, stone_b,
+              stone_br, steel_tl, steel_t, steel_tr, steel_l, steel_c, steel_r, steel_bl,
+              steel_b, steel_br, brick_tl, brick_t, brick_tr, brick_l, brick_c, brick_r,
+              brick_bl, brick_b, brick_br, girder_l, girder_m, girder_r, girder_cracked, water_top,
+              water_top2, water_fill, spike, wood_plat_l, wood_plat_r, rebar_plat_l, rebar_plat_r, scaffold_top_l,
+              scaffold_top_r, scaffold_fill_l, scaffold_fill_r, ladder_top, ladder_mid, brick_block, metal_block, crate,
+              wood_box, hazard_barrier, concrete, dirt_c, null, null, null, null,
+              null, null, null, null, null, null, null, null]
+
+  - id: tiles_w2
+    batch: C
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [crops/tile_stone.png, crops/tile_brick.png, crops/tile_steel.png, crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Tileset for two levels: the parliament interior (Verkhovna Rada: white marble, dark wood panels,
+      red carpet, columns) and a Kyiv residential courtyard (asphalt, dirt, grass, concrete panels,
+      playground). Exactly the style of the reference tiles. Each cell is ONE 32x32 tile at 4x, filling
+      its cell edge to edge, seamlessly tileable. Cells row-major. Row 1: marble top-left, marble top
+      edge, marble top-right, marble left edge, marble centre, marble right edge, marble bottom-left,
+      marble bottom edge. Row 2: marble bottom-right, red carpet left end, red carpet middle, red carpet
+      right end, dark wood panel top-left, wood panel top edge, wood panel top-right, wood panel left
+      edge. Row 3: wood panel centre, wood panel right edge, wood panel bottom-left, wood panel bottom
+      edge, wood panel bottom-right, white column capital, column shaft, column base. Row 4: marble
+      balcony ledge left half, balcony ledge right half, asphalt top-left, asphalt top edge, asphalt
+      top-right, asphalt left edge, asphalt centre, asphalt right edge. Row 5: asphalt bottom-left,
+      asphalt bottom edge, asphalt bottom-right, dirt top-left, dirt top edge, dirt top-right, dirt left
+      edge, dirt centre. Row 6: dirt right edge, dirt bottom-left, dirt bottom edge, dirt bottom-right,
+      grass top edge with dirt below (variant A), grass top edge (variant B), grey concrete panel,
+      green playground bar left half. Row 7: playground bar right half, wooden bench left half, wooden
+      bench right half, parliament voting desk, empty, empty, empty, empty. Row 8: all empty.
+    post:
+      kind: tiles
+      world: w2
+      names: [marble_tl, marble_t, marble_tr, marble_l, marble_c, marble_r, marble_bl, marble_b,
+              marble_br, carpet_l, carpet_m, carpet_r, wood_tl, wood_t, wood_tr, wood_l,
+              wood_c, wood_r, wood_bl, wood_b, wood_br, column_top, column_mid, column_base,
+              balcony_l, balcony_r, asphalt_tl, asphalt_t, asphalt_tr, asphalt_l, asphalt_c, asphalt_r,
+              asphalt_bl, asphalt_b, asphalt_br, dirt_tl, dirt_t, dirt_tr, dirt_l, dirt_c,
+              dirt_r, dirt_bl, dirt_b, dirt_br, grass_top_l, grass_top_r, concrete_panel, playground_l,
+              playground_r, bench_l, bench_r, voting_desk, null, null, null, null,
+              null, null, null, null, null, null, null, null]
+
+  - id: tiles_w3
+    batch: C
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [crops/tile_steel.png, crops/tile_stone.png, crops/mockup_bridge_small.png, crops/palette_strip.png]
+    prompt: >-
+      Tileset for two levels: a luxurious night party in a mansion (dark parquet floor, bar counter,
+      stage, glass ledges, neon strips) and an airport (terminal floor, concrete, tarmac runway, baggage
+      conveyor, runway lights). Exactly the style of the reference tiles. Each cell is ONE 32x32 tile at
+      4x, filling its cell edge to edge, seamlessly tileable. Cells row-major. Row 1: parquet top-left,
+      parquet top edge, parquet top-right, parquet left edge, parquet centre, parquet right edge, parquet
+      bottom-left, parquet bottom edge. Row 2: parquet bottom-right, bar counter left end, bar counter
+      middle, bar counter right end, stage edge left half, stage edge right half, glass ledge left half,
+      glass ledge right half. Row 3: pink neon strip, cyan neon strip, tarmac top-left, tarmac top edge,
+      tarmac top-right, tarmac left edge, tarmac centre, tarmac right edge. Row 4: tarmac bottom-left,
+      tarmac bottom edge, tarmac bottom-right, terminal floor top-left, terminal floor top edge, terminal
+      floor top-right, terminal floor left edge, terminal floor centre. Row 5: terminal floor right edge,
+      terminal floor bottom-left, terminal floor bottom edge, terminal floor bottom-right, baggage
+      conveyor belt frame A, conveyor belt frame B, runway light strip A (lights on), runway light strip
+      B (lights off). Row 6: concrete top-left, concrete top edge, concrete top-right, concrete left edge,
+      concrete centre, concrete right edge, concrete bottom-left, concrete bottom edge. Row 7: concrete
+      bottom-right, velvet rope post, empty, empty, empty, empty, empty, empty. Row 8: all empty.
+    post:
+      kind: tiles
+      world: w3
+      cells: { concrete_t: [42, left] }   # cell 41 got a rope drawn on it; derive the top edge from the corner
+      names: [parquet_tl, parquet_t, parquet_tr, parquet_l, parquet_c, parquet_r, parquet_bl, parquet_b,
+              parquet_br, bar_l, bar_m, bar_r, stage_l, stage_r, glass_plat_l, glass_plat_r,
+              neon_pink, neon_cyan, tarmac_tl, tarmac_t, tarmac_tr, tarmac_l, tarmac_c, tarmac_r,
+              tarmac_bl, tarmac_b, tarmac_br, terminal_tl, terminal_t, terminal_tr, terminal_l, terminal_c,
+              terminal_r, terminal_bl, terminal_b, terminal_br, conveyor_a, conveyor_b, runway_light_a, runway_light_b,
+              concrete_tl, concrete_t, concrete_tr, concrete_l, concrete_c, concrete_r, concrete_bl, concrete_b,
+              concrete_br, rope_post, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null]
+
+  # ------------------------------------------------------------------ B: props
+  - id: props_common
+    batch: B
+    template: props_8x8_128
+    references: [crops/coin.png, crops/question_block.png, crops/crate.png, crops/money_bag.png, crops/warrant.png, crops/palette_strip.png]
+    prompt: >-
+      Sheet of small game props in exactly the style of the reference props (gold coin, question block,
+      crate, money bag). Each cell holds ONE prop, centred, sized to fill about 80% of the cell.
+      Cells row-major. Row 1: gold coin seen from the front, gold coin turned 30 degrees, gold coin
+      edge-on (thin), gold coin turned 60 degrees, stack of green banknotes with a gold band, folded
+      newspaper with a red headline bar, glass jar of pickles, round iron manhole cover. Row 2: small
+      blue-and-yellow flag on a pole, red rotating police light, campaign poster on a board with a
+      portrait silhouette (no letters), green trash can, small wooden bench, ballot box with a slot, wooden
+      gavel, brown paper envelope. Row 3: white paper document with a red stamp, mobile phone, bottle of
+      champagne, cocktail glass, suitcase, passport booklet, boarding pass card, small potted plant.
+      Rows 4-8: all empty.
+    post:
+      kind: sheet
+      atlas: props
+      frame_w: 32
+      frame_h: 32
+      anchor: center
+      names: [coin_spin1, coin_spin2, coin_spin3, coin_spin4, cash, newspaper, jar, manhole,
+              checkpoint_flag, siren, campaign_poster, trash_can, bench_small, ballot_box, gavel, envelope,
+              warrant2, phone, champagne_bottle, cocktail, suitcase, passport, boarding_pass, plant,
+              null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null,
+              null, null, null, null, null, null, null, null]
+
+  - id: props_big
+    batch: B
+    template: props_4x4_256
+    references: [crops/hook_block.png, crops/sign_reform.png, crops/tile_steel.png, crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Sheet of larger scenery props (each 64x64 game pixels) in exactly the style of the reference
+      props. Each cell holds ONE prop centred, filling about 85% of the cell, bottom of the prop on the
+      baseline tick. Cells row-major. Row 1: Kyiv street kiosk with a small awning, cast-iron street lamp
+      post, white birch tree, parliament speaker rostrum with a microphone. Row 2: crystal chandelier,
+      row of red parliament seats, carpet beating rack (metal frame), rusty garage door. Row 3: DJ table
+      with turntables, mirror disco ball hanging on a chain, champagne glass tower, red velvet rope on
+      two gold posts. Row 4: airport luggage cart with bags, walk-through metal detector gate, airport
+      departures board (blank screen, no letters), small yellow airport tug vehicle.
+    post:
+      kind: sheet
+      atlas: props
+      frame_w: 64
+      frame_h: 64
+      anchor: feet
+      names: [kiosk, lamp_post, birch, rostrum, chandelier, seat_row, carpet_beater, garage_door,
+              dj_table, disco_ball, champagne_tower, velvet_rope, luggage_cart, metal_detector, departures_board, tug]
+
+  - id: prop_boarding_stairs
+    batch: B
+    references: [crops/hook_block.png, crops/tile_steel.png, crops/palette_strip.png]
+    prompt: >-
+      A single game prop on a solid magenta #FF00FF background: mobile airplane boarding stairs with a
+      white railing and a small platform at the top, side view facing left, in exactly the style of the
+      reference props. Centred, filling about 80% of the image, no other objects.
+    post: {kind: single, atlas: props, frame_w: 128, frame_h: 128, anchor: feet, names: [boarding_stairs]}
+
+  - id: prop_private_jet
+    batch: B
+    aspect_ratio: horizontal_2_1
+    references: [crops/hook_block.png, crops/tile_steel.png, crops/palette_strip.png]
+    prompt: >-
+      A single game prop on a solid magenta #FF00FF background: small white private jet with a blue
+      stripe, side view facing right, door open with the stairs down, in exactly the style of the
+      reference props. Centred, filling about 85% of the image width, no other objects.
+    post: {kind: single, atlas: props, frame_w: 320, frame_h: 128, anchor: feet, names: [private_jet]}
+
+  - id: prop_billboard_campaign
+    batch: B
+    aspect_ratio: standard_3_2
+    references: [crops/politician_idle.png, crops/sign_reform.png, crops/palette_strip.png]
+    prompt: >-
+      A single game prop on a solid magenta #FF00FF background: a large street campaign billboard on two
+      metal posts showing a big portrait of THE POLITICIAN (reference 1) smiling and pointing, with a
+      blue-and-yellow banner stripe, no readable letters. Exactly the style of the reference sprites.
+    post: {kind: single, atlas: props, frame_w: 128, frame_h: 96, anchor: feet, names: [billboard_campaign]}
+
+  - id: prop_balcony
+    batch: B
+    aspect_ratio: horizontal_2_1
+    references: [crops/tile_steel.png, crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      A single game prop on a solid magenta #FF00FF background: a Kyiv apartment balcony platform seen
+      from the side, flat on top so a character can stand on it, concrete slab with a rusty ornate railing,
+      a potted plant and a hanging towel. Exactly the style of the reference tiles.
+    post: {kind: single, atlas: props, frame_w: 96, frame_h: 48, anchor: feet, names: [balcony]}
+
+  - id: title_screen
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/journalist_camera.png, crops/detective_idle.png, crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Title screen illustration: THE POLITICIAN on a Kyiv rooftop at golden hour hiding a money bag behind
+      his back and waving; THE JOURNALIST aiming a camera and THE NABU DETECTIVE peeking from behind a chimney;
+      Kyiv skyline with golden domes below; the lower third calm and darker for the title. No text.
+    post: {kind: card, name: title, quantize: false}
+
+  # ------------------------------------------------------------------ D: parallax layers
+  # far/mid strips: banner_3_1 (wide), sky: widescreen_16_9. All "no characters, seamlessly tileable".
+  - id: bg_l11_sky
+    batch: D
+    model: gpt-image-2
+    aspect_ratio: widescreen_16_9
+    prompt: >-
+      Pixel-art daytime sky for a retro platformer: soft blue gradient, a few chunky white pixel clouds,
+      no ground, no buildings, no characters, no text. Seamlessly tileable horizontally. 16-bit style,
+      crisp pixels, no gradients other than banded sky tones. {palette}
+    post: {kind: bg, level: l11, layer: sky, width: 960, height: 540, seamless: true}
+  - id: bg_l11_far
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Distant Kyiv skyline strip for a side-scrolling platformer in exactly the style of the reference
+      mockup: golden domes of St Sophia, the Motherland monument silhouette, TV tower, hills, apartment
+      blocks, all in muted blue-grey distance tones on a transparent-looking plain light-blue sky band.
+      No characters, no text, seamlessly tileable horizontally, flat horizon at the bottom.
+    post: {kind: bg, level: l11, layer: far, width: 960, seamless: true}
+  - id: bg_l11_mid
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Mid-distance Kyiv street facades strip for a side-scrolling platformer in exactly the style of the
+      reference mockup: 5-storey Khrushchyovka apartment blocks and old Podil houses with balconies,
+      shop awnings, trolleybus wires, chestnut trees, in slightly muted tones. No characters, no text,
+      seamlessly tileable horizontally, flat bottom edge at street level.
+    post: {kind: bg, level: l11, layer: mid, width: 960, seamless: true}
+
+  - id: bg_l12_sky
+    batch: D
+    model: gpt-image-2
+    aspect_ratio: widescreen_16_9
+    prompt: >-
+      Pixel-art bright daytime sky with chunky white pixel clouds for a retro platformer, no ground, no
+      buildings, no characters, no text, seamlessly tileable horizontally, 16-bit banded tones. {palette}
+    post: {kind: bg, level: l12, layer: sky, width: 960, height: 540, seamless: true}
+  - id: bg_l12_far
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_bridge_small.png, crops/palette_strip.png]
+    prompt: >-
+      Distant right-bank Kyiv skyline seen across the Dnipro for a side-scroller, exactly the style of
+      the reference mockup: green hills, golden church domes, the Motherland monument, apartment towers,
+      muted distance tones. No characters, no text, seamlessly tileable horizontally, flat bottom edge.
+    post: {kind: bg, level: l12, layer: far, width: 960, seamless: true}
+  - id: bg_l12_mid
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_bridge_small.png, crops/palette_strip.png]
+    prompt: >-
+      Mid-distance strip of construction cranes, bridge piers, concrete pylons and rusty scaffolding along
+      the Dnipro river bank for a side-scroller, exactly the style of the reference mockup. No characters,
+      no text, seamlessly tileable horizontally, flat bottom edge at water level.
+    post: {kind: bg, level: l12, layer: mid, width: 960, seamless: true}
+
+  - id: bg_l21_sky
+    batch: D
+    model: gpt-image-2
+    aspect_ratio: widescreen_16_9
+    prompt: >-
+      Pixel-art interior back wall of a grand parliament hall: cream marble wall with tall windows, a
+      wide blue-and-yellow flag banner, gold trim, chandeliers hanging from a coffered ceiling. No people,
+      no text, seamlessly tileable horizontally, 16-bit retro platformer style, crisp pixels. {palette}
+    post: {kind: bg, level: l21, layer: sky, width: 960, height: 540, seamless: true}
+  - id: bg_l21_far
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/tile_stone.png, crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Strip of parliament hall columns and a balcony gallery with rows of empty red seats, in exactly
+      the pixel-art style of the reference. No people, no text, seamlessly tileable, flat bottom edge.
+    post: {kind: bg, level: l21, layer: far, width: 960, seamless: true}
+  - id: bg_l21_mid
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/tile_stone.png, crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Strip of parliament benches with voting button panels, microphones and scattered papers, in exactly
+      the pixel-art style of the reference. No people, no text, seamlessly tileable, flat bottom edge.
+    post: {kind: bg, level: l21, layer: mid, width: 960, seamless: true}
+
+  - id: bg_l22_sky
+    batch: D
+    model: gpt-image-2
+    aspect_ratio: widescreen_16_9
+    prompt: >-
+      Pixel-art warm evening sky with orange and pink bands and small clouds for a retro platformer,
+      no ground, no characters, no text, seamlessly tileable horizontally. {palette}
+    post: {kind: bg, level: l22, layer: sky, width: 960, height: 540, seamless: true}
+  - id: bg_l22_far
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Strip of 9-storey panel apartment blocks with satellite dishes and glazed balconies, typical Kyiv
+      residential district, in exactly the pixel-art style of the reference mockup, muted distance
+      tones. No people, no text, seamlessly tileable horizontally, flat bottom edge.
+    post: {kind: bg, level: l22, layer: far, width: 960, seamless: true}
+  - id: bg_l22_mid
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Strip of a Kyiv courtyard: 5-storey Khrushchyovka facade with an entrance door and a bench,
+      metal garages, a carpet beating rack, poplar trees, clotheslines, in exactly the pixel-art style
+      of the reference mockup. No people, no text, seamlessly tileable horizontally, flat bottom edge.
+    post: {kind: bg, level: l22, layer: mid, width: 960, seamless: true}
+
+  - id: bg_l31_sky
+    batch: D
+    model: gpt-image-2
+    aspect_ratio: widescreen_16_9
+    prompt: >-
+      Pixel-art night sky over Kyiv seen through tall mansion windows: deep blue, stars, a moon, city
+      lights far below; dark interior wall with gold frames around the windows. No people, no text,
+      seamlessly tileable horizontally, 16-bit retro platformer style. {palette}
+    post: {kind: bg, level: l31, layer: sky, width: 960, height: 540, seamless: true}
+  - id: bg_l31_far
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Strip of a luxurious party interior: red velvet curtains, gold-framed paintings, wall sconces,
+      a long bar with bottles, in exactly the pixel-art style of the reference. No people, no text,
+      seamlessly tileable horizontally, flat bottom edge.
+    post: {kind: bg, level: l31, layer: far, width: 960, seamless: true}
+  - id: bg_l31_mid
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Strip of party furniture: leather sofas, tables with champagne glasses, speakers with neon light
+      strips, balloons, in exactly the pixel-art style of the reference. No people, no text, seamlessly
+      tileable horizontally, flat bottom edge.
+    post: {kind: bg, level: l31, layer: mid, width: 960, seamless: true}
+
+  - id: bg_l32_sky
+    batch: D
+    model: gpt-image-2
+    aspect_ratio: widescreen_16_9
+    prompt: >-
+      Pixel-art sunset sky over an airport: orange to purple bands, a few thin clouds, a distant control
+      tower silhouette and a landing airplane far away. No text, seamlessly tileable horizontally, 16-bit
+      retro platformer style. {palette}
+    post: {kind: bg, level: l32, layer: sky, width: 960, height: 540, seamless: true}
+  - id: bg_l32_far
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_bridge_small.png, crops/palette_strip.png]
+    prompt: >-
+      Strip of an airport terminal glass facade with a control tower, parked airliners and jet bridges,
+      in exactly the pixel-art style of the reference mockup, muted distance tones. No people, no text,
+      seamlessly tileable horizontally, flat bottom edge.
+    post: {kind: bg, level: l32, layer: far, width: 960, seamless: true}
+  - id: bg_l32_mid
+    batch: D
+    aspect_ratio: banner_3_1
+    references: [crops/mockup_bridge_small.png, crops/palette_strip.png]
+    prompt: >-
+      Strip of the airport apron: fuel trucks, luggage carts, cones, runway lights and a fence, in
+      exactly the pixel-art style of the reference mockup. No people, no text, seamlessly tileable
+      horizontally, flat bottom edge.
+    post: {kind: bg, level: l32, layer: mid, width: 960, seamless: true}
+
+  # ------------------------------------------------------------------ E: story cards (960x540)
+  - id: story_intro
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/mockup_skyline_small.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference: THE POLITICIAN (reference 2:
+      chubby man, brown hair, navy suit, red tie) stands at a podium with microphones in front of the
+      Kyiv skyline with golden domes, confetti in the air, a crowd silhouette at the bottom. No text.
+    post: {kind: card, name: story_intro}
+  - id: story_world2
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference sprite: THE POLITICIAN walks up
+      the marble steps of the parliament building with columns, a blue-and-yellow flag on top, pigeons.
+      No text.
+    post: {kind: card, name: story_world2}
+  - id: story_world3
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference sprite: THE POLITICIAN at night
+      in front of a lit mansion gate with a black limousine, a party glow in the windows, a distant
+      airplane in the sky. No text.
+    post: {kind: card, name: story_world3}
+  - id: story_honest_beach
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference sprite: THE POLITICIAN relaxing
+      on a sunny beach in a deck chair, sunglasses, a book, a cocktail, calm sea, palm tree. No text.
+    post: {kind: card, name: story_honest_beach}
+  - id: story_honest_election
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/journalist_camera.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference sprites: election night, THE
+      POLITICIAN on a stage raising both arms, cheering crowd with blue-and-yellow flags, journalists
+      with cameras flashing, confetti, a big blank scoreboard (no letters). No text.
+    post: {kind: card, name: story_honest_election}
+  - id: story_escape_jet
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/money_bag.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference sprites: THE POLITICIAN sneaking
+      up the stairs of a small private jet at dusk carrying two overstuffed brown money bags with $ signs,
+      runway lights, a nervous glance over the shoulder. No text.
+    post: {kind: card, name: story_escape_jet}
+  - id: story_escape_villa
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/detective_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference sprites: THE POLITICIAN on the
+      terrace of a seaside villa with a cocktail, sweating, while at the garden gate two men in tan trench
+      coats and fedoras (like reference 2) are peeking in. No text.
+    post: {kind: card, name: story_escape_villa}
+  - id: story_arrest_tarmac
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/detective_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference sprites: on the airport tarmac
+      at the foot of airplane stairs, two NABU detectives in tan trench coats and fedoras (reference 2)
+      handcuff THE POLITICIAN (reference 1), a money bag spilling coins on the ground, a white van with
+      a blue stripe behind. No text.
+    post: {kind: card, name: story_arrest_tarmac}
+  - id: story_arrest_court
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/journalist_camera.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference sprites: courtroom, THE
+      POLITICIAN inside a glass defendant box looking sad, a judge with a gavel, a crowd of journalists
+      (reference 2) with flashing cameras. No text.
+    post: {kind: card, name: story_arrest_court}
+  - id: story_gameover
+    batch: E
+    aspect_ratio: widescreen_16_9
+    references: [crops/politician_idle.png, crops/palette_strip.png]
+    prompt: >-
+      Pixel-art story illustration in exactly the style of the reference sprite: THE POLITICIAN sitting
+      on the curb of a rainy Kyiv street at night under a broken street lamp, torn campaign posters on
+      the wall, a collapsed bridge in the distance. No text.
+    post: {kind: card, name: story_gameover}
+
+  # ================================================================== v2: level 1 at 48 px scale
+  # Characters: 4x4 (or 4x2) sheets at 2k, 512 px cells, 96 px frames (character 84 px, feet y=90).
+  - id: l1_politician
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [crops/rect_characters.png, mockup_level_1-2_skyline.png, crops/palette_strip.png]
+    prompt: 16-pose politician sheet (see docs/PROMPTS.md, generated through the connector)
+    post: {kind: sheet, atlas: chars, frame: 96, frame_h: 84, baseline: 90,
+           names: [politician_idle, politician_idle2, politician_walk1, politician_walk2, politician_walk3, politician_walk4,
+                   politician_jump, politician_fall, politician_throw1, politician_throw2, politician_hurt, politician_stunned,
+                   politician_victory, politician_bag, politician_nervous, politician_wave]}
+  - id: l1_journalist
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [crops/rect_characters.png, mockup_level_1-3_bridge.png, crops/palette_strip.png]
+    prompt: 16-pose journalist sheet
+    post: {kind: sheet, atlas: chars, frame: 96, frame_h: 84, baseline: 90,
+           names: [journalist_idle, journalist_notepad, journalist_walk1, journalist_walk2, journalist_walk3, journalist_walk4,
+                   journalist_camera, journalist_flash1, journalist_mic, journalist_point, journalist_flee1, journalist_flee2,
+                   journalist_stunned, journalist_bribed, journalist_notes, journalist_shout]}
+  - id: l1_detective
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-2_skyline.png, crops/rect_characters.png, crops/palette_strip.png]
+    prompt: 16-pose NABU detective sheet
+    post: {kind: sheet, atlas: chars, frame: 96, frame_h: 84, baseline: 90,
+           names: [detective_idle, detective_idle2, detective_walk1, detective_walk2, detective_walk3, detective_walk4,
+                   detective_run1, detective_run2, detective_throw1, detective_throw2, detective_emerge1, detective_emerge2,
+                   detective_arrest, detective_point, detective_search, detective_bribed]}
+  - id: l1_cop
+    batch: V2
+    template: chars_4x2_256
+    resolution: 2k
+    aspect_ratio: horizontal_2_1
+    references: [crops/rect_characters.png, crops/palette_strip.png]
+    prompt: 8-pose patrol officer sheet
+    post: {kind: sheet, atlas: chars, frame: 96, frame_h: 84, baseline: 90,
+           names: [cop_idle, cop_walk1, cop_walk2, cop_walk3, cop_walk4, cop_whistle, cop_bribed, cop_idle2]}
+
+  # Tiles: 8x8 at 2k, 256 px cells -> 48 px tiles. Tileset "k1" (Kyiv street + Shevchenko park).
+  - id: l1_tiles
+    batch: V2
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [mockup_level_1-2_skyline.png, photos/univ_front.png, crops/palette_strip.png]
+    prompt: level-1 tileset (steel-slab street ground over brick with X braces; park pavers, grass, hedge, granite)
+    post:
+      kind: tiles
+      world: k1
+      size: 48
+      # template grid lines painted on tiles that must flow together (platforms over sky, water, spikes)
+      degrid: [slab_plat_l, slab_plat_m, slab_plat_r, rebar_plat_l, rebar_plat_r, wood_plat_l, wood_plat_r,
+               spike, water_top, water_top2, water_fill, ladder_top, ladder_mid]
+      # v002 cell fixes: soil fill variants, grass family uses the flat grass cell
+      cells: {park_l: 20, park_c: 20, park_c2: 21, park_c3: 22, park_r: 20, grass_tl: 25, grass_tr: 25,
+              grass_l: 20, grass_c: 20, grass_c2: 21, grass_r: 20, hedge_l: 28, hedge_r: 30}
+      names: [street_tl, street_t, street_t2, street_tr, street_l, street_c, street_c2, street_r,
+              street_bl, street_b, street_br, street_c3, street_c4, street_deep, ladder_top, ladder_mid,
+              park_tl, park_t, park_t2, park_tr, park_l, park_c, park_c2, park_r,
+              grass_tl, grass_t, grass_t2, grass_tr, hedge_tl, hedge_t, hedge_tr, hedge_c,
+              granite_tl, granite_t, granite_tr, granite_c, brick_block, metal_block, crate, wood_box,
+              water_top, water_fill, spike, hazard_barrier, manhole_tile, slab_plat_l, slab_plat_m, slab_plat_r]
+
+  # Small items + HUD icons: 8x8 at 2k -> 48 px frames. "ui/..." names go to the ui atlas.
+  - id: l1_items
+    batch: V2
+    template: props_8x8_128
+    resolution: 2k
+    references: [mockup_level_1-2_skyline.png, sheet_sprites.png, crops/palette_strip.png]
+    prompt: coins, blocks, pickups and HUD icons
+    post:
+      kind: sheet
+      atlas: props
+      slice: components     # the model drifted off the grid on this sheet
+      frame_w: 48
+      frame_h: 48
+      anchor: center
+      exact: [question_block, question_used, brick_block, metal_block, crate]
+      names: [coin, coin_spin2, coin_spin3, coin_spin4, money_bag, cash_stack, cash, warrant,
+              question_block, question_used, brick_block, metal_block, crate, newspaper, jar, bottle,
+              ui/hud_portrait, ui/hud_bag, ui/hud_heart, ui/hud_clock, ui/hud_thermo, star, handcuffs, magnifier,
+              checkpoint_flag, manhole, siren, campaign_poster, envelope, phone, pigeon, pigeon_fly]
+
+  # Big playable props: 4x4 at 2k (512 px cells). sizes: name -> [w, h, fit|exact] in game pixels.
+  - id: l1_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-2_skyline.png, mockup_level_1-3_bridge.png, photos/univ_tulips.png,
+                 photos/park_alley_benches.png, photos/street_stalinist.png, crops/palette_strip.png]
+    prompt: pipes, bins, lamps, balconies, bench, tulip bed, bush, kiosk, bus stop, chess table, fountain, hydrant, cone
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [pipe_short, pipe_tall, trash_bin, lamp_park, lamp_street, balcony_stone, balcony_iron, bench,
+              tulip_bed, bush, kiosk, bus_stop, chess_table, fountain, hydrant, cone_barrier]
+      sizes:
+        pipe_short: [96, 96, exact]
+        pipe_tall: [96, 144, exact]
+        trash_bin: [48, 72, fit]
+        lamp_park: [96, 240, fit]
+        lamp_street: [48, 216, fit]
+        balcony_stone: [192, 96, fit]
+        balcony_iron: [144, 96, fit]
+        bench: [144, 72, fit]
+        tulip_bed: [144, 48, fit]
+        bush: [96, 72, fit]
+        kiosk: [144, 144, fit]
+        bus_stop: [192, 144, fit]
+        chess_table: [96, 72, fit]
+        fountain: [144, 96, fit]
+        hydrant: [48, 72, fit]
+        cone_barrier: [96, 72, fit]
+  - id: l1_monument
+    batch: V2
+    aspect_ratio: portrait_2_3
+    references: [mockup_level_1-2_skyline.png, photos/univ_monument.png, crops/palette_strip.png]
+    prompt: Shevchenko monument on a red granite pedestal
+    post: {kind: single, atlas: props, anchor: feet, names: [monument_shevchenko], sizes: {monument_shevchenko: [216, 336, fit]}}
+
+  # Parallax (world-anchored far/mid strips, screen-fixed sky)
+  - id: l1_bg_sky
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-2_skyline.png]
+    prompt: bright sky with chunky clouds
+    post: {kind: bg, level: l11, layer: sky, width: 960, height: 540, seamless: true, strip_sky: false}
+  - id: l1_bg_far
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-2_skyline.png]
+    prompt: Kyiv panorama like the mockup
+    post: {kind: bg, level: l11, layer: far, width: 1100, seamless: true, fixup: fix_far_l11}
+  - id: l1_bg_street
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-2_skyline.png, photos/street_cream_facade.png, photos/street_stalinist.png, photos/street_aerial.png]
+    prompt: ornate central Kyiv facades
+    post: {kind: bg, level: l11, layer: street, width: 820, seamless: true}
+  - id: l1_bg_park
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-2_skyline.png, photos/univ_front.png, photos/univ_tulips.png, photos/park_alley_autumn.png]
+    prompt: red University building in Shevchenko park
+    post: {kind: bg, level: l11, layer: park, width: 820, seamless: true}
+  - id: l1_bg_parkfar
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-2_skyline.png, photos/park_alley_autumn.png]
+    prompt: park tree line
+    post: {kind: bg, level: l11, layer: parkfar, width: 1000, seamless: true}
+
+  # ---------------------------------------------------------------- level 1-2 (Dnipro bridge), world scale v2
+  # Follows the user's bridge mockup (mockup_level_1-3_bridge.png) for background and details.
+  - id: l12_tiles
+    batch: V2
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, crops/rect_tiles.png, crops/palette_strip.png]
+    prompt: bridge-level tileset (dark stone piers with riveted steel slab tops, orange sandstone pier, rusty truss towers, gratings)
+    post:
+      kind: tiles
+      world: b1
+      fixup: fix_b1_water   # foam-only water: the river is painted by the parallax layer
+      size: 48
+      degrid: [scaffold_top_l, scaffold_top_r, scaffold_fill_l, scaffold_fill_r, rebar_plat_l, rebar_plat_r,
+               truss_plat_l, truss_plat_m, truss_plat_r, ladder_top, ladder_mid]
+      align_top: [truss_plat_l, truss_plat_m, truss_plat_r, rebar_plat_l, rebar_plat_r]
+      # v002 cell map (the model drew 3-piece truss walkways and 2 X-frame cells; row 4 right = tan floor)
+      cells: {pier_tl: 0, pier_t: 1, pier_t2: 2, pier_tr: 3, pier_l: 4, pier_c: 5, pier_c2: 6, pier_r: 7,
+              pier_bl: 8, pier_b: 9, pier_br: 10, pier_c3: 11, pier_c4: 12, pier_deep: 13, ladder_top: 14, ladder_mid: 15,
+              sand_tl: 16, sand_t: 17, sand_t2: 18, sand_tr: 19, sand_l: 20, sand_c: 21, sand_c2: 22, sand_r: 23,
+              sand_bl: 24, sand_b: 25, sand_br: 26, floor_tl: 27, floor_t: 28, floor_t2: 29, floor_c: 30, floor_tr: 31,
+              scaffold_top_l: 32, scaffold_top_r: 33, scaffold_fill_l: 32, scaffold_fill_r: 33,
+              rebar_plat_l: 34, rebar_plat_r: 35, truss_plat_l: 37, truss_plat_m: 38, truss_plat_r: 39,
+              metal_block: 40, crate: 41, brick_block: 42, hazard_barrier: 43, concrete_block: 44}
+  - id: l12_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, crops/rect_props.png, crops/palette_strip.png]
+    prompt: bridge-level props from the mockup (truss girder, crane hook with block, hanging scaffold, pipes, crates, camera...)
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [bridge_girder, crane_hook, suspended_platform, hanging_rebar, pipe_stack, barrel, caution_sign, traffic_cone,
+              crate_stack, tv_camera, rope_platform, jersey_barrier, site_cabin, buoy, rebar_bundle, fisherman]
+      sizes:
+        bridge_girder: [144, 48, exact]
+        crane_hook: [96, 192, fit]
+        suspended_platform: [192, 192, fit]
+        hanging_rebar: [144, 144, fit]
+        pipe_stack: [144, 96, fit]
+        barrel: [48, 72, fit]
+        caution_sign: [72, 96, fit]
+        traffic_cone: [48, 48, fit]
+        crate_stack: [144, 96, fit]
+        tv_camera: [72, 120, fit]
+        rope_platform: [144, 120, fit]
+        jersey_barrier: [144, 48, fit]
+        site_cabin: [192, 120, fit]
+        buoy: [48, 48, fit]
+        rebar_bundle: [144, 48, fit]
+        fisherman: [72, 96, fit]
+  - id: l12_bg_sky
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: light blue sky with small clouds like the bridge mockup
+    post: {kind: bg, level: l12, layer: sky, width: 960, height: 540, seamless: true, strip_sky: false, quantize: 32}
+  - id: l12_bg_far
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, mockup_level_1-2_skyline.png]
+    prompt: the mockup background (Motherland hill, blue skyline, Lavra bell tower) without foreground
+    post: {kind: bg, level: l12, layer: far, width: 1600, seamless: false, quantize: 64}   # scroll 0.1: never wraps across the 150-col level
+  - id: l12_bg_mid
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: far shore tree line and the Dnipro water down to the bottom edge
+    post: {kind: bg, level: l12, layer: mid, width: 1100, seamless: true, crop_bottom: false, quantize: 48}
+
+  # ---------------------------------------------------------------- world 2 (chestnut campaign), world scale v2
+  # Mariinsky park (p21) + Stalin-era bunker bonus (p21b) + Rada corridor (p22) + session hall boss (p23).
+  # Real people are described in text only (caricatures); place photos are references.
+  - id: w2_oldlady_kid
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, raw/l1_journalist/v001.png, crops/palette_strip.png]
+    prompt: grumpy old lady with a walking stick + naughty kid who throws chestnuts
+    post: {kind: sheet, atlas: chars,
+           groups: {oldlady: {frame: 96, frame_h: 74, baseline: 90}, kid: {frame: 96, frame_h: 58, baseline: 90}},
+           names: [oldlady_idle, oldlady_walk1, oldlady_walk2, oldlady_raise, oldlady_strike, oldlady_stunned, oldlady_bribed, oldlady_angry,
+                   kid_idle, kid_walk1, kid_walk2, kid_run, kid_pick, kid_windup, kid_throw, kid_stunned]}
+  - id: w2_rats
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: bunker rat in an ushanka + boss rat with a balalaika
+    post: {kind: sheet, atlas: chars, fixup: fix_ratboss,
+           groups: {rat: {frame: 96, frame_h: 40, baseline: 90}, ratboss: {frame: 96, frame_h: 84, baseline: 90}},
+           names: [rat_idle, rat_walk1, rat_walk2, rat_walk3, rat_run, rat_stunned, rat_bribed, rat_angry,
+                   ratboss_idle, ratboss_strum1, ratboss_strum2, ratboss_walk, ratboss_jump, ratboss_swing, ratboss_hurt, ratboss_defeated]}
+  - id: w2_animator
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: park animator in a Patron dog mascot costume (boss)
+    post: {kind: sheet, atlas: chars, groups: {animator: {frame: 144, frame_h: 128, baseline: 138}},
+           names: [animator_idle, animator_walk1, animator_walk2, animator_walk3, animator_walk4, animator_crouch, animator_dash, animator_jump,
+                   animator_stomp, animator_beg, animator_dance1, animator_dance2, animator_hurt, animator_stunned, animator_headoff, animator_defeated]}
+  - id: w2_speaker
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: the speaker of parliament (final boss caricature)
+    post: {kind: sheet, atlas: chars, groups: {speaker: {frame: 144, frame_h: 132, baseline: 138}},
+           names: [speaker_idle, speaker_walk1, speaker_walk2, speaker_walk3, speaker_walk4, speaker_raise, speaker_slam, speaker_throw,
+                   speaker_shout, speaker_charge, speaker_hurt, speaker_stunned, speaker_rage, speaker_bribed, speaker_defeated, speaker_jump]}
+  - id: w2_mps
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: opposition MP with chocolate + backbench MP (seated spectator)
+    post: {kind: sheet, atlas: chars,
+           groups: {oppold: {frame: 96, frame_h: 84, baseline: 90}, seatedmp: {frame: 96, frame_h: 74, baseline: 90},
+                    mp: {frame: 96, frame_h: 84, baseline: 90}},
+           names: [oppold_idle, oppold_walk1, oppold_walk2, oppold_walk3, oppold_shout, oppold_throw, oppold_stunned, oppold_bribed,
+                   seatedmp_sit, seatedmp_clap, seatedmp_throw, seatedmp_sleep, mp_idle, mp_walk1, mp_walk2, mp_stunned]}
+  - id: w2_jf_assistant
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_journalist/v001.png, raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: female journalist + parliament assistant (harmless)
+    post: {kind: sheet, atlas: chars,
+           groups: {journalist_f: {frame: 96, frame_h: 84, baseline: 90}, assistant: {frame: 96, frame_h: 84, baseline: 90}},
+           names: [journalist_f_idle, journalist_f_walk1, journalist_f_walk2, journalist_f_walk3, journalist_f_walk4, journalist_f_flash, journalist_f_mic, journalist_f_stunned,
+                   assistant_idle, assistant_walk1, assistant_walk2, assistant_walk3, assistant_walk4, assistant_phone, assistant_bow, assistant_drop]}
+  - id: w2_items
+    batch: V2
+    template: props_8x8_128
+    resolution: 2k
+    references: [sheet_sprites.png, photos/board_chestnuts.png, crops/palette_strip.png]
+    prompt: chestnuts, Kapital books, projectiles, effects, HUD icons
+    post:
+      kind: sheet
+      atlas: props
+      slice: components
+      anchor: center
+      frame_w: 48
+      frame_h: 48
+      names: [chestnut, chestnut_open, chestnut_husk, chestnut_pile, kapital_book, kapital_open, papers, chocolate,
+              note1, note2, fx_stars, fx_dust, fx_shock, lollipop, gavel, bone,
+              ui/hud_chestnut, ui/hud_book, ui/hud_crown, key_gold, red_star, ushanka, phone_rotary, heart_red]
+      sizes: {fx_shock: [96, 48, fit], fx_stars: [72, 36, fit], fx_dust: [72, 48, fit]}
+  - id: w2_park_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, photos/board_chestnuts.png, photos/mariinsky_fountain.png, photos/rada_dusk_lamps.png,
+                 photos/board_mariinsky_rada.png, crops/palette_strip.png]
+    prompt: Mariinsky park props (chestnut trees, fountain, lamps, parliament door, secret hatch)
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [chestnut_tree, chestnut_tree_gold, mfountain, lamp_rada, rada_door, secret_hatch, bench_park, flowerbed,
+              fence_iron, vase_stone, icecream_cart, leaf_pile, thuja, crowd_barrier, flagpole, chestnut_heap]
+      sizes:
+        chestnut_tree: [288, 384, fit]
+        chestnut_tree_gold: [288, 384, fit]
+        mfountain: [240, 168, fit]
+        lamp_rada: [96, 264, fit]
+        rada_door: [192, 240, fit]
+        secret_hatch: [96, 72, fit]
+        bench_park: [144, 72, fit]
+        flowerbed: [144, 48, fit]
+        fence_iron: [144, 72, fit]
+        vase_stone: [72, 120, fit]
+        icecream_cart: [144, 144, fit]
+        leaf_pile: [96, 48, fit]
+        thuja: [72, 144, fit]
+        crowd_barrier: [144, 72, fit]
+        flagpole: [96, 336, fit]
+        chestnut_heap: [96, 48, fit]
+  - id: w2_bunker_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, crops/palette_strip.png]
+    prompt: Soviet bunker props (Lenin busts, posters, vintage office, phones)
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [lenin_bust, lenin_shelf, poster_soviet, desk_vintage, bookshelf, phone_table, phones_table, radio_old,
+              blast_door, gas_mask, filing_cabinet, crt_tv, crate_star, bunk_bed, banner_red, book_stack]
+      sizes:
+        lenin_bust: [96, 144, fit]
+        lenin_shelf: [144, 96, fit]
+        poster_soviet: [96, 144, fit]
+        desk_vintage: [144, 96, fit]
+        bookshelf: [144, 192, fit]
+        phone_table: [72, 96, fit]
+        phones_table: [96, 96, fit]
+        radio_old: [96, 96, fit]
+        blast_door: [144, 168, fit]
+        gas_mask: [48, 72, fit]
+        filing_cabinet: [72, 120, fit]
+        crt_tv: [96, 96, fit]
+        crate_star: [96, 96, exact]
+        bunk_bed: [144, 120, fit]
+        banner_red: [96, 168, fit]
+        book_stack: [72, 96, fit]
+  - id: w2_rada_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, photos/board_corridor.png, photos/board_hall.png, crops/palette_strip.png]
+    prompt: parliament interior props (columns, chandeliers, doors, rostrum, desks)
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [column_marble, chandelier, door_wood, press_wall, palm_pot, exhibit_stand, velvet_bench, water_cooler,
+              rostrum, mp_desks, flag_stand, trident_panel, vote_screen, window_curtain, presidium_desk, velvet_chair]
+      sizes:
+        column_marble: [96, 384, fit]
+        chandelier: [144, 144, fit]
+        door_wood: [144, 216, fit]
+        press_wall: [192, 168, fit]
+        palm_pot: [96, 168, fit]
+        exhibit_stand: [192, 144, fit]
+        velvet_bench: [144, 72, fit]
+        water_cooler: [48, 120, fit]
+        rostrum: [144, 168, fit]
+        mp_desks: [192, 120, fit]
+        flag_stand: [72, 240, fit]
+        trident_panel: [144, 240, fit]
+        vote_screen: [144, 120, fit]
+        window_curtain: [144, 264, fit]
+        presidium_desk: [288, 120, fit]
+        velvet_chair: [72, 96, fit]
+  - id: w2_tiles_park
+    batch: V2
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, photos/board_mariinsky_rada.png, crops/palette_strip.png]
+    prompt: Mariinsky park paving + Soviet bunker concrete tileset
+    post:
+      kind: tiles
+      world: p1
+      size: 48
+      # v002 cell map: soil fills under the pavers, one brown-tile bunker floor cell, 4-piece catwalk
+      cells: {park_tl: 0, park_t: 1, park_t2: 2, park_tr: 3, park_l: 8, park_c: 8, park_c2: 10, park_c3: 11, park_r: 8,
+              park_bl: 9, park_b: 9, park_br: 9, grass_tl: 12, grass_t: 13, grass_tr: 14, hedge_c: 15,
+              hedge_tl: 15, hedge_t: 15, hedge_tr: 15, hedge_l: 15, hedge_r: 15,
+              granite_tl: 16, granite_t: 17, granite_tr: 18, granite_c: 19,
+              balus_plat_l: 20, balus_plat_m: 21, balus_plat_r: 22, grate_plat_l: 23, grate_plat_r: 23,
+              bunker_tl: 24, bunker_t: 24, bunker_tr: 24, bunker_l: 27, bunker_c: 28, bunker_c2: 29, bunker_c3: 30, bunker_r: 31,
+              bunker_bl: 32, bunker_b: 33, bunker_br: 32, bunker_deep: 34,
+              catwalk_plat_l: 35, catwalk_plat_m: 36, catwalk_plat_r: 38, ladder_mid: 39,
+              metal_block: 40, crate: 41, brick_block: 42, hazard_barrier: 43}
+      degrid: [balus_plat_l, balus_plat_m, balus_plat_r, grate_plat_l, catwalk_plat_l, catwalk_plat_m, catwalk_plat_r, ladder_mid]
+      align_top: [balus_plat_l, balus_plat_m, balus_plat_r, grate_plat_l, catwalk_plat_l, catwalk_plat_m, catwalk_plat_r]
+  - id: w2_tiles_rada
+    batch: V2
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, photos/board_corridor.png, photos/board_hall.png, crops/palette_strip.png]
+    prompt: parliament interior tileset (parquet, marble, wood panelling, seat rows, carpet)
+    post:
+      kind: tiles
+      world: r1
+      size: 48
+      inset: 0.04     # the v002 grid drifts a few px: trim bleed from neighbouring rows
+      # v002 cell map: parquet surface over white marble; 3-cell seat row with monitors
+      cells: {parquet_tl: 0, parquet_t: 1, parquet_t2: 2, parquet_tr: 3, parquet_l: 4, parquet_c: 5, parquet_c2: 6, parquet_r: 7,
+              parquet_bl: 8, parquet_b: 9, parquet_br: 8, marble_c: 5, marble_deep: 10,
+              panel_tl: 11, panel_t: 12, panel_tr: 13, panel_c: 14,
+              seats_tl: 16, seats_t: 17, seats_tr: 18, seats_c: 19,
+              balus_plat_l: 20, balus_plat_m: 21, balus_plat_r: 22, stair_red: 23,
+              carpet_tl: 24, carpet_t: 25, carpet_tr: 26, carpet_c: 27,
+              shelf_plat_l: 28, shelf_plat_m: 29, shelf_plat_r: 30, ladder_mid: 31,
+              metal_block: 32, wood_box: 33, velvet_block: 34, hazard_barrier: 35}
+      degrid: [balus_plat_l, balus_plat_m, balus_plat_r, shelf_plat_l, shelf_plat_m, shelf_plat_r, ladder_mid]
+      align_top: [balus_plat_l, balus_plat_m, balus_plat_r, shelf_plat_l, shelf_plat_m, shelf_plat_r]
+  - id: p21_bg_far
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, photos/board_mariinsky_rada.png, photos/rada_dusk_lamps.png]
+    prompt: Mariinsky park panorama with the palace and the Rada (one of each)
+    post: {kind: bg, level: p21, layer: far, width: 1800, seamless: false, quantize: 64}
+  - id: p21_bg_mid
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png, photos/board_chestnuts.png, photos/rada_dusk_lamps.png]
+    prompt: chestnut alley with an iron fence and globe lamps
+    post: {kind: bg, level: p21, layer: mid, width: 1100, seamless: true, quantize: 64}
+  - id: p21b_bg_wall
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: Soviet bunker back wall
+    post: {kind: bg, level: p21b, layer: wall, width: 1260, seamless: true, strip_sky: false, quantize: 64}
+  - id: p22_bg_wall
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png, photos/board_corridor.png]
+    prompt: Rada corridor back wall
+    post: {kind: bg, level: p22, layer: wall, width: 1260, seamless: true, strip_sky: false, quantize: 64}
+  - id: p23_bg_wall
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, photos/board_hall.png]
+    prompt: Rada session hall (presidium, flag, tiers of MPs, dome)
+    post: {kind: bg, level: p23, layer: wall, width: 1400, seamless: false, strip_sky: false, quantize: 64}
+
+  # ---------------------------------------------------------------- conscience & alcohol (v2)
+  - id: w2_politician_extra
+    batch: V2
+    template: chars_4x2_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: politician remorse + drinking + drunk poses
+    post: {kind: sheet, atlas: chars, groups: {politician: {frame: 96, frame_h: 84, baseline: 90}},
+           names: [politician_remorse1, politician_remorse2, politician_drink, politician_drunk_idle,
+                   politician_drunk_walk1, politician_drunk_walk2, politician_hiccup, politician_wipe]}
+  - id: w2_alcohol_items
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: bottles, conscience angel, HUD icons, developer office, liquor kiosk, office desk, minibar, book...
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [bottle_whiskey, bottle_vodka, whisky_glass, conscience_angel, ui/hud_conscience, ui/hud_drunk, dev_office, liquor_kiosk,
+              office_desk, minibar, book_open, beer_bottle, egg, bottle_bag, price_tag, hiccup_bubble]
+      sizes:
+        bottle_whiskey: [30, 60, fit]
+        bottle_vodka: [26, 60, fit]
+        whisky_glass: [36, 36, fit]
+        conscience_angel: [72, 72, fit]
+        hud_conscience: [48, 48, fit]
+        hud_drunk: [48, 48, fit]
+        dev_office: [192, 192, fit]
+        liquor_kiosk: [144, 144, fit]
+        office_desk: [144, 96, fit]
+        minibar: [72, 96, fit]
+        book_open: [56, 48, fit]
+        beer_bottle: [48, 24, fit]
+        egg: [20, 24, fit]
+        bottle_bag: [30, 48, fit]
+        price_tag: [36, 36, fit]
+        hiccup_bubble: [36, 36, fit]
+
+  # ---------------------------------------------------------------- world 3 (party, block district, station), v2
+  - id: w3_mpshirt
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: the politician after being robbed (no jacket, torn shirt)
+    post: {kind: sheet, atlas: chars, groups: {mpshirt: {frame: 96, frame_h: 84, baseline: 90}},
+           names: [mpshirt_idle, mpshirt_idle2, mpshirt_walk1, mpshirt_walk2, mpshirt_walk3, mpshirt_walk4, mpshirt_jump, mpshirt_fall,
+                   mpshirt_throw1, mpshirt_throw2, mpshirt_hurt, mpshirt_stunned, mpshirt_remorse1, mpshirt_drink, mpshirt_drunk_walk1, mpshirt_drunk_walk2]}
+  - id: w3_mafia
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: mafia boss (144 px) + bandit
+    post: {kind: sheet, atlas: chars,
+           groups: {mafia: {frame: 144, frame_h: 128, baseline: 138}, bandit: {frame: 96, frame_h: 80, baseline: 90}},
+           names: [mafia_idle, mafia_walk1, mafia_walk2, mafia_offer, mafia_punch, mafia_stomp, mafia_hurt, mafia_defeated,
+                   bandit_idle, bandit_walk1, bandit_walk2, bandit_walk3, bandit_punch, bandit_knuckles, bandit_stunned, bandit_bribed]}
+  - id: w3_gopnik_citizen
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: gopnik kid with beer bottles + angry citizen with eggs
+    post: {kind: sheet, atlas: chars,
+           groups: {gopnik: {frame: 96, frame_h: 66, baseline: 90}, citizen: {frame: 96, frame_h: 76, baseline: 90}},
+           names: [gopnik_idle, gopnik_walk1, gopnik_walk2, gopnik_squat, gopnik_windup, gopnik_throw, gopnik_stunned, gopnik_run,
+                   citizen_idle, citizen_walk1, citizen_walk2, citizen_angry, citizen_windup, citizen_throw, citizen_stunned, citizen_wave]}
+  - id: w3_dogs_gang
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: dog walker + dog + gopnik gang leader
+    post: {kind: sheet, atlas: chars,
+           groups: {dogwalker: {frame: 96, frame_h: 82, baseline: 90}, dog: {frame: 96, frame_h: 34, baseline: 90},
+                    gopboss: {frame: 96, frame_h: 86, baseline: 90}},
+           names: [dogwalker_idle, dogwalker_walk1, dogwalker_walk2, dogwalker_shout, dog_sit, dog_run1, dog_run2, dog_bark,
+                   gopboss_idle, gopboss_walk1, gopboss_walk2, gopboss_swagger, gopboss_punch, gopboss_hurt, gopboss_stunned, gopboss_defeated]}
+  - id: w3_party_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, crops/palette_strip.png]
+    prompt: oligarch villa party props
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [dj_table, disco_ball, champagne_tower, velvet_rope, piano_white, lion_statue, buffet_table, pool_edge,
+              sofa_white, palm_lights, supercar, hot_tub, ice_swan, gift_pile, safe_black, gate_gold]
+      sizes:
+        dj_table: [192, 144, fit]
+        disco_ball: [96, 120, fit]
+        champagne_tower: [96, 144, fit]
+        velvet_rope: [144, 72, fit]
+        piano_white: [192, 144, fit]
+        lion_statue: [96, 144, fit]
+        buffet_table: [144, 96, fit]
+        pool_edge: [192, 96, fit]
+        sofa_white: [144, 72, fit]
+        palm_lights: [96, 192, fit]
+        supercar: [240, 96, fit]
+        hot_tub: [144, 96, fit]
+        ice_swan: [72, 120, fit]
+        gift_pile: [96, 72, fit]
+        safe_black: [96, 96, exact]
+        gate_gold: [144, 192, fit]
+  - id: w3_district_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, photos/board_district.png, photos/board_court.png, photos/board_riverside.png, crops/palette_strip.png]
+    prompt: Kyiv block district props at golden hour
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [block_entrance, mesh_fence, basket_hoop, workout_bar, slide_play, swing_set, garages, waste_bins,
+              taxi_car, lamp_soviet, debris_balcony, debris_panel, wave_rail, bench_river, sandbox, birch_yellow]
+      grow: {taxi_car: [0, 0, 110, 0], lamp_soviet: [-112, 0, 0, 0]}   # the taxi nose runs ~95 px into the lamp cell
+      sizes:
+        block_entrance: [192, 192, fit]
+        mesh_fence: [144, 192, fit]
+        basket_hoop: [96, 240, fit]
+        workout_bar: [144, 144, fit]
+        slide_play: [144, 144, fit]
+        swing_set: [144, 144, fit]
+        garages: [240, 144, fit]
+        waste_bins: [144, 96, fit]
+        taxi_car: [240, 120, fit]
+        lamp_soviet: [96, 264, fit]
+        debris_balcony: [96, 72, fit]
+        debris_panel: [96, 72, fit]
+        wave_rail: [192, 144, fit]
+        bench_river: [144, 72, fit]
+        sandbox: [144, 72, fit]
+        birch_yellow: [192, 336, fit]
+  - id: w3_station_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, crops/palette_strip.png]
+    prompt: railway station props
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [ticket_office, departures_board, station_seats, turnstiles, vending_machine, train_door, luggage_trolley, station_clock,
+              platform_lamp, suitcases, news_kiosk, buffer_stop, rail_signal, planter_big, bin_metal, info_pillar]
+      sizes:
+        ticket_office: [192, 192, fit]
+        departures_board: [192, 192, fit]
+        station_seats: [144, 72, fit]
+        turnstiles: [144, 96, fit]
+        vending_machine: [96, 144, fit]
+        train_door: [240, 240, fit]
+        luggage_trolley: [144, 96, fit]
+        station_clock: [72, 264, fit]
+        platform_lamp: [72, 264, fit]
+        suitcases: [96, 96, fit]
+        news_kiosk: [144, 144, fit]
+        buffer_stop: [96, 72, fit]
+        rail_signal: [72, 240, fit]
+        planter_big: [96, 120, fit]
+        bin_metal: [48, 72, fit]
+        info_pillar: [72, 168, fit]
+  - id: w3_tiles_district
+    batch: V2
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, photos/board_district.png, crops/palette_strip.png]
+    prompt: block district tileset (asphalt, paving, grass, sport surface, concrete, mesh walkway)
+    post:
+      kind: tiles
+      world: d1
+      size: 48
+      fixup: fix_b1_water   # the riverside water is the parallax layer
+      inset: 0.02
+      cells: {paving_l: 4, paving_c: 5, paving_c2: 6, paving_r: 7, paving_bl: 8, paving_b: 9, paving_br: 10,
+              grass_l: 4, grass_c: 5, grass_c2: 6, grass_r: 7, grass_bl: 8, grass_b: 9, grass_br: 10,
+              sport_l: 4, sport_c: 5, sport_r: 7, sport_bl: 8, sport_b: 9, sport_br: 10,
+              concrete_tr: 23, concrete_l: 15, concrete_r: 15}
+      names: [asphalt_tl, asphalt_t, asphalt_t2, asphalt_tr, asphalt_l, asphalt_c, asphalt_c2, asphalt_r,
+              asphalt_bl, asphalt_b, asphalt_br, asphalt_deep, paving_tl, paving_t, paving_tr, concrete_c,
+              grass_tl, grass_t, grass_tr, sport_tl, sport_t, sport_tr, concrete_tl, concrete_t,
+              mesh_plat_l, mesh_plat_m, mesh_plat_r, ledge_plat_l, ledge_plat_m, ledge_plat_r, ladder_mid, metal_block,
+              crate, brick_block, hazard_barrier, green_block, null, null, null, null]
+      degrid: [mesh_plat_l, mesh_plat_m, mesh_plat_r, ledge_plat_l, ledge_plat_m, ledge_plat_r, ladder_mid]
+      align_top: [mesh_plat_l, mesh_plat_m, mesh_plat_r, ledge_plat_l, ledge_plat_m, ledge_plat_r]
+  - id: w3_tiles_villa_station
+    batch: V2
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, crops/palette_strip.png]
+    prompt: villa marble checkerboard + station platform tileset
+    post:
+      kind: tiles
+      world: v1
+      size: 48
+      inset: 0.02
+      cells: {platform_bl: 24, platform_b: 25, platform_br: 25, rails_c: 26, foot_plat_l: 28, foot_plat_m: 29, foot_plat_r: 30, ladder_mid: 31}
+      names: [villa_tl, villa_t, villa_t2, villa_tr, villa_l, villa_c, villa_c2, villa_r,
+              villa_bl, villa_b, villa_br, villa_deep, glass_plat_l, glass_plat_m, glass_plat_r, gold_block,
+              platform_tl, platform_t, platform_t2, platform_tr, platform_l, platform_c, platform_c2, platform_r,
+              platform_bl, platform_b, platform_br, rails_c, foot_plat_l, foot_plat_m, foot_plat_r, ladder_mid,
+              crate, brick_block, hazard_barrier, metal_block, null, null, null, null]
+      degrid: [glass_plat_l, glass_plat_m, glass_plat_r, foot_plat_l, foot_plat_m, foot_plat_r, ladder_mid]
+      align_top: [glass_plat_l, glass_plat_m, glass_plat_r, foot_plat_l, foot_plat_m, foot_plat_r]
+
+  # ---------------------------------------------------------------- world 3 backgrounds & story cards
+  - id: e31_bg_far
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: night villa party panorama
+    post: {kind: bg, level: e31, layer: far, width: 1800, seamless: false, quantize: 64}
+  - id: e31_bg_sky
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: night sky
+    post: {kind: bg, level: e31, layer: sky, width: 960, height: 540, seamless: true, strip_sky: false, quantize: 32}
+  - id: e32_bg_sky
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: golden hour sky
+    post: {kind: bg, level: e32, layer: sky, width: 960, height: 540, seamless: true, strip_sky: false, quantize: 32}
+  - id: e32_bg_far
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: panel blocks at golden hour
+    post: {kind: bg, level: e32, layer: far, width: 1600, seamless: false, quantize: 64}
+  - id: e32_bg_river
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: riverside with the wave bridge
+    post: {kind: bg, level: e32, layer: river, width: 1800, seamless: false, quantize: 64}
+  - id: e32_bg_mid
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: courtyard strip
+    post: {kind: bg, level: e32, layer: mid, width: 1100, seamless: true, quantize: 64}
+  - id: e33_bg_mid
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: station platforms
+    post: {kind: bg, level: e33, layer: mid, width: 1100, seamless: true, quantize: 64}
+  - id: card_mafia_offer
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_mafia_offer
+    post: {kind: card, name: story_mafia_offer}
+  - id: card_mafia_robbed
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_mafia_robbed
+    post: {kind: card, name: story_mafia_robbed}
+  - id: card_wake_district
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_wake_district
+    post: {kind: card, name: story_wake_district}
+  - id: card_mafia_beaten
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_mafia_beaten
+    post: {kind: card, name: story_mafia_beaten}
+  - id: card_taxi
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_taxi
+    post: {kind: card, name: story_taxi}
+  - id: card_train_broken
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_train_broken
+    post: {kind: card, name: story_train_broken}
+  - id: card_nabu_field
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_nabu_field
+    post: {kind: card, name: story_nabu_field}
+  - id: card_shahed
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_shahed
+    post: {kind: card, name: story_shahed}
+  - id: card_europe
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_europe
+    post: {kind: card, name: story_europe}
+  - id: card_austria_happy
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_austria_happy
+    post: {kind: card, name: story_austria_happy}
+  - id: card_austria_mafia
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_austria_mafia
+    post: {kind: card, name: story_austria_mafia}
+  - id: card_extradition
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_extradition
+    post: {kind: card, name: story_extradition}
+  - id: w2_oppmp2
+    batch: V2
+    template: chars_4x2_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, photos/oppmp_ref.png, crops/palette_strip.png]
+    prompt: opposition MP caricature (likeness from the user's reference photo), 8 poses
+    post: {kind: sheet, atlas: chars, fixup: fix_oppmp_throw, groups: {oppmp: {frame: 96, frame_h: 84, baseline: 90}},
+           names: [oppmp_idle, oppmp_walk1, oppmp_walk2, oppmp_walk3, oppmp_shout, oppmp_throw, oppmp_stunned, oppmp_bribed]}
+  - id: card_front_enlist
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_front_enlist (frontline ending)
+    post: {kind: card, name: story_front_enlist}
+  - id: card_front_dugout
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_front_dugout (frontline ending)
+    post: {kind: card, name: story_front_dugout}
+  - id: card_front_nabu
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_front_nabu (frontline ending)
+    post: {kind: card, name: story_front_nabu}
+  - id: card_front_court
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card card_front_court (frontline ending)
+    post: {kind: card, name: story_front_court}
+  - id: w3_wasted
+    batch: V2
+    template: chars_4x2_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: wasted sprites (dead politician lying down, GTA-style) for the ending screen
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [politician_dead, politician_dead_top, mpshirt_dead, mpshirt_dead_top, chalk_outline, tombstone_tie, politician_ghost, money_pile]
+      sizes: {politician_dead: [192, 96, fit], politician_dead_top: [192, 128, fit], mpshirt_dead: [192, 96, fit], mpshirt_dead_top: [192, 128, fit],
+              chalk_outline: [192, 128, fit], tombstone_tie: [96, 96, fit], politician_ghost: [96, 96, fit], money_pile: [128, 64, fit]}
+  # story cards v2 (70 % of the time; the v1 card is the 30 % alternative where one exists)
+  - id: card_intro_wake
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card intro_wake
+    post: {kind: card, name: story_intro_wake}
+  - id: card_intro_street
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card intro_street
+    post: {kind: card, name: story_intro_street}
+  - id: card_intro_crossroads
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card intro_crossroads
+    post: {kind: card, name: story_intro_crossroads}
+  - id: card_world2_v2
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card world2_v2
+    post: {kind: card, name: story_world2_v2}
+  - id: card_world3_v2
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card world3_v2
+    post: {kind: card, name: story_world3_v2}
+  - id: card_honest_lake
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card honest_lake
+    post: {kind: card, name: story_honest_lake}
+  - id: card_honest_return
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card honest_return
+    post: {kind: card, name: story_honest_return}
+  - id: card_honest_election_v2
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card honest_election_v2
+    post: {kind: card, name: story_honest_election_v2}
+  - id: card_escape_villa_v2
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card escape_villa_v2
+    post: {kind: card, name: story_escape_villa_v2}
+  - id: card_gameover_v2
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card gameover_v2
+    post: {kind: card, name: story_gameover_v2}
+  - id: card_epilogue
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: story card epilogue
+    post: {kind: card, name: story_epilogue}
+  - id: card_escape_villa_fix
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [story_escape_villa (v1)]
+    prompt: the v1 villa card redrawn with the detectives behind the gate bars
+    post: {kind: card, name: story_escape_villa}

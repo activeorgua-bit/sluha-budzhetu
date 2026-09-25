@@ -1,0 +1,264 @@
+{
+ "groups": [
+  {
+   "name": "neutral",
+   "colors": [
+    "#000000",
+    "#16131C",
+    "#FFFFFF",
+    "#F4EFE6"
+   ]
+  },
+  {
+   "name": "sky",
+   "colors": [
+    "#2E7FD0",
+    "#4A9BE0",
+    "#6FB6EC",
+    "#A4D4F5",
+    "#D6EEFB"
+   ]
+  },
+  {
+   "name": "cloud",
+   "colors": [
+    "#E3EEF6",
+    "#B9CCDC"
+   ]
+  },
+  {
+   "name": "suit_navy",
+   "colors": [
+    "#1A2440",
+    "#263559",
+    "#3A4F7E",
+    "#5A73A3"
+   ]
+  },
+  {
+   "name": "shirt",
+   "colors": [
+    "#E6E8EE",
+    "#BFC4CF"
+   ]
+  },
+  {
+   "name": "tie_red",
+   "colors": [
+    "#7E1413",
+    "#B81F1C",
+    "#E23A2E",
+    "#F4745E"
+   ]
+  },
+  {
+   "name": "skin",
+   "colors": [
+    "#FCD7B0",
+    "#F1B887",
+    "#D28A58",
+    "#9E5A31",
+    "#6B3A1E"
+   ]
+  },
+  {
+   "name": "hair_brown",
+   "colors": [
+    "#3A2213",
+    "#5E3A1E",
+    "#8A5A2E",
+    "#B8834A"
+   ]
+  },
+  {
+   "name": "coat_tan",
+   "colors": [
+    "#5C4020",
+    "#8A6634",
+    "#B48E52",
+    "#D8B77A"
+   ]
+  },
+  {
+   "name": "gold",
+   "colors": [
+    "#8C5A0C",
+    "#C98A14",
+    "#F0B82A",
+    "#FFE27A",
+    "#FFF4C2"
+   ]
+  },
+  {
+   "name": "money_green",
+   "colors": [
+    "#16502A",
+    "#237A3C",
+    "#3BA858",
+    "#7FD68A"
+   ]
+  },
+  {
+   "name": "pipe_green",
+   "colors": [
+    "#0E4A1A",
+    "#1A7A2C",
+    "#2FB043",
+    "#6FE07A",
+    "#C4F7B8"
+   ]
+  },
+  {
+   "name": "park_green",
+   "colors": [
+    "#173D1C",
+    "#2A5E27",
+    "#3F8A33",
+    "#63B043",
+    "#9ED65B"
+   ]
+  },
+  {
+   "name": "autumn",
+   "colors": [
+    "#7A2E0E",
+    "#B8501A",
+    "#E07E22",
+    "#F5B53A",
+    "#FFE066"
+   ]
+  },
+  {
+   "name": "tulip",
+   "colors": [
+    "#6E0A12",
+    "#B3121E",
+    "#E8263A",
+    "#FF6A6A",
+    "#FFC23A"
+   ]
+  },
+  {
+   "name": "university_red",
+   "colors": [
+    "#5A0F12",
+    "#8E1A1C",
+    "#C42B2A",
+    "#E24A40",
+    "#F07A6A"
+   ]
+  },
+  {
+   "name": "brick",
+   "colors": [
+    "#4A2412",
+    "#733A1C",
+    "#9C5028",
+    "#C46A34",
+    "#E08C4E"
+   ]
+  },
+  {
+   "name": "wood",
+   "colors": [
+    "#3E2410",
+    "#6A3E1A",
+    "#94602C",
+    "#C08A48",
+    "#E2B777"
+   ]
+  },
+  {
+   "name": "steel",
+   "colors": [
+    "#24262B",
+    "#3A3D45",
+    "#565B66",
+    "#7C828E",
+    "#A9AFBA",
+    "#D3D8E0"
+   ]
+  },
+  {
+   "name": "paving",
+   "colors": [
+    "#6E6A6A",
+    "#8E8888",
+    "#B3ABA6",
+    "#C98E86",
+    "#9E6A66"
+   ]
+  },
+  {
+   "name": "facade_cream",
+   "colors": [
+    "#8E7A56",
+    "#C2A874",
+    "#E4CD96",
+    "#F6E6B8"
+   ]
+  },
+  {
+   "name": "facade_grey",
+   "colors": [
+    "#6E7078",
+    "#9699A2",
+    "#BDC0C8"
+   ]
+  },
+  {
+   "name": "roof_red",
+   "colors": [
+    "#6E2616",
+    "#A43C22",
+    "#D0603A"
+   ]
+  },
+  {
+   "name": "water",
+   "colors": [
+    "#0C3F73",
+    "#1560A6",
+    "#2A86D0",
+    "#6CC0F0"
+   ]
+  },
+  {
+   "name": "hazard",
+   "colors": [
+    "#1A1A1A",
+    "#F2C12E",
+    "#FF8A1E"
+   ]
+  },
+  {
+   "name": "flag",
+   "colors": [
+    "#0B57C8",
+    "#FFD500"
+   ]
+  },
+  {
+   "name": "purple",
+   "colors": [
+    "#4E2A78",
+    "#7A4AB0",
+    "#B08AE0"
+   ]
+  },
+  {
+   "name": "sampled",
+   "colors": [
+    "#3C3126",
+    "#295767",
+    "#3B6C7D",
+    "#53473B",
+    "#43809D",
+    "#A19C8E",
+    "#176E95",
+    "#05597F",
+    "#BB781E"
+   ]
+  }
+ ]
+}

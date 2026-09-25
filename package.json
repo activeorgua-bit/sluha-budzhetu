@@ -1,0 +1,27 @@
+{
+  "name": "sluha-budzhetu",
+  "version": "0.1.0",
+  "description": "«Слуга Бюджету» — satirical pixel-art platformer about Ukrainian corruption (Phaser 3 + Vite)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prebuild": "python tools/verify_assets.py && node tools/validate_levels.mjs",
+    "assets:slice": "python tools/slice_reference.py",
+    "assets:templates": "python tools/make_grid_template.py",
+    "assets:gen": "python tools/generate_assets.py",
+    "assets:pixelize": "python tools/pixelize.py",
+    "assets:pack": "python tools/pack_atlas.py",
+    "assets:parallax": "python tools/make_parallax.py",
+    "assets:verify": "python tools/verify_assets.py",
+    "levels:validate": "node tools/validate_levels.mjs"
+  },
+  "dependencies": {
+    "phaser": "3.90.0"
+  },
+  "devDependencies": {
+    "vite": "8.3.0"
+  }
+}
