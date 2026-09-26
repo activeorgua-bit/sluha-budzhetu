@@ -2,13 +2,13 @@
 // (material, parallax, signs, decor legend). This list defines order and world grouping.
 export const LEVELS = [
   { id: 'l11', world: 1, label: '1-1', file: 'l11_street', nameKey: 'level_l11' },
-  { id: 'l12', world: 1, label: '1-2', file: 'l12_bridge', nameKey: 'level_l12' },
+  { id: 'l12', world: 1, label: '1-2', file: 'l12_bridge', nameKey: 'level_l12', cardsBefore: 'bridge' },
   // World 2: parliament. The park has a secret hatch into the Stalin-era bunker (bonus level);
   // both the park's front door and the bunker exit lead to the corridor.
   { id: 'p21', world: 2, label: '2-1', file: 'p21_mariinsky', nameKey: 'level_p21', next: 'p22' },
-  { id: 'p21b', world: 2, label: '2-1B', file: 'p21b_bunker', nameKey: 'level_p21b', next: 'p22', bonus: true },
-  { id: 'p22', world: 2, label: '2-2', file: 'p22_corridor', nameKey: 'level_p22' },
-  { id: 'p23', world: 2, label: '2-3', file: 'p23_hall', nameKey: 'level_p23' },
+  { id: 'p21b', world: 2, label: '2-1B', file: 'p21b_bunker', nameKey: 'level_p21b', next: 'p22', bonus: true, cardsBefore: 'bunker' },
+  { id: 'p22', world: 2, label: '2-2', file: 'p22_corridor', nameKey: 'level_p22', cardsBefore: 'corridor' },
+  { id: 'p23', world: 2, label: '2-3', file: 'p23_hall', nameKey: 'level_p23', cardsBefore: 'hall' },
   // World 3: the fall. The party ends in a cut scene either way (the mafia's offer); the district
   // exit is a taxi; the station's train leads to the finale (breakdown or Europe).
   { id: 'e31', world: 3, label: '3-1', file: 'e31_party', nameKey: 'level_e31' },
@@ -35,6 +35,11 @@ export const STORY = {
     { image: 'story_honest_election_v2', alt: 'story_honest_election', textKey: 'story_honest_3' },
   ],
   epilogue: [{ image: 'story_epilogue', textKey: 'end_epilogue' }],
+  // shown before a level (LEVELS[].cardsBefore)
+  bridge: [{ image: 'story_bridge', textKey: 'cut_bridge' }],
+  bunker: [{ image: 'story_bunker', textKey: 'cut_bunker' }],
+  corridor: [{ image: 'story_corridor', textKey: 'cut_corridor' }],
+  hall: [{ image: 'story_hall', textKey: 'cut_hall' }],
   escape: [
     { image: 'story_escape_jet', textKey: 'story_escape_1' },
     { image: 'story_escape_villa', textKey: 'story_escape_2' },

@@ -1,6 +1,10 @@
 // World 3 (the party, the block district, the railway station) and the endings. Merged in strings.js.
 export const W3 = {
   uk: {
+    cut_bridge: 'Міст через Дніпро будують дев’ятий рік. Кошторис переписували тричі, підрядник — кум міністра. Кажуть, цей міст тримає не кожного.',
+    cut_bunker: 'Люк із червоною зіркою. Унизу пахне махоркою, архівом і чимось дуже радянським. Хтось грає на балалайці.',
+    cut_corridor: 'Кулуари Верховної Ради. Тут вирішують більше, ніж у залі: журналісти чатують, опозиція шепоче, помічники носять папки. Головне — не зупинятися.',
+    cut_hall: 'Сесійна зала. Голосують за бюджет — хтось своєю карткою, хтось чужою. Спікер уже підняв молоток.',
     end_epilogue: 'Кінець. Усі персонажі вигадані. Будь-які збіги з реальними депутатами — не випадкові, а закономірні.',
     choice_door_title: 'ВХІД ДО ВЕРХОВНОЇ РАДИ',
     choice_door_text: 'Парадні двері — повз охорону й журналістів. Або непримітні двері в підвал: кажуть, звідти можна пройти куди завгодно.',
@@ -65,6 +69,10 @@ export const W3 = {
     bubble_mp_stunned: 'Я депутат!',
   },
   en: {
+    cut_bridge: 'The bridge over the Dnipro has been under construction for nine years. The budget was rewritten three times; the contractor is the minister’s godfather. They say this bridge doesn’t hold just anyone.',
+    cut_bunker: 'A hatch with a red star. Down below it smells of cheap tobacco, old archives and something very Soviet. Someone is playing a balalaika.',
+    cut_corridor: 'The lobbies of the Verkhovna Rada. More is decided here than in the hall: journalists lie in wait, the opposition whispers, assistants carry folders. The trick is to keep moving.',
+    cut_hall: 'The session hall. The budget vote: some with their own card, some with a colleague’s. The Speaker has already raised his gavel.',
     end_epilogue: 'The end. All characters are fictional. Any resemblance to real MPs is not a coincidence — it is a pattern.',
     choice_door_title: 'ENTERING THE VERKHOVNA RADA',
     choice_door_text: 'The front door, past the guards and journalists. Or an inconspicuous basement door: they say you can get anywhere from there.',

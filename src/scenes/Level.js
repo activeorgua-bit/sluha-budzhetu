@@ -481,7 +481,9 @@ export class LevelScene extends Phaser.Scene {
       this.scene.stop('UI');
       GameState.clearCheckpoint();
       GameState.levelIndex = target;
-      this.scene.start('Level', { levelIndex: target });
+      const before = LEVELS[target].cardsBefore && STORY[LEVELS[target].cardsBefore];
+      if (before) this.scene.start('Story', { cards: before, title: t(LEVELS[target].nameKey), next: { scene: 'Level', data: { levelIndex: target } } });
+      else this.scene.start('Level', { levelIndex: target });
     });
   }
 
@@ -941,9 +943,12 @@ export class LevelScene extends Phaser.Scene {
       const nextIndex = this.def.next ? levelIndexById(this.def.next) : this.levelIndex + 1;
       const next = LEVELS[nextIndex];
       GameState.levelIndex = nextIndex;
-      const cards = this.def.cardsAfter ? STORY[this.def.cardsAfter]
-        : (next.world !== this.def.world ? STORY[`world${next.world}`] : null);
-      if (cards) this.scene.start('Story', { cards, title: t(`world_${next.world}`), next: { scene: 'Level', data: { levelIndex: nextIndex } } });
+      // cut scenes: this level's "after" cards, else the new world's intro, then the next level's own cards
+      const newWorld = next.world !== this.def.world;
+      const cards = this.def.cardsAfter ? [...STORY[this.def.cardsAfter]]
+        : [...(newWorld ? STORY[`world${next.world}`] || [] : []), ...(next.cardsBefore ? STORY[next.cardsBefore] || [] : [])];
+      const title = newWorld ? t(`world_${next.world}`) : t(next.nameKey);
+      if (cards.length) this.scene.start('Story', { cards, title, next: { scene: 'Level', data: { levelIndex: nextIndex } } });
       else this.scene.start('Level', { levelIndex: nextIndex });
     });
   }

@@ -92,7 +92,8 @@ export class MenuScene extends Phaser.Scene {
   start() {
     audio.init();
     GameState.reset();
-    this.scene.start('Story', { cards: STORY.intro, next: { scene: 'Level', data: { levelIndex: 0 } } });
+    // intro cut scenes -> the briefing (controls, ironic rules) -> 1-1
+    this.scene.start('Story', { cards: STORY.intro, next: { scene: 'Briefing', data: { next: { scene: 'Level', data: { levelIndex: 0 } } } } });
   }
 
   startAt(index) {

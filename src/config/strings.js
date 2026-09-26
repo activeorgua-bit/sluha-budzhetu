@@ -12,7 +12,7 @@ export const STRINGS = {
     menu_lang: 'МОВА: УКР',
     menu_best: 'НАЙКРАЩИЙ РЕЗУЛЬТАТ',
     menu_none: 'ще не було виборів',
-    menu_controls: '← → рух   SPACE стрибок   J кинути хабар   K чорний PR   E дія   P пауза   M звук',
+    menu_controls: '← → рух   SPACE стрибок   J хабар   K каштан   L компромат   E дія   P пауза   M звук',
     menu_hint: 'Не збирай гроші — і тебе переоберуть. Збирай — і побачиш, як падають мости.',
     dev_mode: 'DEV: 1-9 рівень  H+/H- корумпованість  F фінал',
 
@@ -74,7 +74,7 @@ export const STRINGS = {
     menu_lang: 'LANG: ENG',
     menu_best: 'BEST RESULT',
     menu_none: 'no election yet',
-    menu_controls: '← → move   SPACE jump   J throw bribe   K black PR   E act   P pause   M sound',
+    menu_controls: '← → move   SPACE jump   J bribe   K chestnut   L kompromat   E act   P pause   M sound',
     menu_hint: 'Collect nothing and get re-elected. Collect coins and watch the bridges fall.',
     dev_mode: 'DEV: 1-9 level  H+/H- corruption  F finale',
 

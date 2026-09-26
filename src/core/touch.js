@@ -2,7 +2,7 @@
 // keydown/keyup events as a keyboard, so every scene keeps its keyboard code unchanged).
 //
 //   left thumb:  ◀ ▶ (slide between them without lifting the finger)
-//   right thumb: JUMP (big), chestnut, bribe, black PR, action
+//   right thumb: JUMP (big), chestnut, bribe, kompromat, action
 //   top left:    pause / back (Esc) and fullscreen
 //
 // Shown only on touch devices; `?touch=1` forces it on a desktop for testing.
@@ -14,11 +14,11 @@ export const IS_TOUCH = new URLSearchParams(location.search).get('touch') === '1
 
 const KEY = {
   left: ['ArrowLeft', 37], right: ['ArrowRight', 39], jump: ['Space', 32],
-  nut: ['KeyL', 76], bribe: ['KeyJ', 74], pr: ['KeyK', 75], act: ['KeyE', 69], esc: ['Escape', 27],
+  nut: ['KeyK', 75], bribe: ['KeyJ', 74], pr: ['KeyL', 76], act: ['KeyE', 69], esc: ['Escape', 27],
 };
 const LABEL = {
-  uk: { pr: 'PR', act: 'ДІЯ', rotate: 'Поверніть телефон горизонтально', anyway: 'Грати так' },
-  en: { pr: 'PR', act: 'USE', rotate: 'Turn your phone sideways', anyway: 'Play anyway' },
+  uk: { pr: 'КОМ', act: 'ДІЯ', rotate: 'Поверніть телефон горизонтально', anyway: 'Грати так' },
+  en: { pr: 'DIRT', act: 'USE', rotate: 'Turn your phone sideways', anyway: 'Play anyway' },
 };
 
 function send(type, [code, keyCode]) {
@@ -150,14 +150,18 @@ export const touchPad = {
     const overlay = ['Pause', 'Help', 'SaveLoad'].some((k) => sm.isActive(k));
     esc.classList.toggle('hidden', !(playing || overlay));
     esc.classList.toggle('back', overlay);
-    this.root.querySelector('.fs').classList.toggle('hidden', !document.fullscreenEnabled && !document.webkitFullscreenEnabled);
+    const canFs = document.fullscreenEnabled || document.webkitFullscreenEnabled;
+    const fullScreenArt = ['Briefing', 'Story', 'Finale', 'GameOver'].some((k) => sm.isActive(k));   // keep text screens clear
+    this.root.querySelector('.fs').classList.toggle('hidden', !canFs || fullScreenArt);
     // icons straight from the game's own atlases, once Preload has loaded them
-    if (!this.iconsDone && this.game.textures.exists('ui')) {
+    if (!this.iconsDone && this.game.textures.exists('ui') && this.game.textures.exists('props')) {
       this.iconsDone = true;
-      for (const [k, frame] of [['nut', 'hud_chestnut'], ['bribe', 'hud_bag']]) {
+      for (const [k, atlas, frame] of [['nut', 'ui', 'hud_chestnut'], ['bribe', 'ui', 'hud_bag'], ['pr', 'props', 'newspaper']]) {
         try {
-          if (this.game.textures.get('ui').has(frame)) {
-            this.root.querySelector(`[data-k="${k}"]`).style.backgroundImage = `url(${this.game.textures.getBase64('ui', frame)})`;
+          if (this.game.textures.exists(atlas) && this.game.textures.get(atlas).has(frame)) {
+            const b = this.root.querySelector(`[data-k="${k}"]`);
+            b.style.backgroundImage = `url(${this.game.textures.getBase64(atlas, frame)})`;
+            if (k === 'pr') { b.dataset.icon = '1'; b.textContent = ''; }
           }
         } catch (err) { /* keep the plain button */ }
       }
@@ -166,7 +170,8 @@ export const touchPad = {
     if (lang !== this.lang) {
       this.lang = lang;
       const L = LABEL[lang] || LABEL.en;
-      this.root.querySelector('[data-k="pr"]').textContent = L.pr;
+      const pr = this.root.querySelector('[data-k="pr"]');
+      pr.textContent = pr.dataset.icon ? '' : L.pr;
       this.root.querySelector('[data-k="act"]').textContent = L.act;
       document.querySelector('#rotate .msg').textContent = L.rotate;
       document.querySelector('#rotate button').textContent = L.anyway;

@@ -13,6 +13,7 @@ import { PauseScene } from './scenes/Pause.js';
 import { HelpScene } from './scenes/Help.js';
 import { SaveLoadScene } from './scenes/SaveLoad.js';
 import { ChoiceScene } from './scenes/Choice.js';
+import { BriefingScene } from './scenes/Briefing.js';
 import { IS_TOUCH, touchPad } from './core/touch.js';
 
 const config = {
@@ -37,7 +38,7 @@ const config = {
       debug: new URLSearchParams(location.search).get('debug') === '1',
     },
   },
-  scene: [BootScene, PreloadScene, MenuScene, LevelScene, UIScene, StoryScene, FinaleScene, GameOverScene, PauseScene, HelpScene, SaveLoadScene, ChoiceScene],
+  scene: [BootScene, PreloadScene, MenuScene, LevelScene, UIScene, StoryScene, FinaleScene, GameOverScene, PauseScene, HelpScene, SaveLoadScene, ChoiceScene, BriefingScene],
 };
 
 const game = new Phaser.Game(config);

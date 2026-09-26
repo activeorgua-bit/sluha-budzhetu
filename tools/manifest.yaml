@@ -1616,3 +1616,28 @@ assets:
     references: [story_escape_villa (v1)]
     prompt: the v1 villa card redrawn with the detectives behind the gate bars
     post: {kind: card, name: story_escape_villa}
+  # level transition cards (LEVELS[].cardsBefore), 2026-09-26
+  - id: card_bridge
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png, l1_politician v001]
+    prompt: the politician at the unfinished Dnipro footbridge
+    post: {kind: card, name: story_bridge}
+  - id: card_bunker
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png, l1_politician v001]
+    prompt: the red-star hatch and the Soviet bunker with rats in ushankas
+    post: {kind: card, name: story_bunker}
+  - id: card_corridor
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png, l1_politician v001]
+    prompt: "the Rada lobby: journalists, whispering MPs, assistants with folders"
+    post: {kind: card, name: story_corridor}
+  - id: card_hall
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png, l1_politician v001]
+    prompt: "the session hall: the Speaker with a gavel, button-pushing MPs"
+    post: {kind: card, name: story_hall}
