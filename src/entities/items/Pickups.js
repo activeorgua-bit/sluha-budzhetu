@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { DEPTH } from '../../config/constants.js';
 import { GameState } from '../../core/GameState.js';
+import { BALANCE } from '../../config/balance.js';
 import { audio } from '../../core/Audio.js';
 
 /**
@@ -15,17 +16,19 @@ export class Pickup extends Phaser.Physics.Arcade.Sprite {
         : kind === 'book' ? (has('kapital_book') ? 'kapital_book' : 'coin')
           : kind === 'whiskey' ? (has('bottle_whiskey') ? 'bottle_whiskey' : 'coin')
             : kind === 'vodka' ? (has('bottle_vodka') ? 'bottle_vodka' : 'coin') : 'coin';
-    // a voters' thank-you (extra life) shows the politician's portrait, like a classic 1-UP
-    const life = kind === 'life' && scene.textures.get('ui').has('hud_portrait');
-    super(scene, x, y, life ? 'ui' : 'props', life ? 'hud_portrait' : frame);
+    // extra life: a first-aid kit (the politician's portrait if the prop is missing)
+    const kit = kind === 'life' && has('first_aid');
+    const portrait = kind === 'life' && !kit && scene.textures.get('ui').has('hud_portrait');
+    super(scene, x, y, portrait ? 'ui' : 'props', kit ? 'first_aid' : portrait ? 'hud_portrait' : frame);
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.kind = kind;                // 'coin' | 'trap' | 'money_bag' | 'chestnut' | 'book' (free ammo)
     this.ammo = kind === 'chestnut' || kind === 'book';
     this.bottle = kind === 'whiskey' || kind === 'vodka';
     this.life = kind === 'life';
+    if (this.life && opts.falling) this.once('destroy', () => this.glow && this.glow.destroy());
     if (this.life) {
-      this.glow = scene.add.circle(x, y, 30, 0xffe66d, 0.28).setDepth(DEPTH.pickups - 1);
+      this.glow = scene.add.circle(x, y, 26, 0xffffff, 0.22).setDepth(DEPTH.pickups - 1);
       scene.tweens.add({ targets: this.glow, scale: 1.35, alpha: 0.08, duration: 800, yoyo: true, repeat: -1 });
     }
     this.setDepth(DEPTH.pickups);
@@ -113,11 +116,52 @@ export class QuestionBlock extends Phaser.Physics.Arcade.Sprite {
     scene.tweens.add({ targets: this, y: this.y - 12, duration: 80, yoyo: true });
     const used = scene.textures.get('props').has('question_used') ? 'question_used' : 'metal_block';
     if (scene.textures.get('props').has(used)) this.setFrame(used);
+    // now and then the box holds a first-aid kit instead of a "thank-you" (at most one per level)
+    if (!scene.kitFromBlock && GameState.rng.next() < BALANCE.lives.kitInBlockChance) {
+      scene.kitFromBlock = true;
+      const kit = scene.spawnPickup('life', this.x, this.y - 60, { falling: true });
+      kit.body.setVelocity(0, -450);
+      return;
+    }
     // pop a coin worth 3 (question_block value) that lands on the block
     const coin = scene.spawnPickup('question_block', this.x, this.y - 60, { falling: true });
     coin.body.setVelocity(0, -450);
     coin.setFrame('coin');
     coin.setTint(0xffe066);
     audio.playCoin();
+  }
+}
+
+/**
+ * A hidden stash: an ordinary cardboard box somewhere off the main route. E next to it searches it;
+ * a first-aid kit pops out (+1 life, full reputation). A faint glint now and then gives it away.
+ */
+export class Stash {
+  constructor(scene, x, feetY) {
+    this.scene = scene;
+    this.x = x;
+    this.y = feetY;
+    this.opened = false;
+    const has = (f) => scene.textures.get('props').has(f);
+    this.img = scene.add.image(x, feetY, 'props', has('stash_box') ? 'stash_box' : 'crate').setOrigin(0.5, 1).setDepth(DEPTH.props);
+    this.glint = scene.time.addEvent({ delay: 3200, loop: true, callback: () => {
+      if (this.opened || !scene.textures.get('props').has('fx_stars')) return;
+      const s = scene.add.image(x + Phaser.Math.Between(-12, 12), feetY - this.img.height + 6, 'props', 'fx_stars').setScale(0.35).setAlpha(0.9).setDepth(DEPTH.fx);
+      scene.tweens.add({ targets: s, alpha: 0, scale: 0.15, duration: 700, onComplete: () => s.destroy() });
+    } });
+  }
+
+  near(player) { return !this.opened && Math.abs(player.x - this.x) < 70 && Math.abs(player.body.bottom - this.y) < 60; }
+
+  search() {
+    if (this.opened) return false;
+    this.opened = true;
+    const s = this.scene;
+    if (s.textures.get('props').has('stash_box_open')) this.img.setFrame('stash_box_open');
+    this.glint.remove();
+    const kit = s.spawnPickup('life', this.x, this.y - 70, { falling: true });
+    kit.body.setVelocity(Phaser.Math.Between(-40, 40), -420);
+    s.ui.flash(s.tt('stash_found'), '#ffe66d', 1200);
+    return true;
   }
 }

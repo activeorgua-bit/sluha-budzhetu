@@ -14,9 +14,11 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
+import numpy as np
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -118,6 +120,28 @@ def pack_tileset(world: str, tiles_dir: Path, tile: int = 48, columns: int = 16)
             im = im.resize((tile, tile), Image.NEAREST)
         names.append(p.stem)
         images.append(im)
+    # one-way platforms: the collision surface is the tile top, so the art must start there too.
+    # A family (<name>_plat_l/m/r) whose middle piece starts N px down is shifted up by N
+    # (the city slab started 12 px low: the politician seemed to hover above it).
+    fams = {}
+    for k, n in enumerate(names):
+        m = re.match(r"(.+_plat)_(l|m|r)$", n)
+        if m:
+            fams.setdefault(m.group(1), {})[m.group(2)] = k
+    for fam, parts in fams.items():
+        if "m" not in parts:
+            continue
+        alpha = np.array(images[parts["m"]])[..., 3]
+        rows_on = np.where(alpha.max(axis=1) > 0)[0]
+        shift = int(rows_on.min()) if len(rows_on) else 0
+        if shift < 3:
+            continue
+        for k in parts.values():
+            src = images[k]
+            moved = Image.new("RGBA", src.size, (0, 0, 0, 0))
+            moved.paste(src.crop((0, shift, src.width, src.height)), (0, 0))
+            images[k] = moved
+        print(f"  {world}: {fam}_* art moved up {shift} px to the collision surface")
     # index 0 is reserved for "empty" so tilemap data can use 0 = no tile
     rows = math.ceil((len(images) + 1) / columns)
     sheet = Image.new("RGBA", (columns * tile, rows * tile), (0, 0, 0, 0))

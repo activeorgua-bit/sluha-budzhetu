@@ -1641,3 +1641,21 @@ assets:
     references: [mockup_level_1-3_bridge.png, l1_politician v001]
     prompt: "the session hall: the Speaker with a gavel, button-pushing MPs"
     post: {kind: card, name: story_hall}
+  # first-aid kit (extra life), the stash box it hides in, and the park lamp with the FACTS HURT leaflet
+  - id: w1_kit_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png]
+    prompt: "first-aid kit, cardboard box closed and open, park lamp post with a blank leaflet"
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      slice: components            # the model drew them across the cell borders
+      names: [lamp_leaflet, first_aid, stash_box, stash_box_open]   # components come sorted by their top edge
+      sizes:
+        first_aid: [40, 34, fit]
+        stash_box: [52, 44, fit]
+        stash_box_open: [52, 50, fit]
+        lamp_leaflet: [96, 240, fit]

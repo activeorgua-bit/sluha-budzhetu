@@ -19,7 +19,7 @@ import { Narrator } from '../core/Narrator.js';
 import { Bandit, MafiaBoss, Gopnik, Citizen, Dog, DogWalker, GangBoss, districtHostile, debrisHostile } from '../entities/enemies/World3.js';
 import { FallingDebris } from '../entities/world/Debris.js';
 import { Sky } from '../entities/world/Sky.js';
-import { Pickup, QuestionBlock } from '../entities/items/Pickups.js';
+import { Pickup, QuestionBlock, Stash } from '../entities/items/Pickups.js';
 import { CrumblingBridge, MovingPlatform, HangingHook, waveDeckTexture, dressWaveBridge } from '../entities/world/Platforms.js';
 import { Projectiles } from '../entities/projectiles/Projectiles.js';
 import { BribeSystem } from '../core/BribeSystem.js';
@@ -86,6 +86,8 @@ export class LevelScene extends Phaser.Scene {
     this.bossAwake = false;
     this.nutReadyAt = 0;
     this.shops = [];          // decor with "shop": sells whiskey
+    this.stashes = [];        // hidden boxes to search (E): first-aid kits
+    this.kitFromBlock = false;
     this.debris = [];         // falling balconies / panels (block district, corrupt only)
     // the scene object is reused between runs: the mafia fight and its cut scene must start fresh
     this.mafiaHits = 0;
@@ -320,6 +322,21 @@ export class LevelScene extends Phaser.Scene {
         }
         const frame = this.textures.get('props').has(s.sprite) ? s.sprite : 'sign_facts';
         const img = this.add.image(cx, feetY, 'props', frame).setOrigin(0.5, 1).setDepth(DEPTH.signs);
+        if (s.paper) {
+          // text written on the prop itself (a leaflet on a lamp post): paper = [x, y, w, h] inside the frame
+          const [px, py, pw, ph] = s.paper;
+          const lx = cx - img.width / 2 + px + pw / 2; const ly = feetY - img.height + py + ph / 2;
+          // a slightly bigger sheet over the painted one, so two short lines stay crisp and readable
+          const words = (s.text || t(s.caption)).split(' ');
+          const sheetW = Math.max(pw, 8 * Math.max(...words.map((w) => w.length)) + 8); const sheetH = 10 * words.length + 8;
+          const g = this.add.graphics().setDepth(DEPTH.signs + 1);
+          g.fillStyle(0x2a2a2a).fillRect(lx - sheetW / 2 - 1, ly - sheetH / 2 - 1, sheetW + 2, sheetH + 2);
+          g.fillStyle(0xf4efe3).fillRect(lx - sheetW / 2, ly - sheetH / 2, sheetW, sheetH);
+          g.fillStyle(0xd9a45b).fillRect(lx - 3, ly - sheetH / 2 - 3, 6, 5);       // a strip of tape
+          this.add.text(Math.round(lx), Math.round(ly + 1), words.join('\n'), textStyle(8, '#1d1d1d', { align: 'center', lineSpacing: 2 }))
+            .setOrigin(0.5).setDepth(DEPTH.signs + 2);
+          return null;
+        }
         if (s.caption) this.add.text(cx, feetY - img.height - 4, t(s.caption), textStyle(6, '#ffffff', { stroke: '#000', strokeThickness: 3, align: 'center', wordWrap: { width: 140 } })).setOrigin(0.5, 1).setDepth(DEPTH.signs);
         return null;
       }
@@ -367,7 +384,7 @@ export class LevelScene extends Phaser.Scene {
         return null;
       case 'secret': this.secrets.push(new SecretHatch(this, o.col, o.row)); return null;
       case 'whiskey': case 'vodka': this.spawnPickup(o.type, cx, feetY - 22); return null;
-      case 'life': this.spawnPickup('life', cx, feetY - 30); return null;
+      case 'stash': this.stashes.push(new Stash(this, cx, feetY)); return null;
       case 'debris': this.debris.push(new FallingDebris(this, o.col, o.row, debrisHostile())); return null;
       case 'boss': this.spawnBoss((this.meta.boss && this.meta.boss.type) || 'animator', cx, feetY); return null;
       default: return null;
@@ -509,6 +526,7 @@ export class LevelScene extends Phaser.Scene {
     const P = this.player;
     for (const h of this.secrets) if (h.near(P)) { this.enterSecret(); return true; }
     for (const tr of this.trees) if (tr.near(P) && tr.shake()) return true;
+    for (const st of this.stashes) if (st.near(P) && st.search()) return true;
     for (const sh of this.shops) {
       if (Math.abs(P.x - sh.x) < BALANCE.alcohol.shopRange && Math.abs(P.y - sh.y) < 120) { this.buyAtShop(sh); return true; }
     }
@@ -520,6 +538,7 @@ export class LevelScene extends Phaser.Scene {
     const P = this.player;
     for (const tr of this.trees) if (!tr.hinted && tr.near(P)) { tr.hinted = true; this.ui.flash(t('hint_tree'), '#e8b06a', 1400); }
     for (const h of this.secrets) if (!h.hinted && h.near(P)) { h.hinted = true; this.ui.flash(t('hint_secret'), '#ffe66d', 1600); }
+    for (const st of this.stashes) if (!st.hinted && st.near(P)) { st.hinted = true; this.ui.flash(t('hint_stash'), '#ffe66d', 1400); }
     for (const sh of this.shops) {
       if (!sh.hinted && Math.abs(P.x - sh.x) < BALANCE.alcohol.shopRange && Math.abs(P.y - sh.y) < 120) {
         sh.hinted = true;

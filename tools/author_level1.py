@@ -53,12 +53,12 @@ put(m, 13, 55, "C")                      # patrol officer
 put(d, 13, 57, "L")                      # campaign billboard, standable top (cols 57-60)
 put(m, 8, 59, "t")                       # marked bill on the billboard
 put(d, 13, 61, "A")
-# flooded pit: moving platform + balcony route
-fill(m, GROUND, GROUND, 63, 72, ".")
-fill(m, GROUND + 1, ROWS - 1, 63, 72, "~")
-put(m, 13, 64, "m.....*")
-put(d, 11, 63, "H")                      # stone balcony (cols 63-66)
-put(d, 10, 68, "I")                      # iron balcony (cols 68-70)
+# flooded pit: the two balconies are the way across
+fill(m, GROUND, GROUND, 63, 70, ".")                 # the iron balcony (68-70) ends right above the bank
+fill(m, GROUND + 1, ROWS - 1, 63, 70, "~")
+# no moving platform here: the two balconies are the way across the water
+put(d, 12, 63, "H")                      # stone balcony (cols 63-66): walk along the top of the balustrade
+put(d, 11, 68, "I")                      # iron balcony (cols 68-70)
 put(m, 8, 65, "c"); put(m, 7, 69, "c")
 put(m, 13, 75, "K")                      # checkpoint
 put(m, 13, 78, "s")                      # manhole (sting point)
@@ -135,7 +135,7 @@ meta = {
         {"col": 47, "key": "l11_cop", "if": "bag_here"}, {"col": 54, "key": "l11_office_bag", "on": "bag"},
         {"col": 57, "key": "l11_billboard"}, {"col": 89, "key": "l11_park"}, {"col": 104, "key": "l11_monument"},
     ],
-    "signs": [{"sprite": "plaque", "caption": "sign_reform"}, {"sprite": "plaque", "caption": "sign_facts"}],
+    "signs": [{"sprite": "plaque", "caption": "sign_reform"}, {"sprite": "lamp_leaflet", "caption": "sign_facts", "paper": [40, 123, 22, 27]}],
     "decor": {
         "A": "lamp_street", "B": "hydrant", "R": "cone_barrier", "U": "campaign_poster",
         "K": {"frame": "tulip_bed", "w": 3}, "M": "lamp_park", "N": "bush", "S": "pigeon",
@@ -147,8 +147,8 @@ meta = {
         "G": {"frame": "kiosk", "solid": "top", "w": 3, "top": 3, "shop": "whiskey"},
         "V": {"frame": "dev_office", "solid": "top", "w": 4, "top": 3.9},
         "L": {"frame": "billboard_campaign", "solid": "top", "w": 4, "top": 3},
-        "H": {"frame": "balcony_stone", "solid": "top", "w": 4, "top": 0.45},
-        "I": {"frame": "balcony_iron", "solid": "top", "w": 3, "top": 0.45},
+        "H": {"frame": "balcony_stone", "solid": "top", "w": 4, "top": 2.0},    # the balustrade top is the ledge
+        "I": {"frame": "balcony_iron", "solid": "top", "w": 3, "top": 1.75},
         "J": {"frame": "bench", "solid": "top", "w": 3, "top": 0.75},
         "Q": {"frame": "chess_table", "solid": "top", "w": 2, "top": 1},
         "O": {"frame": "monument_shevchenko", "w": 5, "solids": [
