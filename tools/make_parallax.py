@@ -44,6 +44,11 @@ def make_seamless(img: Image.Image, blend_px: int = 48) -> Image.Image:
         rolled[:, xl] = left_src * (1 - t * 0.5) + right_src * (t * 0.5)
         rolled[:, xr] = right_src * (1 - (1 - t) * 0.5) + left_src * ((1 - t) * 0.5)
     out = np.roll(rolled, -(w // 2), axis=1)
+    # the cross-fade leaves half-transparent "ghost" copies of roofs and treetops over the sky:
+    # pixel art has binary alpha, so anything not fully opaque at the seam is sky
+    seam = np.zeros(w, bool); seam[:blend_px] = True; seam[w - blend_px:] = True
+    ghost = (out[..., 3] < 255) & seam[None, :]
+    out[ghost] = 0
     return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8), "RGBA")
 
 

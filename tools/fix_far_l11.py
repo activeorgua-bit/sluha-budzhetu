@@ -43,7 +43,7 @@ PATCH_B = [
     (280, 50, 806, 270),     # flag
     (336, 80, 864, 280),     # statue
 ]
-ROLL = 200
+ROLL = 330          # landmark set further right: the bell tower and cathedral clear the grey building
 
 
 def patch(a: np.ndarray, ops) -> np.ndarray:
@@ -63,6 +63,7 @@ def main():
     a = patch(src, PATCH_A)
     b = patch(a, PATCH_B)
     layer = np.roll(np.concatenate([a, b], axis=1), ROLL, axis=1)
+    layer[layer[..., 3] < 255] = 0      # no half-transparent seam ghosts (binary alpha)
     Image.fromarray(layer, "RGBA").save(OUT)
     print(f"far.png -> {layer.shape[1]}x{layer.shape[0]} (one landmark set at x {28 + ROLL}-{410 + ROLL})")
 
