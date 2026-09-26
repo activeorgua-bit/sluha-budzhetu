@@ -15,6 +15,8 @@ export class MenuList {
       .setOrigin(0.5).setDepth(opts.depth || 10).setInteractive({ useHandCursor: true })
       .on('pointerover', () => { this.cursor = i; this.refresh(); })
       .on('pointerdown', () => this.activate(i)));
+    this.hits = items.map((_, i) => scene.add.zone(x, y + i * this.gap, opts.hitW || 520, this.gap - 2).setDepth(opts.depth || 10)
+      .setInteractive().on('pointerover', () => { this.cursor = i; this.refresh(); }).on('pointerdown', () => this.activate(i)));
     const kb = scene.input.keyboard;
     this.handlers = [
       ['keydown-UP', () => this.move(-1)], ['keydown-W', () => this.move(-1)],
@@ -59,5 +61,6 @@ export class MenuList {
     const kb = this.scene.input.keyboard;
     for (const [ev, fn] of this.handlers) kb.off(ev, fn);
     this.labels.forEach((l) => l.destroy());
+    this.hits.forEach((h) => h.destroy());
   }
 }

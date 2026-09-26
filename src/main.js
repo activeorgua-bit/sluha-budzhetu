@@ -13,13 +13,7 @@ import { PauseScene } from './scenes/Pause.js';
 import { HelpScene } from './scenes/Help.js';
 import { SaveLoadScene } from './scenes/SaveLoad.js';
 import { ChoiceScene } from './scenes/Choice.js';
-
-function computeZoom() {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  if (w >= GAME_W && h >= GAME_H) return Math.max(1, Math.floor(Math.min(w / GAME_W, h / GAME_H)));
-  return Math.min(w / GAME_W, h / GAME_H);
-}
+import { IS_TOUCH, touchPad } from './core/touch.js';
 
 const config = {
   type: Phaser.AUTO,
@@ -30,10 +24,10 @@ const config = {
   pixelArt: true,
   roundPixels: true,
   antialias: false,
+  // FIT fills the window (phones included) keeping 16:9; Phaser does the centering (the page adds none)
   scale: {
-    mode: Phaser.Scale.NONE,
+    mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    zoom: computeZoom(),
   },
   physics: {
     default: 'arcade',
@@ -49,8 +43,8 @@ const config = {
 const game = new Phaser.Game(config);
 window.__game = game; // handy for automated tests and the browser console
 
-window.addEventListener('resize', () => {
-  game.scale.setZoom(computeZoom());
-});
+// phones: on-screen controls; the browser bars coming and going change the visual viewport
+if (IS_TOUCH) game.events.once('ready', () => touchPad.install(game));
+window.visualViewport?.addEventListener('resize', () => game.scale.refresh());
 
 export default game;

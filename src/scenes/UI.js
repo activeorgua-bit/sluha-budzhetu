@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { GAME_W, GAME_H, DEPTH } from '../config/constants.js';
 import { GameState } from '../core/GameState.js';
 import { t, textStyle } from '../core/i18n.js';
+import { IS_TOUCH } from '../core/touch.js';
 
 /** HUD overlay, laid out like the mockups: SCORE · LIVES · BRIBES · LEVEL · TIME + heat bar. */
 export class UIScene extends Phaser.Scene {
@@ -44,10 +45,15 @@ export class UIScene extends Phaser.Scene {
 
     // the inner voice: a parchment page at the bottom of the screen (over the underground rows)
     this.book = this.add.container(0, 0).setDepth(DEPTH.ui).setVisible(false);
-    const page = this.add.rectangle(GAME_W / 2, 494, GAME_W - 40, 76, 0xf4e6c4, 0.96).setStrokeStyle(3, 0x6b4a2b);
-    const spine = this.add.rectangle(40, 494, 6, 70, 0xc9a66b);
-    const bookIcon = this.textures.get('props').has('book_open') ? this.add.image(66, 494, 'props', 'book_open').setScale(0.75) : null;
-    this.bookText = this.add.text(100, 494, '', textStyle(8, '#3b2412', { wordWrap: { width: GAME_W - 150 }, lineSpacing: 6 })).setOrigin(0, 0.5);
+    // on touch screens the page sits between the thumb controls (d-pad left, jump right)
+    const pw = IS_TOUCH ? Math.round(GAME_W * 0.58) : GAME_W - 40;
+    const ph = IS_TOUCH ? 84 : 76;
+    const py = IS_TOUCH ? 490 : 494;
+    const px0 = GAME_W / 2 - pw / 2;
+    const page = this.add.rectangle(GAME_W / 2, py, pw, ph, 0xf4e6c4, 0.96).setStrokeStyle(3, 0x6b4a2b);
+    const spine = this.add.rectangle(px0 + 20, py, 6, ph - 6, 0xc9a66b);
+    const bookIcon = this.textures.get('props').has('book_open') ? this.add.image(px0 + 46, py, 'props', 'book_open').setScale(0.75) : null;
+    this.bookText = this.add.text(px0 + 80, py, '', textStyle(8, '#3b2412', { wordWrap: { width: pw - 100 }, lineSpacing: 6 })).setOrigin(0, 0.5);
     this.book.add([page, spine, ...(bookIcon ? [bookIcon] : []), this.bookText]);
     this.bookQueue = [];
     this.bookBusyUntil = 0;

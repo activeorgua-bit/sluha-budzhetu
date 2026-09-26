@@ -24,6 +24,7 @@ export class GameOverScene extends Phaser.Scene {
     const go = () => this.scene.start('Finale', { phase: 'result' });
     this.input.keyboard.on('keydown-ENTER', go);
     this.input.keyboard.on('keydown-SPACE', go);
+    this.time.delayedCall(800, () => this.input.on('pointerdown', go));
     this.cards = STORY.gameover;
   }
 }

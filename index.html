@@ -2,16 +2,20 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Слуга Бюджету — Servant of the Budget</title>
   <style>
     @font-face {
       font-family: 'PressStart2P';
-      src: url('/assets/fonts/PressStart2P.ttf') format('truetype');
+      src: url('assets/fonts/PressStart2P.ttf') format('truetype');
       font-display: block;
     }
-    html, body { margin: 0; padding: 0; background: #0b0d12; height: 100%; overflow: hidden; }
-    #game { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    html, body { margin: 0; padding: 0; background: #0b0d12; height: 100%; overflow: hidden;
+      overscroll-behavior: none; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+    #game { position: fixed; inset: 0; }
     canvas { image-rendering: pixelated; image-rendering: crisp-edges; }
     /* Font pre-warm so Phaser text measures correctly on first draw */
     #font-warm { position: absolute; left: -9999px; top: -9999px; font-family: 'PressStart2P'; }
