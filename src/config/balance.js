@@ -147,7 +147,7 @@ export const BALANCE = {
 
   hook: { swayDeg: 6, swayMs: 1600, dropSpeed: 780, holdMs: 350, retractSpeed: 240, triggerH: 300 },
 
-  lives: { start: 3, extraEveryScore: 20000 },
+  lives: { start: 3, max: 9, extraEveryScore: 15000 },   // + a voters' thank-you pickup in every level
   finale: { escapeMaxHeat: 55 },
 };
 

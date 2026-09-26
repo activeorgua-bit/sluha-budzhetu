@@ -133,11 +133,19 @@ class GameStateClass {
   addScore(n, emit = true) {
     this.score += n;
     while (this.score >= this.nextLifeAt) {
-      this.lives += 1;
+      this.lives = Math.min(BALANCE.lives.max, this.lives + 1);
       this.nextLifeAt += BALANCE.lives.extraEveryScore;
-      this.events.emit('extra-life', this);
+      this.events.emit('extra-life', { source: 'score', state: this });
     }
     if (emit) this.emit();
+  }
+
+  /** A voters' thank-you: +1 life (capped) and a spotless reputation. */
+  addLife() {
+    this.lives = Math.min(BALANCE.lives.max, this.lives + 1);
+    this.reputation = BALANCE.reputation.max;
+    this.events.emit('extra-life', { source: 'letter', state: this });
+    this.emit();
   }
 
   loseLife() {

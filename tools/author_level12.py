@@ -136,6 +136,7 @@ put(d, 13, 142, "I")                      # TV camera at the finish
 put(m, 13, 144, "2")                      # FACTS HURT.
 put(m, 13, 146, "G")
 
+put(m, 8, 105, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
 meta = {
     "id": "l12", "world": 1, "label": "1-2",
     "material": "pier", "material2": "sand", "tileset": "b1", "oneway": "truss_plat", "timeLimit": 200,

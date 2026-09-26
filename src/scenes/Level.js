@@ -87,7 +87,10 @@ export class LevelScene extends Phaser.Scene {
     this.nutReadyAt = 0;
     this.shops = [];          // decor with "shop": sells whiskey
     this.debris = [];         // falling balconies / panels (block district, corrupt only)
+    // the scene object is reused between runs: the mafia fight and its cut scene must start fresh
     this.mafiaHits = 0;
+    this.mafiaFight = false;
+    this.cutsceneStarted = false;
     this.nextConscienceAt = 0;
     GameState.drunk = null;   // a new level starts sober (the hangover is implied)
 
@@ -105,6 +108,11 @@ export class LevelScene extends Phaser.Scene {
     if (this.fromCheckpoint && cp && cp.levelId === def.id) spawn = { x: cp.x, y: cp.y };
     if (!spawn) spawn = { x: 2 * TILE, y: 14 * TILE };
     this.player = new Player(this, spawn.x, spawn.y);
+    if (this.fromCheckpoint) {
+      // a moment of grace after a respawn: no death loops (a punch straight back into the water)
+      this.player.invulnUntil = this.time.now + 2500;
+      this.player.startBlink(2500);
+    }
     this.director = new SpawnDirector(this, this.level);
     this.narrator = new Narrator(this);
 
@@ -136,11 +144,19 @@ export class LevelScene extends Phaser.Scene {
       else if (kind === 'question_block') this.narrator.say('question_block', { priority: 0 });
     };
     this.onHeatEv = ({ tier, prevTier }) => { if (tier > prevTier) this.narrator.say(`tier_${tier}`, { priority: 1 }); };
+    // an extra life, from a voters' thank-you letter or from the score
+    this.onLifeEv = ({ source }) => {
+      audio.playCheckpoint();
+      if (this.ui) this.ui.flash(t(source === 'letter' ? 'life_letter_flash' : 'life_score_flash'), '#ffe66d', 1600);
+      if (source === 'score' && this.narrator) this.narrator.say('life_score', { priority: 1 });
+    };
     GameState.events.on('pickup', this.onPickupEv);
     GameState.events.on('heat', this.onHeatEv);
+    GameState.events.on('extra-life', this.onLifeEv);
     this.events.once('shutdown', () => {
       GameState.events.off('pickup', this.onPickupEv);
       GameState.events.off('heat', this.onHeatEv);
+      GameState.events.off('extra-life', this.onLifeEv);
       this.director.destroy();
       if (this.timerEvent) this.timerEvent.remove();
     });
@@ -351,6 +367,7 @@ export class LevelScene extends Phaser.Scene {
         return null;
       case 'secret': this.secrets.push(new SecretHatch(this, o.col, o.row)); return null;
       case 'whiskey': case 'vodka': this.spawnPickup(o.type, cx, feetY - 22); return null;
+      case 'life': this.spawnPickup('life', cx, feetY - 30); return null;
       case 'debris': this.debris.push(new FallingDebris(this, o.col, o.row, debrisHostile())); return null;
       case 'boss': this.spawnBoss((this.meta.boss && this.meta.boss.type) || 'animator', cx, feetY); return null;
       default: return null;

@@ -66,7 +66,7 @@ def party():
     c.put(8, 97, "t")
     c.put(13, 103, "K")
     c.dec(106, "S")                          # palm with lights
-    c.put(13, 108, "N")
+    c.put(13, 112, "N")                      # a few tiles from the checkpoint: no punch back into the pool
     c.put(13, 112, "J")
     c.put(12, 115, "y")
     c.dec(116, "D")
@@ -77,6 +77,7 @@ def party():
     c.dec(138, "B")
     c.dec(142, "A")
     c.put(13, 146, "G")
+    c.put(8, 96, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
     meta = {
         "id": "e31", "world": 3, "label": "3-1",
         "material": "villa", "tileset": "v1", "oneway": "glass_plat", "timeLimit": 240, "bgColor": "#0b0f2a",
@@ -168,6 +169,7 @@ def district():
     c.dec(214, "T")                          # the taxi
     c.put(13, 221, "2")                      # plaque: taxi rank
     c.put(13, 224, "G")
+    c.put(10, 87, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
     meta = {
         "id": "e32", "world": 3, "label": "3-2",
         "material": "asphalt", "material2": "grass", "tileset": "d1", "oneway": "ledge_plat", "timeLimit": 300,
@@ -235,6 +237,7 @@ def station():
     c.put(13, 101, "C")
     c.dec(106, "T")                          # the train door
     c.put(13, 112, "G")
+    c.put(10, 89, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
     meta = {
         "id": "e33", "world": 3, "label": "3-3",
         "material": "platform", "tileset": "v1", "oneway": "foot_plat", "timeLimit": 200, "bgColor": "#f0a870",

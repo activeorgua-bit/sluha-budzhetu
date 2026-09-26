@@ -44,7 +44,7 @@ export const STRINGS = {
     trap: 'МІЧЕНА КУПЮРА!', raid: 'ОБШУК!', paused: 'ПАУЗА',
     hurt_journalist: 'ЖУРНАЛІСТ!', hurt_detective: 'ДЕТЕКТИВ НАБУ!', hurt_cop: 'ПОЛІЦІЯ!', hurt_voter: 'ВИБОРЕЦЬ!',
     hurt_warrant: 'ПОВІСТКА!', hurt_jar: 'БАНКА!', hurt_hook: 'ГАК!', hurt_hit: 'УДАР!',
-    die_spike: 'ШИПИ!', die_water: 'У ВОДУ!', die_pit: 'ПРІРВА!', die_time: 'ЧАС ВИЙШОВ', die_reputation: 'РЕПУТАЦІЮ ЗНИЩЕНО!',
+    die_spike: 'ШИПИ!', die_water: 'У ВОДУ!', die_pit: 'ПРІРВА!', die_time: 'ЧАС ВИЙШОВ', die_reputation: 'РЕПУТАЦІЮ ЗНИЩЕНО!', life_pop: '+1 ЖИТТЯ', life_letter_flash: 'ПОДЯКА ВИБОРЦІВ: +1 ЖИТТЯ!', life_score_flash: 'ВИБОРЦІ ЦІНУЮТЬ: +1 ЖИТТЯ!',
 
     story_intro_1: 'Київ. Передвиборча кампанія. Ти — народний депутат, і бюджет лежить просто на дорозі.',
     story_intro_2: 'Кожна монета — це «подяка». Кожна подяка — це журналіст за спиною і детектив НАБУ попереду.',
@@ -106,7 +106,7 @@ export const STRINGS = {
     trap: 'MARKED BILL!', raid: 'RAID!', paused: 'PAUSED',
     hurt_journalist: 'JOURNALIST!', hurt_detective: 'NABU DETECTIVE!', hurt_cop: 'POLICE!', hurt_voter: 'VOTER!',
     hurt_warrant: 'WARRANT!', hurt_jar: 'JAR!', hurt_hook: 'HOOK!', hurt_hit: 'HIT!',
-    die_spike: 'SPIKES!', die_water: 'INTO THE WATER!', die_pit: 'THE PIT!', die_time: 'TIME UP', die_reputation: 'REPUTATION RUINED!',
+    die_spike: 'SPIKES!', die_water: 'INTO THE WATER!', die_pit: 'THE PIT!', die_time: 'TIME UP', die_reputation: 'REPUTATION RUINED!', life_pop: '+1 LIFE', life_letter_flash: 'VOTERS’ THANK-YOU: +1 LIFE!', life_score_flash: 'THE VOTERS APPRECIATE IT: +1 LIFE!',
 
     story_intro_1: 'Kyiv. Election season. You are a member of parliament and the budget is lying on the road.',
     story_intro_2: 'Every coin is a “thank you”. Every thank-you brings a journalist behind you and a NABU detective ahead.',

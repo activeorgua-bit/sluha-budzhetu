@@ -19,6 +19,7 @@
 //   A  assistant (harmless)       O  opposition MP (throws chocolate)    F  female journalist
 //   M  seated MP (spectator, throws chestnuts)   X  level boss (meta.boss)   Z  secret hatch (meta.secret)
 //   y  whiskey bottle   u  vodka bottle (drink on pickup: conscience -, drunk +)
+//   +  voters' thank-you (extra life, full reputation)
 //   N bandit (friendly if you are corrupt enough)  R MP at the party (harmless)  h gopnik (beer bottles)
 //   i angry citizen (eggs, only if corrupt)  Y dog  I dog walker  ! falling debris (only if corrupt)
 // Decor with "shop": "whiskey" sells a bottle for BALANCE.alcohol.whiskey.price bribes (E next to it).
@@ -42,6 +43,7 @@ export const ENTITY_CHARS = {
   y: 'whiskey', u: 'vodka',
   // world 3: party and block district
   N: 'bandit', R: 'mp', h: 'gopnik', i: 'citizen', Y: 'dog', I: 'dogwalker', '!': 'debris',
+  '+': 'life',          // voters' thank-you letter: +1 life, full reputation (never corruption)
 };
 
 // free ammo pickups: never corruption, never forbidden for the honest route

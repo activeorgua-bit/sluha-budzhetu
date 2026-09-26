@@ -113,6 +113,7 @@ put(m, 13, 85, "T")                      # chestnut tree at the end of the stree
 for col in (93, 100, 118, 132, 147, 161):
     put(m, 13, col, "o")
 
+put(m, 9, 109, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
 meta = {
     "id": "l11", "world": 1, "label": "1-1",
     "material": "street", "material2": "park", "tileset": "k1", "oneway": "slab_plat", "timeLimit": 220,

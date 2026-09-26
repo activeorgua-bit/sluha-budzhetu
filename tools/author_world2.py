@@ -129,6 +129,7 @@ def mariinsky():
     c.dec(171, "A")
     c.dec(173, "M")                          # parliament door (cols 173-176)
     c.put(13, 175, "G")
+    c.put(7, 118, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
     meta = {
         "id": "p21", "world": 2, "label": "2-1",
         "material": "park", "material2": "granite", "tileset": "p1", "oneway": "balus_plat", "timeLimit": 240,
@@ -202,6 +203,7 @@ def bunker():
     c.dec(110, "B", 10)
     c.dec(113, "A")                          # blast door exit (cols 113-115)
     c.put(13, 116, "G")
+    c.put(10, 82, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
     meta = {
         "id": "p21b", "world": 2, "label": "2-1B",
         "material": "bunker", "tileset": "p1", "oneway": "catwalk_plat", "timeLimit": 200, "bgColor": "#1b1f1a",
@@ -283,6 +285,7 @@ def corridor():
     c.put(13, 150, "2")
     c.dec(154, "E")                          # door to the session hall
     c.put(13, 156, "G")
+    c.put(7, 103, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
     meta = {
         "id": "p22", "world": 2, "label": "2-2",
         "material": "parquet", "material2": "carpet", "tileset": "r1", "oneway": "balus_plat", "timeLimit": 220,
@@ -324,6 +327,7 @@ def hall():
     c.put(13, 34, "X")                       # THE SPEAKER
     c.dec(51, "E")                           # exit door (cols 51-53)
     c.put(13, 52, "G")
+    c.put(10, 20, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
     meta = {
         "id": "p23", "world": 2, "label": "2-3",
         "material": "parquet", "material2": "seats", "tileset": "r1", "oneway": "balus_plat", "timeLimit": 240,

@@ -15,12 +15,19 @@ export class Pickup extends Phaser.Physics.Arcade.Sprite {
         : kind === 'book' ? (has('kapital_book') ? 'kapital_book' : 'coin')
           : kind === 'whiskey' ? (has('bottle_whiskey') ? 'bottle_whiskey' : 'coin')
             : kind === 'vodka' ? (has('bottle_vodka') ? 'bottle_vodka' : 'coin') : 'coin';
-    super(scene, x, y, 'props', frame);
+    // a voters' thank-you (extra life) shows the politician's portrait, like a classic 1-UP
+    const life = kind === 'life' && scene.textures.get('ui').has('hud_portrait');
+    super(scene, x, y, life ? 'ui' : 'props', life ? 'hud_portrait' : frame);
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.kind = kind;                // 'coin' | 'trap' | 'money_bag' | 'chestnut' | 'book' (free ammo)
     this.ammo = kind === 'chestnut' || kind === 'book';
     this.bottle = kind === 'whiskey' || kind === 'vodka';
+    this.life = kind === 'life';
+    if (this.life) {
+      this.glow = scene.add.circle(x, y, 30, 0xffe66d, 0.28).setDepth(DEPTH.pickups - 1);
+      scene.tweens.add({ targets: this.glow, scale: 1.35, alpha: 0.08, duration: 800, yoyo: true, repeat: -1 });
+    }
     this.setDepth(DEPTH.pickups);
     this.body.setSize(34, 34).setOffset((this.width - 34) / 2, (this.height - 34) / 2);
     this.collected = false;
@@ -41,6 +48,17 @@ export class Pickup extends Phaser.Physics.Arcade.Sprite {
   collect(player) {
     if (this.collected) return;
     const scene = this.scene;
+    if (this.life) {
+      this.collected = true;
+      GameState.addLife();                 // the level announces it (flash + sound)
+      scene.ui.popValue(this.x, this.y - 20, scene.tt('life_pop'), '#ffe66d');
+      if (scene.narrator) scene.narrator.say('life_letter', { priority: 2 });
+      if (this.bob) this.bob.remove();
+      if (this.glow) this.glow.destroy();
+      scene.tweens.add({ targets: this, y: this.y - 40, alpha: 0, scale: 1.6, duration: 400, onComplete: () => this.destroy() });
+      this.body.enable = false;
+      return;
+    }
     if (this.bottle) {
       this.collected = true;
       scene.drinkBottle(this.kind);
