@@ -17,7 +17,7 @@ export const STRINGS = {
     dev_mode: 'DEV: 1-9 рівень  H+/H- корумпованість  F фінал',
 
     hud_score: 'РАХУНОК', hud_lives: 'ЖИТТЯ', hud_bribes: 'ХАБАРІ', hud_level: 'РІВЕНЬ', hud_time: 'ЧАС',
-    hud_clean: 'ЧИСТИЙ', hud_heat: 'КОРУМПОВАНІСТЬ', hud_conscience: 'СУМЛІННЯ', hud_cons_calm: 'СПОКІЙНЕ', hud_cons_uneasy: 'НЕСПОКІЙНЕ', hud_cons_bite: 'ГРИЗЕ!',
+    hud_clean: 'ЧИСТИЙ', hud_heat: 'КОРУМПОВАНІСТЬ', hud_conscience: 'СУМЛІННЯ', hud_rep: 'РЕПУТАЦІЯ', hud_rep_good: 'ДОБРА', hud_rep_mid: 'ПІДМОЧЕНА', hud_rep_low: 'НА ДНІ', hud_cons_calm: 'СПОКІЙНЕ', hud_cons_uneasy: 'НЕСПОКІЙНЕ', hud_cons_bite: 'ГРИЗЕ!',
     tier_clean: 'ЧИСТИЙ', tier_suspicious: 'ПІДОЗРІЛИЙ', tier_investigated: 'ПІД СЛІДСТВОМ',
     tier_wanted: 'У РОЗШУКУ', tier_raid: 'ОБШУК НАБУ',
 
@@ -44,7 +44,7 @@ export const STRINGS = {
     trap: 'МІЧЕНА КУПЮРА!', raid: 'ОБШУК!', paused: 'ПАУЗА',
     hurt_journalist: 'ЖУРНАЛІСТ!', hurt_detective: 'ДЕТЕКТИВ НАБУ!', hurt_cop: 'ПОЛІЦІЯ!', hurt_voter: 'ВИБОРЕЦЬ!',
     hurt_warrant: 'ПОВІСТКА!', hurt_jar: 'БАНКА!', hurt_hook: 'ГАК!', hurt_hit: 'УДАР!',
-    die_spike: 'ШИПИ!', die_water: 'У ВОДУ!', die_pit: 'ПРІРВА!', die_time: 'ЧАС ВИЙШОВ',
+    die_spike: 'ШИПИ!', die_water: 'У ВОДУ!', die_pit: 'ПРІРВА!', die_time: 'ЧАС ВИЙШОВ', die_reputation: 'РЕПУТАЦІЮ ЗНИЩЕНО!',
 
     story_intro_1: 'Київ. Передвиборча кампанія. Ти — народний депутат, і бюджет лежить просто на дорозі.',
     story_intro_2: 'Кожна монета — це «подяка». Кожна подяка — це журналіст за спиною і детектив НАБУ попереду.',
@@ -79,7 +79,7 @@ export const STRINGS = {
     dev_mode: 'DEV: 1-9 level  H+/H- corruption  F finale',
 
     hud_score: 'SCORE', hud_lives: 'LIVES', hud_bribes: 'BRIBES', hud_level: 'LEVEL', hud_time: 'TIME',
-    hud_clean: 'CLEAN', hud_heat: 'CORRUPTION', hud_conscience: 'CONSCIENCE', hud_cons_calm: 'CALM', hud_cons_uneasy: 'UNEASY', hud_cons_bite: 'GNAWING!',
+    hud_clean: 'CLEAN', hud_heat: 'CORRUPTION', hud_conscience: 'CONSCIENCE', hud_rep: 'REPUTATION', hud_rep_good: 'GOOD', hud_rep_mid: 'TARNISHED', hud_rep_low: 'IN TATTERS', hud_cons_calm: 'CALM', hud_cons_uneasy: 'UNEASY', hud_cons_bite: 'GNAWING!',
     tier_clean: 'CLEAN', tier_suspicious: 'SUSPICIOUS', tier_investigated: 'INVESTIGATED',
     tier_wanted: 'WANTED', tier_raid: 'NABU RAID',
 
@@ -106,7 +106,7 @@ export const STRINGS = {
     trap: 'MARKED BILL!', raid: 'RAID!', paused: 'PAUSED',
     hurt_journalist: 'JOURNALIST!', hurt_detective: 'NABU DETECTIVE!', hurt_cop: 'POLICE!', hurt_voter: 'VOTER!',
     hurt_warrant: 'WARRANT!', hurt_jar: 'JAR!', hurt_hook: 'HOOK!', hurt_hit: 'HIT!',
-    die_spike: 'SPIKES!', die_water: 'INTO THE WATER!', die_pit: 'THE PIT!', die_time: 'TIME UP',
+    die_spike: 'SPIKES!', die_water: 'INTO THE WATER!', die_pit: 'THE PIT!', die_time: 'TIME UP', die_reputation: 'REPUTATION RUINED!',
 
     story_intro_1: 'Kyiv. Election season. You are a member of parliament and the budget is lying on the road.',
     story_intro_2: 'Every coin is a “thank you”. Every thank-you brings a journalist behind you and a NABU detective ahead.',

@@ -27,6 +27,7 @@ class GameStateClass {
     this.trapsTriggered = 0;
     this.chestnuts = BALANCE.nuts.start;   // honest ammo: never adds corruption
     this.books = 0;                       // 'Kapital' books from the bunker (stronger)
+    this.reputation = BALANCE.reputation.max;   // health bar; refilled at every (re)start of a level
     this.conscience = 0;                  // inner judge 0..100 (see BALANCE.conscience)
     this.drunk = null;                    // { kind: 'whiskey'|'vodka', until: ms } while drunk
     this.drinks = 0;

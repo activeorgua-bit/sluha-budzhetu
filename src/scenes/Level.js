@@ -38,6 +38,7 @@ export class LevelScene extends Phaser.Scene {
   create() {
     const def = LEVELS[this.levelIndex];
     GameState.levelIndex = this.levelIndex;
+    GameState.reputation = BALANCE.reputation.max;   // a fresh start (level start or respawn)
     // snapshot for save slots: saves restore the start of the level (pickups cannot be doubled)
     if (!this.fromCheckpoint || !GameState.levelStartSnapshot || GameState.levelStartSnapshot.levelIndex !== this.levelIndex) {
       GameState.levelStartSnapshot = GameState.serialize();
@@ -822,6 +823,7 @@ export class LevelScene extends Phaser.Scene {
     const cam = this.cameras.main;
     this.updateParallax();
     if (this.sky) this.sky.update(time);
+    this.regenReputation(time, delta);
 
     if (!this.player.dead) {
       this.player.handleInput(this.keys, time, delta);
@@ -888,6 +890,16 @@ export class LevelScene extends Phaser.Scene {
     if (this.ui && this.ui.setTime) this.ui.setTime(this.timeLeft);
     if (this.timeLeft === 30) this.narrator.say('time_low', { priority: 1 });
     if (this.timeLeft <= 0) { this.ui.flash(t('time_up'), '#ff6b6b', 1200); this.killPlayer('time'); }
+  }
+
+  /** Reputation slowly recovers after a quiet spell (slower the more corrupt you are). */
+  regenReputation(now, delta) {
+    const R = BALANCE.reputation;
+    const G = GameState;
+    if (this.player.dead || G.reputation >= R.max || now - (this.player.repHitAt || 0) < R.regenDelaySec * 1000) return;
+    const before = Math.floor(G.reputation);
+    G.reputation = Math.min(R.max, G.reputation + R.regenPerSec * (1 - (G.heat / 100) * R.corruptRegen) * delta / 1000);
+    if (Math.floor(G.reputation) !== before) G.emit();
   }
 
   penalizeTime(sec) {

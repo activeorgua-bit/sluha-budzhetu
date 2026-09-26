@@ -46,7 +46,7 @@ export class BriefingScene extends Phaser.Scene {
     // right: how things work (with a little sprite each)
     const rx = 500;
     this.add.text(rx, 70, t('brief_rules'), textStyle(10, '#9fd1ff'));
-    const rules = [['props', 'money_bag', 'brief_r1'], ['ui', 'hud_thermo', 'brief_r2'], ['ui', 'hud_chestnut', 'brief_r3'], ['ui', 'hud_conscience', 'brief_r4']];
+    const rules = [['props', 'money_bag', 'brief_r1'], ['ui', 'hud_heart', 'brief_rep'], ['ui', 'hud_thermo', 'brief_r2'], ['ui', 'hud_chestnut', 'brief_r3'], ['ui', 'hud_conscience', 'brief_r4']];
     let y = 96;
     for (const [atlas, frame, key] of rules) {
       if (this.textures.exists(atlas) && this.textures.get(atlas).has(frame)) {
@@ -55,7 +55,7 @@ export class BriefingScene extends Phaser.Scene {
       }
       const txt = this.add.text(rx + 42, y, t(key), textStyle(8, key === 'brief_r4' ? '#f2c14e' : '#e6e6e6',
         { wordWrap: { width: 410 }, lineSpacing: 6, fontStyle: key === 'brief_r4' ? 'italic' : 'normal' }));
-      y += Math.max(40, txt.height + 18);
+      y += Math.max(36, txt.height + 14);
     }
 
     const go = this.add.text(GAME_W / 2, GAME_H - 30, t('brief_go'), textStyle(11, '#7ddf7d', { stroke: '#000', strokeThickness: 4 })).setOrigin(0.5);

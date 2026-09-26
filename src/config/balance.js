@@ -80,6 +80,21 @@ export const BALANCE = {
   // salaryMaxTier: up to this heat tier the MP salary covers the taxi and the ticket when the wallet is short
   world3: { salaryMaxTier: 1, frontCaseHeat: 25, mafiaKnockoutHits: 3, taxiPrice: 5, ticketPrice: 5, salary: 5, trainBreakdownHeat: 55 },
 
+  // Reputation: the politician's health. Hits cost reputation (by source); at 0 a life is lost and it
+  // refills on respawn. It slowly recovers after a quiet spell. Karma: a corrupt reputation is more
+  // fragile (damage x (1 + heat/100 * corruptDamage)) and recovers slower.
+  reputation: {
+    max: 100, regenPerSec: 4, regenDelaySec: 4, corruptDamage: 0.6, corruptRegen: 0.5,
+    damage: {
+      default: 12, hit: 12, flash: 8,
+      cop: 8, journalist: 8, detective: 15, warrant: 16, voter: 10, jar: 10,
+      oldlady: 10, kid: 6, chestnut: 6, rat: 8, oppmp: 10, chocolate: 8, seatedmp: 8, assistant: 5,
+      bandit: 15, gopnik: 10, bottle: 10, citizen: 8, egg: 8, dog: 12, dogwalker: 5,
+      hook: 25, debris: 25, shockwave: 12, papers: 8, note: 8,
+      animator: 15, ratboss: 12, speaker: 15, gopboss: 14, mafia: 0, mafioso: 0,
+    },
+  },
+
   // Chestnuts: the honest weapon. Free ammo from shaken trees and park ground; stuns, never corrupts.
   // 'Kapital' books (bunker) are heavier and stun longer. Bosses take damage instead of stunning.
   nuts: {

@@ -47,6 +47,7 @@ export class Journalist extends Enemy {
           this.scene.cameras.main.flash(120, 255, 255, 255);
           audio.playCameraFlash();
           this.player.stun(BALANCE.player.stunSec, now);
+          this.player.loseReputation('flash', undefined, now);     // a bad photo
           if (this.scene.narrator) this.scene.narrator.say('flash');
           this.playIf(this.anim('flash'));
         }

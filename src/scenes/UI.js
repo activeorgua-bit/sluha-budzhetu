@@ -20,17 +20,17 @@ export class UIScene extends Phaser.Scene {
       ? this.add.image(x, 32, 'ui', frame).setScale(size / 48).setDepth(DEPTH.ui) : null);
     const head = (x, key) => this.add.text(x, 5, t(key), textStyle(8, '#9aa2b1')).setDepth(DEPTH.ui);
     const val = (x) => this.add.text(x, 25, '', textStyle(12, '#ffffff')).setDepth(DEPTH.ui);
-    // SCORE · LIVES · BRIBES · CHESTNUTS · LEVEL · TIME · CORRUPTION · CONSCIENCE
-    head(12, 'hud_score'); this.score = val(12);
-    head(112, 'hud_lives'); this.livesIcon = icon(123, 'hud_portrait');
-    this.lives = val(138);
-    head(206, 'hud_bribes'); this.bagIcon = icon(217, 'hud_bag');
-    this.bribes = val(232);
-    head(300, 'hud_nuts'); this.nutIcon = icon(311, 'hud_chestnut', 20);
-    this.nuts = val(326);
-    head(394, 'hud_level'); this.level = val(394);
-    head(466, 'hud_time'); this.clockIcon = icon(477, 'hud_clock', 20);
-    this.time = val(492);
+    // SCORE · LIVES · BRIBES · CHESTNUTS · LEVEL · TIME · REPUTATION · CORRUPTION · CONSCIENCE
+    head(10, 'hud_score'); this.score = val(10);
+    head(94, 'hud_lives'); this.livesIcon = icon(104, 'hud_portrait');
+    this.lives = val(118);
+    head(176, 'hud_bribes'); this.bagIcon = icon(186, 'hud_bag');
+    this.bribes = val(200);
+    head(258, 'hud_nuts'); this.nutIcon = icon(268, 'hud_chestnut', 20);
+    this.nuts = val(282);
+    head(340, 'hud_level'); this.level = val(340);
+    head(398, 'hud_time'); this.clockIcon = icon(408, 'hud_clock', 20);
+    this.time = val(422);
     const gauge = (x, key, iconFrame, w) => {
       head(x, key);
       const ic = icon(x + 8, iconFrame, 20);
@@ -40,12 +40,14 @@ export class UIScene extends Phaser.Scene {
       const label = this.add.text(x + 22, 34, '', textStyle(7, '#7ddf7d')).setDepth(DEPTH.ui);
       return { bg, fill, label, w: w - 4 };
     };
-    const heat = gauge(566, 'hud_heat', 'hud_thermo', 138);
+    const rep = gauge(484, 'hud_rep', 'hud_heart', 110);
+    this.repFill = rep.fill; this.repLabel = rep.label; this.repW = rep.w;
+    const heat = gauge(632, 'hud_heat', 'hud_thermo', 110);
     this.heatFill = heat.fill; this.tier = heat.label; this.heatW = heat.w;
-    const cons = gauge(760, 'hud_conscience', 'hud_conscience', 138);
+    const cons = gauge(780, 'hud_conscience', 'hud_conscience', 110);
     this.consFill = cons.fill; this.consLabel = cons.label; this.consW = cons.w;
     this.consFill.setFillStyle(0xb48cff);
-    this.drunkIcon = icon(946, 'hud_drunk', 22);
+    this.drunkIcon = icon(930, 'hud_drunk', 22);
     if (this.drunkIcon) this.drunkIcon.setY(26).setVisible(false);   // right of the conscience bar it silences
 
     // the inner voice: a parchment page at the bottom of the screen (over the underground rows)
@@ -107,6 +109,11 @@ export class UIScene extends Phaser.Scene {
     }
     this.nuts.setText(`x ${String(books ? s.books : s.chestnuts).padStart(2, '0')}`).setColor(books ? '#ff8f8f' : '#ffffff');
     this.level.setText(this.levelLabel);
+    const rep = Math.max(0, Math.round(s.reputation));
+    this.repFill.width = Math.round(this.repW * rep / 100);
+    const repColor = rep >= 70 ? '#7ddf7d' : rep >= 35 ? '#f2c14e' : '#ff6b6b';
+    this.repFill.setFillStyle(Phaser.Display.Color.HexStringToColor(repColor).color);
+    this.repLabel.setText(`${t(rep >= 70 ? 'hud_rep_good' : rep >= 35 ? 'hud_rep_mid' : 'hud_rep_low')} ${rep}%`).setColor(repColor);
     const heat = s.heat;
     this.heatFill.width = Math.round(this.heatW * heat / 100);
     const cons = Math.round(s.conscience);

@@ -136,12 +136,30 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     if (this.scene.ui) this.scene.ui.flash(this.scene.tt(`hurt_${reason}`), '#ff6b6b', 800);
     this.startBlink(p.invulnSec * 1000);
     if (this.scene.onPlayerHurt) this.scene.onPlayerHurt(reason);
+    this.loseReputation(reason, undefined, now);
     const nar = this.scene.narrator;
     if (nar) {
       if (reason === 'oldlady') nar.say('hurt_oldlady');
       else if (reason === 'chestnut') nar.say('hit_chestnut');
     }
     return true;
+  }
+
+  /**
+   * Reputation damage by source (BALANCE.reputation.damage). The scripted mafia fight costs nothing
+   * (it has its own knockout). At 0 the politician is finished: a life is lost.
+   */
+  loseReputation(reason, amount, now = this.scene.time.now) {
+    const R = BALANCE.reputation;
+    if (this.dead || this.scene.mafiaFight) return;
+    const base = amount ?? (R.damage[reason] ?? R.damage.default);
+    if (!base) return;
+    const dmg = Math.round(base * (1 + (GameState.heat / 100) * R.corruptDamage));
+    GameState.reputation = Math.max(0, GameState.reputation - dmg);
+    this.repHitAt = now;
+    GameState.emit();
+    if (this.scene.ui && this.scene.ui.popValue) this.scene.ui.popValue(this.x, this.y - 110, `-${dmg}`, '#ff8f8f');
+    if (GameState.reputation <= 0 && this.scene.killPlayer) this.scene.killPlayer('reputation');
   }
 
   /** Conscience attack: frozen in remorse (not a hit, no knockback). */
