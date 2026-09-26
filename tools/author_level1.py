@@ -116,6 +116,8 @@ for col in (93, 100, 118, 132, 147, 161):
 meta = {
     "id": "l11", "world": 1, "label": "1-1",
     "material": "street", "material2": "park", "tileset": "k1", "oneway": "slab_plat", "timeLimit": 220,
+    # living sky (src/entities/world/Sky.js): soft gradient like the bridge mockup + drifting clouds
+    "sky": {"top": "#4c9ad6", "bottom": "#a8d4ec", "clouds": 9, "horizon": 0.6},
     "parallax": [
         {"key": "l11_sky", "scroll": 0.05, "y": 0},
         {"key": "l11_far", "scroll": 0.15, "bottomRow": 14, "lift": 60, "zone": [0, 90]},

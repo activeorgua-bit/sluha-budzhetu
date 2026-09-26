@@ -3,6 +3,8 @@
   "atlases/anims.json",
   "atlases/chars.json",
   "atlases/chars.png",
+  "atlases/clouds.json",
+  "atlases/clouds.png",
   "atlases/props.json",
   "atlases/props.png",
   "atlases/ui.json",

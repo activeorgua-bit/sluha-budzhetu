@@ -18,6 +18,7 @@ import { ChestnutTree, SecretHatch } from '../entities/world/Park.js';
 import { Narrator } from '../core/Narrator.js';
 import { Bandit, MafiaBoss, Gopnik, Citizen, Dog, DogWalker, GangBoss, districtHostile, debrisHostile } from '../entities/enemies/World3.js';
 import { FallingDebris } from '../entities/world/Debris.js';
+import { Sky } from '../entities/world/Sky.js';
 import { Pickup, QuestionBlock } from '../entities/items/Pickups.js';
 import { CrumblingBridge, MovingPlatform, HangingHook, waveDeckTexture, dressWaveBridge } from '../entities/world/Platforms.js';
 import { Projectiles } from '../entities/projectiles/Projectiles.js';
@@ -153,8 +154,11 @@ export class LevelScene extends Phaser.Scene {
    */
   buildParallax() {
     this.parallax = [];
+    // meta.sky: a living sky (gradient + drifting clouds) instead of a painted sky image
+    this.sky = this.meta.sky ? new Sky(this, this.meta.sky) : null;
     for (const l of this.meta.parallax || []) {
       if (!this.textures.exists(l.key)) continue;
+      if (this.sky && l.key === `${this.meta.id}_sky`) continue;
       const src = this.textures.get(l.key).getSourceImage();
       let ts;
       if (l.bottomRow !== undefined || l.bottom !== undefined) {
@@ -815,6 +819,7 @@ export class LevelScene extends Phaser.Scene {
     if (!this.player || this.finished) return;
     const cam = this.cameras.main;
     this.updateParallax();
+    if (this.sky) this.sky.update(time);
 
     if (!this.player.dead) {
       this.player.handleInput(this.keys, time, delta);

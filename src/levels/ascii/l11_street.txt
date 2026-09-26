@@ -7,6 +7,12 @@
   "tileset": "k1",
   "oneway": "slab_plat",
   "timeLimit": 220,
+  "sky": {
+    "top": "#4c9ad6",
+    "bottom": "#a8d4ec",
+    "clouds": 9,
+    "horizon": 0.6
+  },
   "parallax": [
     {
       "key": "l11_sky",

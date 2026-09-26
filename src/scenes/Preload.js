@@ -60,6 +60,7 @@ export class PreloadScene extends Phaser.Scene {
       for (const seq of Object.values(STORY)) for (const c of seq) { cards.add(c.image); if (c.alt) cards.add(c.alt); }
       for (const img of cards) if (want(`story/${img}.png`)) this.load.image(img, `story/${img}.png`);
       if (want('story/title.png')) this.load.image('title', 'story/title.png');
+      if (want('atlases/clouds.png')) this.load.atlas('clouds', 'atlases/clouds.png', 'atlases/clouds.json');
     });
 
     this.load.on('complete', () => { this.missing = missing; bar.destroy(); fill.destroy(); });
