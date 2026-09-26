@@ -84,14 +84,14 @@ export const BALANCE = {
   // refills on respawn. It slowly recovers after a quiet spell. Karma: a corrupt reputation is more
   // fragile (damage x (1 + heat/100 * corruptDamage)) and recovers slower.
   reputation: {
-    max: 100, regenPerSec: 4, regenDelaySec: 4, corruptDamage: 0.6, corruptRegen: 0.5,
+    max: 100, regenPerSec: 5, regenDelaySec: 3, corruptDamage: 0.8, corruptRegen: 0.6,
     damage: {
-      default: 12, hit: 12, flash: 8,
-      cop: 8, journalist: 8, detective: 15, warrant: 16, voter: 10, jar: 10,
-      oldlady: 10, kid: 6, chestnut: 6, rat: 8, oppmp: 10, chocolate: 8, seatedmp: 8, assistant: 5,
-      bandit: 15, gopnik: 10, bottle: 10, citizen: 8, egg: 8, dog: 12, dogwalker: 5,
-      hook: 25, debris: 25, shockwave: 12, papers: 8, note: 8,
-      animator: 15, ratboss: 12, speaker: 15, gopboss: 14, mafia: 0, mafioso: 0,
+      default: 7, hit: 7, flash: 5,
+      cop: 5, journalist: 5, detective: 9, warrant: 12, voter: 6, jar: 6,
+      oldlady: 6, kid: 4, chestnut: 4, rat: 3, oppmp: 6, chocolate: 5, seatedmp: 5, assistant: 3,
+      bandit: 9, gopnik: 5, bottle: 4, citizen: 5, egg: 5, dog: 7, dogwalker: 3,
+      hook: 20, debris: 20, shockwave: 5, papers: 4, note: 4,
+      animator: 8, ratboss: 6, speaker: 8, gopboss: 8, mafia: 0, mafioso: 0,
     },
   },
 

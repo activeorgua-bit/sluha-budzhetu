@@ -185,9 +185,9 @@ def bunker():
     c.put(13, 64, "o"); c.put(13, 65, "b")
     c.put(13, 60, "u")                       # vodka, vintage 1953
     c.put(10, 84, "u")                       # vodka on the bunk bed
-    # flooded passage under a catwalk
-    c.fill(GROUND, ROWS - 1, 70, 75, ".")
-    c.fill(GROUND + 1, ROWS - 1, 70, 75, "~")
+    # flooded passage under a catwalk: 5 tiles, so the coin-free jump is not at the very limit
+    c.fill(GROUND, ROWS - 1, 70, 74, ".")
+    c.fill(GROUND + 1, ROWS - 1, 70, 74, "~")
     c.fill(11, 11, 68, 77, "-")
     c.put(10, 70, "c.c.c")
     c.put(13, 80, "r")
