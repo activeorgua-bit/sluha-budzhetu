@@ -4,7 +4,7 @@ export const W2 = {
   uk: {
     drink_whiskey_pop: 'ВІСКІ!', drink_vodka_pop: 'ГОРІЛКА!', shop_price: 'Ціна:', hint_shop: 'E — купити віскі',
     help_title_conscience: 'СОВІСТЬ І АЛКОГОЛЬ',
-    help_conscience: 'Совість (фіолетова смуга під корумпованістю): росте від хабарів, мішків і поганих вчинків. На 100 — каяття паралізує на кілька секунд.',
+    help_conscience: 'Сумління (шкала праворуч від корумпованості): росте від хабарів, мішків і поганих вчинків. На 100 — каяття паралізує на кілька секунд.',
     help_whiskey: 'Віскі: купити в кіоску (E, 3 хабарі) або знайти. Совість замовкає, але ти п’яний: повільніший, кидаєш криво.',
     help_vodka: 'Горілка (сховище): глушить совість майже повністю. Ноги заплітаються, світ хитається.',
     help_voice: 'Внутрішній голос коментує все, що ти робиш. Чим більше краде депутат, тим цинічніше він звучить.',
@@ -57,7 +57,7 @@ export const W2 = {
   en: {
     drink_whiskey_pop: 'WHISKY!', drink_vodka_pop: 'VODKA!', shop_price: 'Price:', hint_shop: 'E — buy whisky',
     help_title_conscience: 'CONSCIENCE & ALCOHOL',
-    help_conscience: 'Conscience (purple bar under corruption): rises with bribes, bags and bad deeds. At 100 remorse paralyses you for a few seconds.',
+    help_conscience: 'Conscience (the gauge right of corruption): rises with bribes, bags and bad deeds. At 100 remorse paralyses you for a few seconds.',
     help_whiskey: 'Whisky: buy at a kiosk (E, 3 bribes) or find it. Conscience goes quiet, but you are drunk: slower, throws go astray.',
     help_vodka: 'Vodka (bunker): silences conscience almost completely. Legs tangle, the world sways.',
     help_voice: 'The inner voice comments on everything you do. The more the MP steals, the more cynical he sounds.',

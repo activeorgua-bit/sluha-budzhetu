@@ -17,7 +17,7 @@ export const STRINGS = {
     dev_mode: 'DEV: 1-9 рівень  H+/H- корумпованість  F фінал',
 
     hud_score: 'РАХУНОК', hud_lives: 'ЖИТТЯ', hud_bribes: 'ХАБАРІ', hud_level: 'РІВЕНЬ', hud_time: 'ЧАС',
-    hud_clean: 'ЧИСТИЙ', hud_heat: 'КОРУМПОВАНІСТЬ',
+    hud_clean: 'ЧИСТИЙ', hud_heat: 'КОРУМПОВАНІСТЬ', hud_conscience: 'СУМЛІННЯ', hud_cons_calm: 'СПОКІЙНЕ', hud_cons_uneasy: 'НЕСПОКІЙНЕ', hud_cons_bite: 'ГРИЗЕ!',
     tier_clean: 'ЧИСТИЙ', tier_suspicious: 'ПІДОЗРІЛИЙ', tier_investigated: 'ПІД СЛІДСТВОМ',
     tier_wanted: 'У РОЗШУКУ', tier_raid: 'ОБШУК НАБУ',
 
@@ -79,7 +79,7 @@ export const STRINGS = {
     dev_mode: 'DEV: 1-9 level  H+/H- corruption  F finale',
 
     hud_score: 'SCORE', hud_lives: 'LIVES', hud_bribes: 'BRIBES', hud_level: 'LEVEL', hud_time: 'TIME',
-    hud_clean: 'CLEAN', hud_heat: 'CORRUPTION',
+    hud_clean: 'CLEAN', hud_heat: 'CORRUPTION', hud_conscience: 'CONSCIENCE', hud_cons_calm: 'CALM', hud_cons_uneasy: 'UNEASY', hud_cons_bite: 'GNAWING!',
     tier_clean: 'CLEAN', tier_suspicious: 'SUSPICIOUS', tier_investigated: 'INVESTIGATED',
     tier_wanted: 'WANTED', tier_raid: 'NABU RAID',
 
