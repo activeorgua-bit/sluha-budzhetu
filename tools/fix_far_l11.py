@@ -43,6 +43,9 @@ PATCH_B = [
     (280, 50, 806, 270),     # flag
     (336, 80, 864, 280),     # statue
 ]
+TOWER = (0, 112)    # bell tower + chapels (columns of A)
+TOWER_ROLL = 200    # the tower's own offset (its original place)
+TOWER_ROWS = 266    # copy rows above the treeline only (as the PATCH_B block does)
 ROLL = 330          # landmark set further right: the bell tower and cathedral clear the grey building
 
 
@@ -62,7 +65,13 @@ def main():
     assert src.shape[1] == 1100, f"expected the 1100 px pixelize output, got {src.shape}"
     a = patch(src, PATCH_A)
     b = patch(a, PATCH_B)
-    layer = np.roll(np.concatenate([a, b], axis=1), ROLL, axis=1)
+    # the bell tower stays where it was (behind the grey building's tall attic, so its hidden base reads
+    # as "further back"); only the cathedral, flag and monument move right with ROLL
+    a2 = a.copy()
+    a2[:, TOWER[0]:TOWER[1]] = b[:, TOWER[0]:TOWER[1]]
+    layer = np.roll(np.concatenate([a2, b], axis=1), ROLL, axis=1)
+    x0 = TOWER[0] + TOWER_ROLL
+    layer[:TOWER_ROWS, x0:x0 + TOWER[1] - TOWER[0]] = a[:TOWER_ROWS, TOWER[0]:TOWER[1]]
     layer[layer[..., 3] < 255] = 0      # no half-transparent seam ghosts (binary alpha)
     Image.fromarray(layer, "RGBA").save(OUT)
     print(f"far.png -> {layer.shape[1]}x{layer.shape[0]} (one landmark set at x {28 + ROLL}-{410 + ROLL})")

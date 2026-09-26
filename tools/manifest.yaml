@@ -840,7 +840,7 @@ assets:
     aspect_ratio: film_horizontal_21_9
     references: [mockup_level_1-2_skyline.png, photos/street_cream_facade.png, photos/street_stalinist.png, photos/street_aerial.png]
     prompt: ornate central Kyiv facades
-    post: {kind: bg, level: l11, layer: street, width: 820, seamless: true}
+    post: {kind: bg, level: l11, layer: street, width: 820, seamless: false, fixup: fix_street_l11}   # loops at a building edge
   - id: l1_bg_park
     batch: V2
     aspect_ratio: film_horizontal_21_9
