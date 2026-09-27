@@ -38,10 +38,13 @@ def metro():
     c.fill(UPPER + 1, UPPER + 1, 30, 32, "-")
     c.fill(UPPER + 2, UPPER + 2, 33, 35, "-")
     # platform hall
-    for col in range(36, 102, 6):
-        c.dec(col, "C", GROUND - 1)              # Zoloti Vorota pillars, screen-high; their arches meet (6 cols apart)
-    for col in range(40, 100, 6):
-        c.dec(col, "H", 6)                       # ring chandeliers under the arches, between the pillars
+    # the Zoloti Vorota arcade: pillar-centred bays (6 cols) whose round arches meet; 8 different mosaics
+    bays = "DFGIJLPR"                            # zv_bay_1 .. zv_bay_8
+    order = [4, 0, 6, 2, 5, 1, 7, 3, 0, 5, 2, 6]  # mixed, never the same panel twice in a row
+    for k, col in enumerate(range(36, 108, 6)):
+        c.dec(col, bays[order[k % len(order)]], GROUND - 1)
+    for col in range(47, 104, 12):
+        c.dec(col, "H", 10)                      # a ring chandelier in every other arch
     c.put(GROUND - 1, 43, "p")
     c.dec(46, "B", GROUND - 1)                   # bench (cols 46-48), standable
     c.put(GROUND - 1, 50, "p")
@@ -77,6 +80,7 @@ def metro():
         "decor": {
             "Q": {"frame": "pipe_tall", "w": 2}, "S": "metro_sign", "T": {"frame": "ticket_booth", "w": 2},
             "V": {"frame": "metro_map", "w": 2}, "E": {"frame": "escalator", "w": 7}, "C": {"frame": "kyiv_pillar", "w": 6},
+            **{ch: {"frame": f"zv_bay_{i + 1}", "w": 6} for i, ch in enumerate("DFGIJLPR")},
             "H": {"frame": "kyiv_chandelier", "w": 2}, "K": {"frame": "flower_kiosk", "w": 3},
             "A": {"frame": "accordion_case", "w": 2}, "O": {"frame": "police_booth", "w": 2},
             "M": {"frame": "vending", "w": 2}, "N": "news_stand",

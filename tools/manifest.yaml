@@ -1732,7 +1732,7 @@ assets:
     aspect_ratio: film_horizontal_21_9
     references: [mockup_level_1-3_bridge.png]
     prompt: "the grand hall of a Soviet-era Kyiv metro station"
-    post: {kind: bg, level: m11, layer: far, width: 1600, seamless: false, strip_sky: false, crop_bottom: false, quantize: 64}
+    post: {kind: bg, level: m11, layer: far, width: 1600, seamless: true, strip_sky: false, crop_bottom: false, quantize: 64}
   - id: m1_train
     batch: V2
     aspect_ratio: film_horizontal_21_9
@@ -1787,3 +1787,17 @@ assets:
     post: {kind: sheet, atlas: chars,
            groups: {florist: {frame: 96, frame_h: 78, baseline: 90}},
            names: [florist_idle, florist_arrange, florist_count, florist_wave, florist_shock, florist_cry, florist_angry, florist_coin]}
+  # Zoloti Vorota arcade (take 3): flat front elevations, 4 pillar-centred bays per strip, cut by
+  # tools/make_metro_arcade.py into zv_bay_1..8 (different mosaics); the central hall behind them
+  - id: m1_arcade_a
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [m1_arcade_b v001, photos/board_zoloti_mosaics2.png]
+    prompt: "the arcade strip B redrawn with prince / Olga / griffins / horseman panels"
+    post: {kind: raw_only}
+  - id: m1_arcade_b
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png, photos/board_zoloti_arcade.png, photos/board_zoloti_mosaics2.png]
+    prompt: "flat front elevation of four Zoloti Vorota arcade bays: Volodymyr / dove / Yaroslav / Archangel"
+    post: {kind: raw_only}
