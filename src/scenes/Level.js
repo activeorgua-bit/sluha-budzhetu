@@ -101,6 +101,7 @@ export class LevelScene extends Phaser.Scene {
     this.mafiaHits = 0;
     this.mafiaFight = false;
     this.metroOutrage = false;
+    this.paxSeen = {};
     this.cutsceneStarted = false;
     this.nextConscienceAt = 0;
     GameState.drunk = null;   // a new level starts sober (the hangover is implied)
@@ -896,7 +897,10 @@ export class LevelScene extends Phaser.Scene {
   setupCamera() {
     const cam = this.cameras.main;
     // the last map row stays below the screen edge (pits read as bottomless)
-    cam.setBounds(0, 0, this.widthPx, Math.max(GAME_H, this.heightPx - TILE * 2));
+    // meta.viewBottomRow: the lowest map row the camera may show (the metro shows only one row below
+    // the platform, so the arcade and its mosaics sit lower on screen, clear of the HUD)
+    const viewBottom = this.meta.viewBottomRow ? this.meta.viewBottomRow * TILE : this.heightPx - TILE * 2;
+    cam.setBounds(0, 0, this.widthPx, Math.max(GAME_H, viewBottom));
     cam.startFollow(this.player, true, 0.12, 0.12, 0, 40);
     cam.setDeadzone(180, 90);
     cam.setRoundPixels(true);

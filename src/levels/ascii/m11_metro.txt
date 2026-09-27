@@ -9,6 +9,7 @@
   "timeLimit": 120,
   "bgColor": "#1b1712",
   "subwayExit": true,
+  "viewBottomRow": 15,
   "train": {
     "frame": "metro_train",
     "everySec": 10,
@@ -16,7 +17,7 @@
     "far": {
       "layer": "m11_far",
       "bottomY": 606,
-      "scale": 0.5
+      "scale": 1
     }
   },
   "narration": [

@@ -28,7 +28,8 @@ STRIPS = [("m1_arcade_a", 1), ("m1_arcade_b", 5)]
 BAY_W = 288            # 6 tiles
 FULL_H = 672           # floor (row 14) to the top of the level
 CHANDELIER_ROW_BOTTOM = 11 * 48   # the chandelier's bottom in world px (decor row 10)
-PANEL_SCALE = 0.7     # mosaics smaller than the generated panels (faces below the HUD)
+PANEL_SCALE = 1.0     # full-size mosaics, in one piece with their ornament frame
+SHAFT_SCALE = 0.8     # pillar shafts a little narrower than generated (the capitals keep their width)
 
 
 def light(p):
@@ -93,6 +94,7 @@ def main():
     left = a[:, c - half:c]
     canon = np.concatenate([left, left[:, ::-1]], axis=1)          # (h, 2*half)
     cpx = half                                                      # pillar centre in the canonical bay
+    canon = narrow_shaft(canon, cpx)
     crect = panel_rect(a, c)
     cx0, cy0, cx1, cy1 = crect[0] - (c - half), crect[1], crect[2] - (c - half), crect[3]
     print(f"spacing {spacing}, canonical panel {cx0},{cy0}-{cx1},{cy1}")
@@ -123,6 +125,39 @@ def main():
             made.append(name)
     print("arcade bays:", made)
     make_chandelier(np.array(Image.open(OUT / f"{made[0]}.png")))
+
+
+def narrow_shaft(bay, c):
+    """Squeeze the pillar shaft (below the capital) to SHAFT_SCALE of its width, around its centre."""
+    al = bay[..., 3] > 0
+    y = bay.shape[0] - 60
+    l = c
+    while l > 0 and al[y, l]:
+        l -= 1
+    r = c
+    while r < bay.shape[1] - 1 and al[y, r]:
+        r += 1
+    w = r - l
+    # the capital: going up from the floor, the first row where the opaque run is clearly wider than the shaft
+    cap = y
+    for yy in range(y, 0, -1):
+        ll = c
+        while ll > 0 and al[yy, ll]:
+            ll -= 1
+        rr = c
+        while rr < bay.shape[1] - 1 and al[yy, rr]:
+            rr += 1
+        if rr - ll > w * 1.15:
+            cap = yy + 1
+            break
+    shaft = Image.fromarray(bay[cap:, l:r], "RGBA")
+    nw = int(w * SHAFT_SCALE)
+    shaft = shaft.resize((nw, shaft.height), Image.NEAREST)
+    out = bay.copy()
+    out[cap:, l:r] = 0
+    x0 = c - nw // 2
+    out[cap:, x0:x0 + nw] = np.array(shaft)
+    return out
 
 
 def wall_colour(canon):

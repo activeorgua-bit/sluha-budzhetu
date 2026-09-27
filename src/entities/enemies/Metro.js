@@ -22,9 +22,16 @@ const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 export class Passenger extends Enemy {
   constructor(scene, x, y, opts = {}) {
     // the skin follows the map column, so the same station always has the same crowd
-    const skin = opts.skin || SKINS[Math.abs(Math.floor(x / 48) * 7 + 3) % SKINS.length];
+    // the type and the coat colour follow the map column: the same station always has the same crowd
+    const col = Math.floor(x / 48);
+    const base = opts.skin || SKINS[Math.abs(col * 7 + 3) % SKINS.length];
+    // every repeat of a type takes the next coat colour, so no two look 100 % the same
+    scene.paxSeen = scene.paxSeen || {};
+    const n = (scene.paxSeen[base] = (scene.paxSeen[base] || 0) + 1) - 1;
+    const variant = ['', '2', '3'][n % 3];
+    const skin = scene.textures.get('chars').has(`${base}${variant}_idle`) ? `${base}${variant}` : base;
     const c = BALANCE.enemies.passenger;
-    super(scene, x, y, 'passenger', `${skin}_idle`, { ...opts, skin, speed: OLD.has(skin) ? c.speedOld : c.speed });
+    super(scene, x, y, 'passenger', `${skin}_idle`, { ...opts, skin, speed: OLD.has(base) ? c.speedOld : c.speed });
     this.nextShoveAt = 0;
     this.met = false;          // the honest encounter (ignore / autograph / money) happens once
     this.pauseUntil = 0;

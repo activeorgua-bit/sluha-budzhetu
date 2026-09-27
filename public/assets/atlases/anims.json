@@ -1945,5 +1945,341 @@
   ],
   "fps": 1,
   "repeat": -1
+ },
+ "ymale2_idle": {
+  "atlas": "chars",
+  "frames": [
+   "ymale2_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "ymale2_walk": {
+  "atlas": "chars",
+  "frames": [
+   "ymale2_walk1",
+   "ymale2_idle",
+   "ymale2_walk2",
+   "ymale2_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "ymale2_angry": {
+  "atlas": "chars",
+  "frames": [
+   "ymale2_angry",
+   "ymale2_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "ymale3_idle": {
+  "atlas": "chars",
+  "frames": [
+   "ymale3_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "ymale3_walk": {
+  "atlas": "chars",
+  "frames": [
+   "ymale3_walk1",
+   "ymale3_idle",
+   "ymale3_walk2",
+   "ymale3_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "ymale3_angry": {
+  "atlas": "chars",
+  "frames": [
+   "ymale3_angry",
+   "ymale3_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "yfemale2_idle": {
+  "atlas": "chars",
+  "frames": [
+   "yfemale2_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "yfemale2_walk": {
+  "atlas": "chars",
+  "frames": [
+   "yfemale2_walk1",
+   "yfemale2_idle",
+   "yfemale2_walk2",
+   "yfemale2_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "yfemale2_angry": {
+  "atlas": "chars",
+  "frames": [
+   "yfemale2_angry",
+   "yfemale2_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "yfemale3_idle": {
+  "atlas": "chars",
+  "frames": [
+   "yfemale3_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "yfemale3_walk": {
+  "atlas": "chars",
+  "frames": [
+   "yfemale3_walk1",
+   "yfemale3_idle",
+   "yfemale3_walk2",
+   "yfemale3_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "yfemale3_angry": {
+  "atlas": "chars",
+  "frames": [
+   "yfemale3_angry",
+   "yfemale3_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "mmale2_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mmale2_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mmale2_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mmale2_walk1",
+   "mmale2_idle",
+   "mmale2_walk2",
+   "mmale2_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "mmale2_angry": {
+  "atlas": "chars",
+  "frames": [
+   "mmale2_angry",
+   "mmale2_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "mmale3_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mmale3_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mmale3_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mmale3_walk1",
+   "mmale3_idle",
+   "mmale3_walk2",
+   "mmale3_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "mmale3_angry": {
+  "atlas": "chars",
+  "frames": [
+   "mmale3_angry",
+   "mmale3_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "mfemale2_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mfemale2_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mfemale2_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mfemale2_walk1",
+   "mfemale2_idle",
+   "mfemale2_walk2",
+   "mfemale2_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "mfemale2_angry": {
+  "atlas": "chars",
+  "frames": [
+   "mfemale2_angry",
+   "mfemale2_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "mfemale3_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mfemale3_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mfemale3_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mfemale3_walk1",
+   "mfemale3_idle",
+   "mfemale3_walk2",
+   "mfemale3_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "mfemale3_angry": {
+  "atlas": "chars",
+  "frames": [
+   "mfemale3_angry",
+   "mfemale3_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "omale2_idle": {
+  "atlas": "chars",
+  "frames": [
+   "omale2_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "omale2_walk": {
+  "atlas": "chars",
+  "frames": [
+   "omale2_walk1",
+   "omale2_idle",
+   "omale2_walk2",
+   "omale2_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "omale2_angry": {
+  "atlas": "chars",
+  "frames": [
+   "omale2_angry",
+   "omale2_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "omale3_idle": {
+  "atlas": "chars",
+  "frames": [
+   "omale3_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "omale3_walk": {
+  "atlas": "chars",
+  "frames": [
+   "omale3_walk1",
+   "omale3_idle",
+   "omale3_walk2",
+   "omale3_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "omale3_angry": {
+  "atlas": "chars",
+  "frames": [
+   "omale3_angry",
+   "omale3_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "ofemale2_idle": {
+  "atlas": "chars",
+  "frames": [
+   "ofemale2_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "ofemale2_walk": {
+  "atlas": "chars",
+  "frames": [
+   "ofemale2_walk1",
+   "ofemale2_idle",
+   "ofemale2_walk2",
+   "ofemale2_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "ofemale2_angry": {
+  "atlas": "chars",
+  "frames": [
+   "ofemale2_angry",
+   "ofemale2_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "ofemale3_idle": {
+  "atlas": "chars",
+  "frames": [
+   "ofemale3_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "ofemale3_walk": {
+  "atlas": "chars",
+  "frames": [
+   "ofemale3_walk1",
+   "ofemale3_idle",
+   "ofemale3_walk2",
+   "ofemale3_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "ofemale3_angry": {
+  "atlas": "chars",
+  "frames": [
+   "ofemale3_angry",
+   "ofemale3_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
  }
 }
