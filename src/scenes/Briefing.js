@@ -11,7 +11,10 @@ import { IS_TOUCH } from '../core/touch.js';
 export class BriefingScene extends Phaser.Scene {
   constructor() { super('Briefing'); }
 
-  init(data) { this.next = data.next || { scene: 'Level', data: { levelIndex: 0 } }; }
+  init(data) {
+    this.next = data.next || { scene: 'Level', data: { levelIndex: 0 } };
+    this.leaving = false;     // Phaser reuses the scene object: a flag left from the last game froze this screen
+  }
 
   create() {
     this.cameras.main.setBackgroundColor('#05060a');
