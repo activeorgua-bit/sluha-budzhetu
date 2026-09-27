@@ -71,9 +71,11 @@ def metro():
         "material": "metro", "material2": "platf", "tileset": "m1", "oneway": "grate_plat", "timeLimit": 120,
         "bgColor": "#1b1712",
         "subwayExit": True,
-        "train": {"frame": "metro_train", "everySec": 11, "speed": 520},
+        "train": {"frame": "metro_train", "everySec": 10, "speed": 300,
+                  "far": {"layer": "m11_far", "bottomY": 606, "scale": 0.5}},   # along the far wall
         "narration": [{"col": 11, "key": "m11_turnstile"}, {"col": 84, "key": "m11_cop"}, {"col": 32, "key": "m11_hall"}],
-        "parallax": [{"key": "m11_far", "scroll": 0.3, "bottomRow": 14, "lift": 0}],
+        "parallax": [{"key": "m11_far", "scroll": 0.3, "bottomRow": 14, "lift": 0},
+                     {"key": "m11_farcols", "scroll": 0.3, "bottomRow": 14, "lift": 0, "depth": -19}],   # far pillars over the train
         "decor": {
             "Q": {"frame": "pipe_tall", "w": 2}, "S": "metro_sign", "T": {"frame": "ticket_booth", "w": 2},
             "V": {"frame": "metro_map", "w": 2}, "E": {"frame": "escalator", "w": 7}, "C": {"frame": "kyiv_pillar", "w": 6},

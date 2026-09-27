@@ -28,6 +28,7 @@ STRIPS = [("m1_arcade_a", 1), ("m1_arcade_b", 5)]
 BAY_W = 288            # 6 tiles
 FULL_H = 672           # floor (row 14) to the top of the level
 CHANDELIER_ROW_BOTTOM = 11 * 48   # the chandelier's bottom in world px (decor row 10)
+PANEL_SCALE = 0.7     # mosaics smaller than the generated panels (faces below the HUD)
 
 
 def light(p):
@@ -100,22 +101,35 @@ def main():
     for asset, (arr, first) in strips.items():
         for k, pc in enumerate(pillar_centres(arr[..., 3] > 0)):
             x0, y0, x1, y1 = panel_rect(arr, pc)
-            panel = Image.fromarray(arr[y0:y1, x0:x1], "RGBA").resize((cx1 - cx0, cy1 - cy0), Image.NEAREST)
+            # the mosaic at PANEL_SCALE of the full panel, standing on the capital, centred: the faces
+            # come down out of the HUD's way; the freed space is plain vault wall
+            pw, ph = round((cx1 - cx0) * PANEL_SCALE), round((cy1 - cy0) * PANEL_SCALE)
+            panel = Image.fromarray(arr[y0:y1, x0:x1], "RGBA").resize((pw, ph), Image.NEAREST)
             bay = canon.copy()
-            bay[cy0:cy1, cx0:cx1] = np.array(panel)
+            bay[cy0:cy1, cx0:cx1] = wall_colour(canon)
+            px0 = cx0 + ((cx1 - cx0) - pw) // 2
+            py0 = cy1 - ph
+            bay[py0:cy1, px0:px0 + pw] = np.array(panel)
             img = Image.fromarray(bay, "RGBA")
             h = round(img.height * BAY_W / img.width)
             img = px.binarize_alpha(px.quantize(img.resize((BAY_W, h), Image.BOX), palette))
             b = np.array(img)
             s = BAY_W / canon.shape[1]
-            ptop = int(cy0 * s)
-            pl, pr = int(cx0 * s), int(cx1 * s)
+            ptop = int(py0 * s)
+            pl, pr = int(px0 * s), int((px0 + pw) * s)
             b = add_vault(b, ptop, pl, pr)
             name = f"zv_bay_{first + k}"
             Image.fromarray(b, "RGBA").save(OUT / f"{name}.png")
             made.append(name)
     print("arcade bays:", made)
     make_chandelier(np.array(Image.open(OUT / f"{made[0]}.png")))
+
+
+def wall_colour(canon):
+    """The plain vault wall colour (median of the bay's top rows)."""
+    top = canon[4:10].reshape(-1, 4)
+    top = top[top[:, 3] > 0]
+    return np.median(top, axis=0).astype(np.uint8) if len(top) else np.array([240, 236, 226, 255], np.uint8)
 
 
 def add_vault(b, ptop, pl, pr):

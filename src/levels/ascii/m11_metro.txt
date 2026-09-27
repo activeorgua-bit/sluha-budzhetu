@@ -11,8 +11,13 @@
   "subwayExit": true,
   "train": {
     "frame": "metro_train",
-    "everySec": 11,
-    "speed": 520
+    "everySec": 10,
+    "speed": 300,
+    "far": {
+      "layer": "m11_far",
+      "bottomY": 606,
+      "scale": 0.5
+    }
   },
   "narration": [
     {
@@ -34,6 +39,13 @@
       "scroll": 0.3,
       "bottomRow": 14,
       "lift": 0
+    },
+    {
+      "key": "m11_farcols",
+      "scroll": 0.3,
+      "bottomRow": 14,
+      "lift": 0,
+      "depth": -19
     }
   ],
   "decor": {

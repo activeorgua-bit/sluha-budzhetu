@@ -21,7 +21,6 @@ import { FallingDebris } from '../entities/world/Debris.js';
 import { Passenger, MetroWorker, MetroCop, Vendor } from '../entities/enemies/Metro.js';
 import { Sky } from '../entities/world/Sky.js';
 
-const GROUND_Y_TRAIN = 14 * 48 + 22;   // wheels hidden behind the platform edge
 import { Pickup, QuestionBlock, Stash } from '../entities/items/Pickups.js';
 import { CrumblingBridge, MovingPlatform, HangingHook, waveDeckTexture, dressWaveBridge } from '../entities/world/Platforms.js';
 import { Projectiles } from '../entities/projectiles/Projectiles.js';
@@ -207,8 +206,9 @@ export class LevelScene extends Phaser.Scene {
       } else {
         ts = this.add.tileSprite(0, l.y || 0, GAME_W, src.height, l.key).setOrigin(0).setScrollFactor(0);
       }
-      ts.setDepth(l.scroll < 0.1 ? DEPTH.parallaxSky : l.scroll < 0.4 ? DEPTH.parallaxFar : DEPTH.parallaxMid);
+      ts.setDepth(l.depth ?? (l.scroll < 0.1 ? DEPTH.parallaxSky : l.scroll < 0.4 ? DEPTH.parallaxFar : DEPTH.parallaxMid));
       ts.scrollRate = l.scroll;
+      ts.layerKey = l.key;               // a TileSprite gets its own internal texture key
       ts.zone = l.zone || null;
       ts.lockLast = l.lockLast || 0;
       this.parallax.push(ts);
@@ -932,6 +932,7 @@ export class LevelScene extends Phaser.Scene {
     const cam = this.cameras.main;
     this.updateParallax();
     if (this.sky) this.sky.update(time);
+    this.updateTrains(delta);
     this.regenReputation(time, delta);
 
     if (!this.player.dead) {
@@ -1028,19 +1029,41 @@ export class LevelScene extends Phaser.Scene {
     }
   }
 
-  /** meta.train: a metro train rushes through behind the platform every few seconds (decor). */
+  /**
+   * meta.train: a metro train runs along the FAR side of the hall every few seconds: it lives in the
+   * far layer's space (same scroll rate, small), in front of the far wall and behind the far pillars
+   * and the far platform (the `farcols` overlay layer, drawn above it).
+   *   { frame, everySec, speed (px/s in far space), far: { layer, bottomY (px in the layer), scale } }
+   */
   setupTrain(cfg) {
     if (!this.textures.get('props').has(cfg.frame)) return;
+    const far = this.parallax.find((ts) => ts.layerKey === cfg.far.layer);
+    if (!far) return;
+    this.farTrains = [];
+    this.farTrainCfg = { ...cfg, layer: far };
     const run = () => {
-      const cam = this.cameras.main;
-      const tr = this.add.image(cam.scrollX + GAME_W + 60, GROUND_Y_TRAIN, 'props', cfg.frame).setOrigin(0, 1)
-        .setDepth(DEPTH.parallaxMid + 2);
-      const dist = tr.width + GAME_W + 200;
-      this.tweens.add({ targets: tr, x: tr.x - dist, duration: dist / cfg.speed * 1000, onComplete: () => tr.destroy() });
-      if (this.cameras.main.worldView.contains(this.player.x, this.player.y)) this.cameras.main.shake(dist / cfg.speed * 700, 0.0015);
+      const tr = this.add.image(0, far.y + cfg.far.bottomY, 'props', cfg.frame).setOrigin(0, 1)
+        .setScrollFactor(0, 1).setScale(cfg.far.scale).setDepth(DEPTH.parallaxFar + 0.5);
+      tr.farX = this.cameras.main.scrollX * far.scrollRate + GAME_W + 40;   // enters from the right
+      this.farTrains.push(tr);
     };
     this.time.addEvent({ delay: cfg.everySec * 1000, loop: true, callback: run });
-    this.time.delayedCall(2500, run);
+    this.time.delayedCall(1500, run);
+  }
+
+  updateTrains(delta) {
+    if (!this.farTrains || !this.farTrains.length) return;
+    const cfg = this.farTrainCfg;
+    const camX = this.cameras.main.scrollX * cfg.layer.scrollRate;
+    for (const tr of this.farTrains) {
+      tr.farX -= cfg.speed * delta / 1000;
+      tr.x = Math.round(tr.farX - camX);
+    }
+    this.farTrains = this.farTrains.filter((tr) => {
+      if (tr.x + tr.displayWidth > -20) return true;
+      tr.destroy();
+      return false;
+    });
   }
 
   /** The open pipe the politician is standing on, if any. */
