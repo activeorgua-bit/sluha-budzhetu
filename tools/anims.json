@@ -2058,62 +2058,6 @@
   "fps": 4,
   "repeat": -1
  },
- "mfemale2_idle": {
-  "atlas": "chars",
-  "frames": [
-   "mfemale2_idle"
-  ],
-  "fps": 1,
-  "repeat": -1
- },
- "mfemale2_walk": {
-  "atlas": "chars",
-  "frames": [
-   "mfemale2_walk1",
-   "mfemale2_idle",
-   "mfemale2_walk2",
-   "mfemale2_idle"
-  ],
-  "fps": 6,
-  "repeat": -1
- },
- "mfemale2_angry": {
-  "atlas": "chars",
-  "frames": [
-   "mfemale2_angry",
-   "mfemale2_idle"
-  ],
-  "fps": 4,
-  "repeat": -1
- },
- "mfemale3_idle": {
-  "atlas": "chars",
-  "frames": [
-   "mfemale3_idle"
-  ],
-  "fps": 1,
-  "repeat": -1
- },
- "mfemale3_walk": {
-  "atlas": "chars",
-  "frames": [
-   "mfemale3_walk1",
-   "mfemale3_idle",
-   "mfemale3_walk2",
-   "mfemale3_idle"
-  ],
-  "fps": 6,
-  "repeat": -1
- },
- "mfemale3_angry": {
-  "atlas": "chars",
-  "frames": [
-   "mfemale3_angry",
-   "mfemale3_idle"
-  ],
-  "fps": 4,
-  "repeat": -1
- },
  "ofemale2_idle": {
   "atlas": "chars",
   "frames": [
