@@ -10,7 +10,8 @@ import { GameState } from '../../core/GameState.js';
  */
 
 /** Everyone in the metro knows about a corrupt MP: hostile from this heat on. */
-export function metroHostile() {
+export function metroHostile(scene) {
+  if (scene && scene.metroOutrage) return true;          // robbed the busker or the flower seller
   return !GameState.cleanRun && GameState.heat >= BALANCE.enemies.passenger.hostileHeat;
 }
 
@@ -29,7 +30,7 @@ export class Passenger extends Enemy {
     this.pauseUntil = 0;
   }
 
-  get hostile() { return !this.bribed && metroHostile(); }
+  get hostile() { return !this.bribed && metroHostile(this.scene); }
   get harmless() { return super.harmless || !this.hostile; }
 
   think(now) {
@@ -83,18 +84,34 @@ export class MetroWorker extends Enemy {
     this.nextLineAt = 0;
   }
 
-  get harmless() { return true; }
+  get harmless() { return super.harmless || !this.scene.metroOutrage; }
   onPlayerContact() {}
 
   think(now) {
     const dx = this.player.x - this.x;
+    if (this.scene.metroOutrage) {
+      // after a theft the staff chase the thief too
+      if (Math.abs(dx) < 420 && Math.abs(this.player.y - this.y) < 110) {
+        this.dir = Math.sign(dx) || this.dir;
+        if (!this.shouted) { this.shouted = true; this.say('bubble_staff_thief', 1500, '#ff6b6b'); }
+        if (Math.abs(dx) < 70) {
+          this.body.setVelocityX(0);
+          this.playIf(this.anim(this.skin === 'mworker' ? 'signal' : 'talk'));
+          if (now >= (this.nextShoveAt || 0)) { this.nextShoveAt = now + 1500; this.player.hurt(this.x, 'passenger', now); }
+        } else if (!(this.onGround && this.ledgeAhead())) {
+          this.body.setVelocityX(this.dir * 110);
+          this.playIf(this.anim('walk'));
+        }
+        return;
+      }
+    }
     if (Math.abs(dx) < 200 && Math.abs(this.player.y - this.y) < 120) {
       this.body.setVelocityX(0);
       this.dir = Math.sign(dx) || this.dir;
       this.playIf(this.anim(this.skin === 'mworker' ? 'signal' : 'talk'));
       if (now >= this.nextLineAt) {
         this.nextLineAt = now + 6000;
-        const hostile = metroHostile();
+        const hostile = metroHostile(this.scene);
         const key = this.skin === 'mworker'
           ? (hostile ? 'bubble_mworker_corrupt' : 'bubble_mworker_edge')
           : (hostile ? 'bubble_wworker_corrupt' : 'bubble_wworker_rail');
@@ -115,7 +132,7 @@ export class MetroCop extends Enemy {
     this.greeted = false;
   }
 
-  get hostile() { return !this.bribed && metroHostile(); }
+  get hostile() { return !this.bribed && metroHostile(this.scene); }
   get harmless() { return super.harmless || !this.hostile; }
   onPlayerContact() {}
 
@@ -146,5 +163,39 @@ export class MetroCop extends Enemy {
     }
     this.patrol();
     this.playIf(Math.abs(this.body.velocity.x) > 5 ? 'mcop_walk' : 'mcop_idle');
+  }
+}
+
+/**
+ * A metro vendor with a till you can rob: the busker (accordion case) and the flower seller.
+ * Walking up to them opens a clear choice: steal the takings / walk on / (with money) give a coin.
+ * Stealing turns the whole station against you (see scene.metroOutrage).
+ */
+export class Vendor extends Enemy {
+  constructor(scene, x, y, opts = {}) {
+    const skin = opts.skin || 'musician';
+    super(scene, x, y, 'vendor', `${skin}_idle`, { ...opts, skin, speed: 0 });
+    this.body.setAllowGravity(true);
+    this.asked = false;
+    this.robbed = false;
+    this.mood = 'idle';
+    this.moodUntil = 0;
+  }
+
+  get harmless() { return true; }
+  onPlayerContact() {}
+
+  setMood(m, ms) { this.mood = m; this.moodUntil = ms ? this.scene.time.now + ms : 0; }
+
+  think(now) {
+    this.body.setVelocityX(0);
+    const dx = this.player.x - this.x;
+    if (Math.abs(dx) < 260) this.dir = Math.sign(dx) || this.dir;
+    if (this.moodUntil && now > this.moodUntil) { this.mood = this.robbed ? 'cry' : 'idle'; this.moodUntil = 0; }
+    this.playIf(this.anim(this.mood));
+    if (!this.asked && Math.abs(dx) < 90 && Math.abs(this.player.y - this.y) < 80 && !this.player.dead) {
+      this.asked = true;
+      this.scene.vendorChoice(this);
+    }
   }
 }

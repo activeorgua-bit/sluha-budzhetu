@@ -42,7 +42,7 @@ let failed = 0;
 function decorOverhangs(level) {
   const bad = [];
   for (const d of level.decor || []) {
-    if (/^(balcony|chandelier|metro_chandelier|disco_ball|lamp_hanging|banner|poster|lenin_shelf|gas_mask|window|trident_panel|vote_screen|wave_rail)/.test(String(d.frame || ''))) continue;   // hangs on a wall / ceiling
+    if (/^(balcony|chandelier|metro_chandelier|kyiv_chandelier|kyiv_lunette|disco_ball|lamp_hanging|banner|poster|lenin_shelf|gas_mask|window|trident_panel|vote_screen|wave_rail)/.test(String(d.frame || ''))) continue;   // hangs on a wall / ceiling
     const below = d.row + 1;
     if (below >= level.rows) continue;
     for (let x = d.col; x < d.col + (d.w || 1); x++) {

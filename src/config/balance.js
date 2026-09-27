@@ -1,7 +1,7 @@
 // Every tunable number of the game lives here. See docs/GAME_DESIGN.md §Balance.
 export const BALANCE = {
   // Corruption value of each pickup (adds to wallet AND to permanent corruption).
-  pickups: { coin: 1, money_bag: 10, question_block: 3, mafia_bribe: 60 },
+  pickups: { coin: 1, money_bag: 10, question_block: 3, mafia_bribe: 60, theft: 6 },   // theft: a metro busker's / flower seller's takings
   score: {
     coin: 100, money_bag: 1000, question_block: 300,
     honestLevelBonus: 5000,   // per level finished with zero pickups on a clean run
@@ -118,7 +118,7 @@ export const BALANCE = {
   // Alcohol silences it, at a price: slower legs and wobbly throws. An honest run never needs a drink.
   conscience: {
     max: 100, decayPerSec: 0.5,
-    gain: { coin: 5, question_block: 8, money_bag: 25, trap: 10, bribe_ok: 12, bribe_fail: 6,
+    gain: { theft: 45, coin: 5, question_block: 8, money_bag: 25, trap: 10, bribe_ok: 12, bribe_fail: 6,
             stun_civilian: 6, stun_press: 3 },
     freezeSec: 2.6, afterFreeze: 65, freezeCooldownSec: 8, warnAt: 75,
   },

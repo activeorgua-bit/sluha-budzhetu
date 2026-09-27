@@ -44,7 +44,7 @@ export const ENTITY_CHARS = {
   // world 3: party and block district
   N: 'bandit', R: 'mp', h: 'gopnik', i: 'citizen', Y: 'dog', I: 'dogwalker', '!': 'debris',
   // Kyiv metro (m11): p passenger (random look), a duty officer, f escalator attendant, q metro policeman
-  p: 'passenger', a: 'mworker', f: 'wworker', q: 'mcop',
+  p: 'passenger', a: 'mworker', f: 'wworker', q: 'mcop', z: 'musician', l: 'florist',   // z/l: a till to rob (a choice)
   '+': 'stash',         // hidden stash (a cardboard box): E to search, a first-aid kit inside (+1 life)
 };
 

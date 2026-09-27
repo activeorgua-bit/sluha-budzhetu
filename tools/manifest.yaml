@@ -1745,3 +1745,45 @@ assets:
     references: [mockup_level_1-3_bridge.png, l1_politician v001]
     prompt: "the politician confused at a metro turnstile, NABU lost at the escalator"
     post: {kind: card, name: story_subway}
+  # Kyiv metro, take 2 (2026-09-27): Zoloti Vorota from the user's photos; the Moscow-style hall,
+  # column and chandelier are archived in assets_src/archive/metro_moscow_v1
+  - id: m1_kyiv_pillar
+    batch: V2
+    aspect_ratio: portrait_9_16
+    references: [mockup_level_1-3_bridge.png, photos/board_zoloti_hall.png, photos/board_zoloti_mosaics.png]
+    prompt: "a full-height Zoloti Vorota pillar with a mosaic prince between two arch springings"
+    post: {kind: single, atlas: props, anchor: feet, names: [kyiv_pillar], sizes: {kyiv_pillar: [288, 456, fit]}}   # ground to the top of the screen
+  - id: m1_kyiv_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, photos/board_zoloti_hall.png, photos/board_zoloti_mosaics.png]
+    prompt: "Zoloti Vorota ring chandelier, candle sconce, mosaic lunette"
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      slice: components
+      names: [kyiv_chandelier, kyiv_lunette, kyiv_griffins]
+      sizes:
+        kyiv_chandelier: [120, 96, fit]
+        kyiv_lunette: [192, 96, fit]
+        kyiv_griffins: [96, 96, fit]
+  - id: m1_musician
+    batch: V2
+    template: chars_4x2_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: "the metro busker with an accordion"
+    post: {kind: sheet, atlas: chars,
+           groups: {musician: {frame: 96, frame_h: 78, baseline: 90}},
+           names: [musician_idle, musician_play, musician_play2, musician_bow, musician_shock, musician_cry, musician_angry, musician_coin]}
+  - id: m1_florist
+    batch: V2
+    template: chars_4x2_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: "the metro flower seller"
+    post: {kind: sheet, atlas: chars,
+           groups: {florist: {frame: 96, frame_h: 78, baseline: 90}},
+           names: [florist_idle, florist_arrange, florist_count, florist_wave, florist_shock, florist_cry, florist_angry, florist_coin]}

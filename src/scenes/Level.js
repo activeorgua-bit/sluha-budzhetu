@@ -18,7 +18,7 @@ import { ChestnutTree, SecretHatch } from '../entities/world/Park.js';
 import { Narrator } from '../core/Narrator.js';
 import { Bandit, MafiaBoss, Gopnik, Citizen, Dog, DogWalker, GangBoss, districtHostile, debrisHostile } from '../entities/enemies/World3.js';
 import { FallingDebris } from '../entities/world/Debris.js';
-import { Passenger, MetroWorker, MetroCop } from '../entities/enemies/Metro.js';
+import { Passenger, MetroWorker, MetroCop, Vendor } from '../entities/enemies/Metro.js';
 import { Sky } from '../entities/world/Sky.js';
 
 const GROUND_Y_TRAIN = 14 * 48 + 22;   // wheels hidden behind the platform edge
@@ -101,6 +101,7 @@ export class LevelScene extends Phaser.Scene {
     // the scene object is reused between runs: the mafia fight and its cut scene must start fresh
     this.mafiaHits = 0;
     this.mafiaFight = false;
+    this.metroOutrage = false;
     this.cutsceneStarted = false;
     this.nextConscienceAt = 0;
     GameState.drunk = null;   // a new level starts sober (the hangover is implied)
@@ -391,7 +392,7 @@ export class LevelScene extends Phaser.Scene {
       case 'journalist': case 'detective': case 'cop': case 'voter': case 'guest': case 'guard':
       case 'oldlady': case 'kid': case 'rat': case 'assistant': case 'oppmp': case 'journalist_f': case 'seatedmp':
       case 'bandit': case 'gopnik': case 'citizen': case 'dog': case 'dogwalker': case 'mp':
-      case 'passenger': case 'mworker': case 'wworker': case 'mcop':
+      case 'passenger': case 'mworker': case 'wworker': case 'mcop': case 'musician': case 'florist':
         if (o.gateTier === undefined) this.spawnEnemy(o.type, cx, feetY, o);
         return null;
       case 'tree':
@@ -445,6 +446,8 @@ export class LevelScene extends Phaser.Scene {
       case 'mworker': e = new MetroWorker(this, x, y, { ...o, skin: 'mworker' }); break;
       case 'wworker': e = new MetroWorker(this, x, y, { ...o, skin: 'wworker' }); break;
       case 'mcop': e = new MetroCop(this, x, y, o); break;
+      case 'musician': e = new Vendor(this, x, y, { ...o, skin: 'musician' }); break;
+      case 'florist': e = new Vendor(this, x, y, { ...o, skin: 'florist' }); break;
       default: return null;
     }
     this.enemies.add(e);
@@ -653,6 +656,49 @@ export class LevelScene extends Phaser.Scene {
       });
       this.scene.bringToTop('Choice');
     });
+  }
+
+  /**
+   * The busker / the flower seller: a clear choice. Steal the takings (6 bribes, a heavy conscience,
+   * and the whole station turns on you), walk on, or give a coin if you have one.
+   */
+  vendorChoice(vendor) {
+    const who = vendor.skin;           // 'musician' | 'florist'
+    this.scene.pause();
+    const options = [{ labelKey: `choice_${who}_steal`, value: 'steal' }, { labelKey: `choice_${who}_pass`, value: 'pass' }];
+    if (GameState.wallet >= 1) options.push({ labelKey: `choice_${who}_give`, value: 'give' });
+    this.scene.launch('Choice', {
+      titleKey: `choice_${who}_title`, textKey: `choice_${who}_text`, from: 'Level', options,
+      onPick: (v) => this.onVendorChoice(vendor, v),
+    });
+    this.scene.bringToTop('Choice');
+  }
+
+  onVendorChoice(vendor, v) {
+    const who = vendor.skin;
+    if (v === 'steal') {
+      vendor.robbed = true;
+      vendor.setMood('shock', 1600);
+      vendor.say(`bubble_${who}_robbed`, 2200, '#ff6b6b');
+      this.lastPickupX = vendor.x;
+      const value = GameState.addPickup('theft');
+      this.ui.popValue(vendor.x, vendor.y - 110, `+${value}$`, '#ff6b6b');
+      this.metroOutrage = true;          // passengers, staff and the policeman all go for the thief
+      this.cameras.main.shake(250, 0.005);
+      this.ui.flash(t('metro_outrage'), '#ff6b6b', 1800);
+      this.narrator.say(`${who}_stolen`, { priority: 2 });
+      return;
+    }
+    if (v === 'give' && GameState.spendWallet(1)) {
+      vendor.setMood('thanks', 2500);
+      vendor.say(`bubble_${who}_thanks`, 2000, '#7ddf7d');
+      GameState.conscience = Math.max(0, GameState.conscience - 15);
+      GameState.addScore(150);
+      this.narrator.say(`${who}_given`, { priority: 2 });
+      return;
+    }
+    vendor.say(`bubble_${who}_pass`, 1600, '#e6e6e6');
+    this.narrator.say(`${who}_passed`, { priority: 1 });
   }
 
   onMafiaChoice(boss, v) {
@@ -1015,6 +1061,7 @@ export class LevelScene extends Phaser.Scene {
     const P = this.player;
     P.body.enable = false;
     audio.playCheckpoint();
+    P.setDepth(DEPTH.props - 1);                     // slides INTO the pipe: drawn behind its rim
     this.tweens.add({ targets: P, x: (pipe.col + pipe.w / 2) * TILE, y: P.y + 110, duration: 700, ease: 'Quad.easeIn' });
     this.time.delayedCall(800, () => {
       this.scene.stop('UI');
@@ -1049,8 +1096,18 @@ export class LevelScene extends Phaser.Scene {
     for (const p of this.pickups.getChildren().slice()) if (p.x < x0) p.destroy();
     for (const e of this.enemies.getChildren().slice()) if (e.x < x0 || e.type === 'detective') e.destroy();
     this.director.quietUntil = this.time.now + BALANCE.spawn.subwayQuietSec * 1000;
-    this.player.body.setVelocityY(-420);            // pops out of the pipe
-    this.player.invulnUntil = this.time.now + 1500;
+    // rises out of the pipe: starts inside it (behind the rim), then steps out on top
+    const P = this.player;
+    const topY = P.y;
+    P.body.enable = false;
+    P.setDepth(DEPTH.props - 1);
+    P.y = topY + 100;
+    this.tweens.add({ targets: P, y: topY - 8, duration: 650, ease: 'Quad.easeOut', onComplete: () => {
+      P.setDepth(DEPTH.player);
+      P.body.enable = true;
+      P.body.reset(P.x, P.y);
+    } });
+    P.invulnUntil = this.time.now + 2000;
     GameState.subwayReturn = null;
   }
 

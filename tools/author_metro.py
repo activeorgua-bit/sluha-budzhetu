@@ -3,7 +3,7 @@
   python tools/author_metro.py && node tools/validate_levels.mjs
 
   vestibule (upper floor): the arrival pipe, the ticket office, turnstiles to jump, the escalator attendant
-  escalator down to the platform hall: marble columns, chandeliers, a busker's case with coins (take it or
+  escalator down to the platform hall: Zoloti Vorota: full-height pillars with mosaics, ring chandeliers (take the coins or
   not), passengers, the duty officer, the one metro policeman, a train passing behind the platform
   exit: a green pipe back up to the street (1-1 continues at the next pipe)
 
@@ -38,22 +38,23 @@ def metro():
     c.fill(UPPER + 1, UPPER + 1, 30, 32, "-")
     c.fill(UPPER + 2, UPPER + 2, 33, 35, "-")
     # platform hall
-    for col in (40, 52, 64, 76, 88, 100):
-        c.dec(col, "C", GROUND - 1)              # marble columns
-    for col in (45, 57, 69, 81, 93):
-        c.dec(col, "H", 6)                       # chandeliers under the vault
+    for col in range(36, 102, 6):
+        c.dec(col, "C", GROUND - 1)              # Zoloti Vorota pillars, screen-high; their arches meet (6 cols apart)
+    for col in range(40, 100, 6):
+        c.dec(col, "H", 6)                       # ring chandeliers under the arches, between the pillars
     c.put(GROUND - 1, 43, "p")
     c.dec(46, "B", GROUND - 1)                   # bench (cols 46-48), standable
     c.put(GROUND - 1, 50, "p")
-    c.dec(54, "K", GROUND - 1)                   # flower kiosk
-    c.put(GROUND - 1, 58, "a")                   # duty officer with the signal disc
+    c.dec(55, "K", GROUND - 1)                   # flower kiosk (cols 55-57; not on a pillar cell)
+    c.put(GROUND - 1, 58, "l")                   # ...and the flower seller (a choice: rob her or not)
+    c.put(GROUND - 1, 60, "a")                   # duty officer with the signal disc
     c.put(GROUND - 1, 61, "K")                   # checkpoint
-    c.dec(66, "A", GROUND - 1)                   # the busker's accordion case
-    c.put(GROUND - 1, 67, "c")                   # ...and the change in it (jump over it, or take it)
+    c.dec(64, "A", GROUND - 1)                   # the busker's open accordion case
+    c.put(GROUND - 1, 66, "z")                   # the busker (a choice: rob him or not)
     c.fill(10, 10, 71, 75, "-")                  # a service catwalk above the crowd
     c.put(9, 72, "c.c.c")
     c.put(GROUND - 1, 70, "p")
-    c.dec(78, "B", GROUND - 1)                   # second bench
+    c.dec(79, "B", GROUND - 1)                   # second bench
     c.put(GROUND - 1, 82, "p")
     c.put(GROUND - 1, 86, "q")                   # the one metro policeman
     c.dec(89, "O", GROUND - 1)                   # his booth
@@ -71,12 +72,12 @@ def metro():
         "bgColor": "#1b1712",
         "subwayExit": True,
         "train": {"frame": "metro_train", "everySec": 11, "speed": 520},
-        "narration": [{"col": 11, "key": "m11_turnstile"}, {"col": 63, "key": "m11_busker"}, {"col": 84, "key": "m11_cop"}],
+        "narration": [{"col": 11, "key": "m11_turnstile"}, {"col": 84, "key": "m11_cop"}, {"col": 32, "key": "m11_hall"}],
         "parallax": [{"key": "m11_far", "scroll": 0.3, "bottomRow": 14, "lift": 0}],
         "decor": {
             "Q": {"frame": "pipe_tall", "w": 2}, "S": "metro_sign", "T": {"frame": "ticket_booth", "w": 2},
-            "V": {"frame": "metro_map", "w": 2}, "E": {"frame": "escalator", "w": 7}, "C": {"frame": "marble_column", "w": 2},
-            "H": {"frame": "metro_chandelier", "w": 2}, "K": {"frame": "flower_kiosk", "w": 3},
+            "V": {"frame": "metro_map", "w": 2}, "E": {"frame": "escalator", "w": 7}, "C": {"frame": "kyiv_pillar", "w": 6},
+            "H": {"frame": "kyiv_chandelier", "w": 2}, "K": {"frame": "flower_kiosk", "w": 3},
             "A": {"frame": "accordion_case", "w": 2}, "O": {"frame": "police_booth", "w": 2},
             "M": {"frame": "vending", "w": 2}, "N": "news_stand",
             "U": solid("turnstile", "full", 1),

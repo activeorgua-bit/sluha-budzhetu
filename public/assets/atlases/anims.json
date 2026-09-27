@@ -1871,5 +1871,79 @@
   ],
   "fps": 1,
   "repeat": -1
+ },
+ "musician_idle": {
+  "atlas": "chars",
+  "frames": [
+   "musician_idle",
+   "musician_play",
+   "musician_play2",
+   "musician_play"
+  ],
+  "fps": 3,
+  "repeat": -1
+ },
+ "musician_thanks": {
+  "atlas": "chars",
+  "frames": [
+   "musician_bow",
+   "musician_coin"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "musician_shock": {
+  "atlas": "chars",
+  "frames": [
+   "musician_shock"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "musician_cry": {
+  "atlas": "chars",
+  "frames": [
+   "musician_cry",
+   "musician_angry"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "florist_idle": {
+  "atlas": "chars",
+  "frames": [
+   "florist_idle",
+   "florist_arrange",
+   "florist_idle",
+   "florist_count"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "florist_thanks": {
+  "atlas": "chars",
+  "frames": [
+   "florist_wave",
+   "florist_coin"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "florist_shock": {
+  "atlas": "chars",
+  "frames": [
+   "florist_shock"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "florist_cry": {
+  "atlas": "chars",
+  "frames": [
+   "florist_cry",
+   "florist_angry"
+  ],
+  "fps": 1,
+  "repeat": -1
  }
 }
