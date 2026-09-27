@@ -13,6 +13,7 @@ export const METRO = {
     bubble_florist_robbed: 'Мій виторг! Тримайте злодія!', bubble_florist_thanks: 'Дякую! Для коханої?', bubble_florist_pass: 'Троянди, свіжі троянди!',
     bubble_staff_thief: 'Стій, злодюго!',
     hint_pipe: '↓ / E — У МЕТРО',
+    hint_musician: 'E — ПІДІЙТИ ДО МУЗИКАНТА', hint_florist: 'E — ПІДІЙТИ ДО КВІТКАРКИ',
     pipe_exit: 'ВИХІД НА ПОВЕРХНЮ',
     tail_lost: 'СТЕЖЕННЯ НАБУ ЗАГУБИЛОСЯ',
     cut_subway: 'Метро. Востаннє я був тут, коли перерізав стрічку на відкритті станції — і то з охороною. '
@@ -42,6 +43,7 @@ export const METRO = {
     bubble_florist_robbed: 'My takings! Stop, thief!', bubble_florist_thanks: 'Thank you! For your sweetheart?', bubble_florist_pass: 'Roses, fresh roses!',
     bubble_staff_thief: 'Stop, you thief!',
     hint_pipe: '↓ / E — INTO THE METRO',
+    hint_musician: 'E — STEP UP TO THE BUSKER', hint_florist: 'E — STEP UP TO THE FLOWER SELLER',
     pipe_exit: 'BACK TO THE SURFACE',
     tail_lost: 'NABU LOST YOUR TRAIL',
     cut_subway: 'The metro. The last time I was here I was cutting the ribbon at a station opening, with bodyguards. '

@@ -556,6 +556,7 @@ export class LevelScene extends Phaser.Scene {
     for (const h of this.secrets) if (h.near(P)) { this.enterSecret(); return true; }
     for (const tr of this.trees) if (tr.near(P) && tr.shake()) return true;
     for (const st of this.stashes) if (st.near(P) && st.search()) return true;
+    for (const v of this.vendors()) if (v.near(P)) { this.vendorChoice(v); return true; }
     for (const sh of this.shops) {
       if (Math.abs(P.x - sh.x) < BALANCE.alcohol.shopRange && Math.abs(P.y - sh.y) < 120) { this.buyAtShop(sh); return true; }
     }
@@ -568,6 +569,11 @@ export class LevelScene extends Phaser.Scene {
     for (const tr of this.trees) if (!tr.hinted && tr.near(P)) { tr.hinted = true; this.ui.flash(t('hint_tree'), '#e8b06a', 1400); }
     for (const h of this.secrets) if (!h.hinted && h.near(P)) { h.hinted = true; this.ui.flash(t('hint_secret'), '#ffe66d', 1600); }
     for (const st of this.stashes) if (!st.hinted && st.near(P)) { st.hinted = true; this.ui.flash(t('hint_stash'), '#ffe66d', 1400); }
+    // the busker / the flower seller: a hint every time you step up to them (E opens the choice)
+    for (const v of this.vendors()) {
+      if (v.near(P)) { if (!v.hinted) { v.hinted = true; this.ui.flash(t(`hint_${v.skin}`), '#ffe66d', 1400); } }
+      else v.hinted = false;
+    }
     const pipe = this.pipeUnderPlayer();
     if (pipe && !pipe.hinted) { pipe.hinted = true; this.ui.flash(t('hint_pipe'), '#7ddf7d', 1400); }
     for (const sh of this.shops) {
@@ -657,6 +663,10 @@ export class LevelScene extends Phaser.Scene {
       });
       this.scene.bringToTop('Choice');
     });
+  }
+
+  vendors() {
+    return this.enemies.getChildren().filter((e) => e instanceof Vendor && e.active);
   }
 
   /**

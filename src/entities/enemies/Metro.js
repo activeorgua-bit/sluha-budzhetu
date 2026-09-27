@@ -175,7 +175,8 @@ export class MetroCop extends Enemy {
 
 /**
  * A metro vendor with a till you can rob: the busker (accordion case) and the flower seller.
- * Walking up to them opens a clear choice: steal the takings / walk on / (with money) give a coin.
+ * Standing next to them shows a small hint; E opens a clear choice: steal the takings / walk on /
+ * (with money) give a coin. Until you steal, the choice can be opened again.
  * Stealing turns the whole station against you (see scene.metroOutrage).
  */
 export class Vendor extends Enemy {
@@ -183,7 +184,7 @@ export class Vendor extends Enemy {
     const skin = opts.skin || 'musician';
     super(scene, x, y, 'vendor', `${skin}_idle`, { ...opts, skin, speed: 0 });
     this.body.setAllowGravity(true);
-    this.asked = false;
+    this.hinted = false;
     this.robbed = false;
     this.mood = 'idle';
     this.moodUntil = 0;
@@ -200,9 +201,10 @@ export class Vendor extends Enemy {
     if (Math.abs(dx) < 260) this.dir = Math.sign(dx) || this.dir;
     if (this.moodUntil && now > this.moodUntil) { this.mood = this.robbed ? 'cry' : 'idle'; this.moodUntil = 0; }
     this.playIf(this.anim(this.mood));
-    if (!this.asked && Math.abs(dx) < 90 && Math.abs(this.player.y - this.y) < 80 && !this.player.dead) {
-      this.asked = true;
-      this.scene.vendorChoice(this);
-    }
+  }
+
+  /** Close enough to talk to (and not robbed yet). */
+  near(P) {
+    return !this.robbed && Math.abs(P.x - this.x) < 90 && Math.abs(P.y - this.y) < 80 && !P.dead;
   }
 }
