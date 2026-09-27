@@ -39,7 +39,8 @@ def metro():
     # the Zoloti Vorota arcade: pillar-centred bays (6 cols) whose round arches meet; 8 different mosaics
     bays = "DFGIJLPR"                            # zv_bay_1 .. zv_bay_8
     order = [4, 0, 6, 2, 5, 1, 7, 3, 0, 5, 2, 6]  # mixed, never the same panel twice in a row
-    for k, col in enumerate(range(36, 108, 6)):
+    c.dec(36, "W", GROUND - 1)                   # the first pier: the arcade starts at a wall, not a cut arch
+    for k, col in enumerate(range(42, 110, 6)):  # the last bay runs past the level's right edge
         c.dec(col, bays[order[k % len(order)]], GROUND - 1)
     for col in range(47, 104, 12):
         c.dec(col, "H", 10)                      # a ring chandelier in every other arch
@@ -70,7 +71,7 @@ def metro():
         "id": "m11", "world": 1, "label": "1-1M",
         "material": "metro", "material2": "platf", "tileset": "m1", "oneway": "grate_plat", "timeLimit": 120,
         "bgColor": "#1b1712",
-        "subwayExit": True, "viewBottomRow": 15,
+        "subwayExit": True, "viewBottomRow": 15.875,   # the floor clears the narration page
         "train": {"frame": "metro_train", "everySec": 10, "speed": 300,
                   "far": {"layer": "m11_far", "bottomY": 606, "scale": 1}},   # along the far wall, full size
         "narration": [{"col": 11, "key": "m11_turnstile"}, {"col": 84, "key": "m11_cop"}, {"col": 32, "key": "m11_hall"}],
@@ -80,6 +81,7 @@ def metro():
             "Q": {"frame": "pipe_tall", "w": 2}, "S": "metro_sign", "T": {"frame": "ticket_booth", "w": 2},
             "V": {"frame": "metro_map", "w": 2}, "E": {"frame": "escalator", "w": 7}, "C": {"frame": "kyiv_pillar", "w": 6},
             **{ch: {"frame": f"zv_bay_{i + 1}", "w": 6} for i, ch in enumerate("DFGIJLPR")},
+            "W": {"frame": "zv_bay_end", "w": 6},
             "H": {"frame": "zv_chandelier", "w": 2}, "K": {"frame": "flower_kiosk", "w": 3},
             "A": {"frame": "accordion_case", "w": 2}, "O": {"frame": "police_booth", "w": 2},
             "M": {"frame": "vending", "w": 2}, "N": "news_stand",

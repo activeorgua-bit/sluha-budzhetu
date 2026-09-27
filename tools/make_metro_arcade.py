@@ -9,6 +9,10 @@ meet. Now:
   3. Above the panel the transverse arch band (ochre bricks + blue mosaic with red rosettes) rises
      into the vault, which darkens in flat steps towards the top: a ceiling, not an endless wall.
   4. zv_chandelier: the ring chandelier with its chain lengthened to reach the arch apex.
+  5. The shafts lose one stone course (mortar line to mortar line): the floor sits higher on screen,
+     clear of the narration page, while the mosaics stay below the HUD.
+  6. zv_bay_end: the hall's first pier. Its left half-arch would end in a hard vertical cut, so the
+     piece stops at the capital slab and the wall above it is plain: the arcade starts at a wall.
 
   python tools/make_metro_arcade.py
 """
@@ -115,7 +119,7 @@ def main():
             img = Image.fromarray(bay, "RGBA")
             h = round(img.height * BAY_W / img.width)
             img = px.binarize_alpha(px.quantize(img.resize((BAY_W, h), Image.BOX), palette))
-            b = np.array(img)
+            b = cut_course(np.array(img))
             s = BAY_W / canon.shape[1]
             ptop = int(py0 * s)
             pl, pr = int(px0 * s), int((px0 + pw) * s)
@@ -124,6 +128,7 @@ def main():
             Image.fromarray(b, "RGBA").save(OUT / f"{name}.png")
             made.append(name)
     print("arcade bays:", made)
+    make_end(np.array(Image.open(OUT / f"{made[0]}.png")), int(px0 * s))
     make_chandelier(np.array(Image.open(OUT / f"{made[0]}.png")))
 
 
@@ -158,6 +163,76 @@ def narrow_shaft(bay, c):
     x0 = c - nw // 2
     out[cap:, x0:x0 + nw] = np.array(shaft)
     return out
+
+
+def run_left(al, y, c):
+    l = c
+    while l > 0 and al[y, l]:
+        l -= 1
+    return l
+
+
+def cut_course(b):
+    """Remove one stone course from the pillar shaft (from a mortar line to the next)."""
+    h, w = b.shape[:2]
+    c = w // 2
+    al = b[..., 3] > 0
+    shaft_l = run_left(al, h - 30, c)
+    top = next(y for y in range(h - 30, 0, -1) if run_left(al, y, c) != shaft_l) + 1
+    lum = b[:, c - 30:c + 30, :3].astype(int).mean(axis=2).mean(axis=1)
+    mortar = [y for y in range(top + 8, h - 30) if lum[y] < 170 and lum[y - 1] >= 170]
+    m1, m2 = next((a, b2) for a, b2 in zip(mortar, mortar[1:]) if b2 - a >= 20)
+    return np.delete(b, range(m1, m2), axis=0)
+
+
+def make_end(bay, pl):
+    """The first pier of the hall: the bay cut at the capital slab's left edge, plain wall above it."""
+    b = bay.copy()
+    h, w = b.shape[:2]
+    c = w // 2
+    al = b[..., 3] > 0
+    ls = [(y, run_left(al, y, c)) for y in range(h - 30, 0, -1)]
+    ls = [(y, l) for y, l in ls if l > 0]
+    # the slab: the longest run of rows with the same left edge above the shaft (the shaft is the first run)
+    runs, cur = [], [ls[0]]
+    for y, l in ls[1:]:
+        if l == cur[-1][1]:
+            cur.append((y, l))
+        else:
+            runs.append(cur); cur = [(y, l)]
+    runs.append(cur)
+    slab = max(runs[1:], key=len)
+    x0, slab_top = slab[0][1] + 1, slab[-1][0]
+    # the wall colour just above the left arch's crown (column 1 = arch apex)
+    base = b[4, 1, :3].astype(int)
+    crown = next(y for y in range(4, h) if np.abs(b[y, 1, :3].astype(int) - base).sum() > 60)
+    for y in range(slab_top):
+        b[y, x0:pl, :3] = b[min(y, crown - 1), 1, :3]
+        b[y, x0:pl, 3] = 255
+    # under the panel the plinth stands on the slab; the left arch's foot beside it becomes wall too
+    def stone(px):
+        r, g, bl = int(px[0]), int(px[1]), int(px[2])
+        return r > 200 and g > 175 and bl > 110 and r >= bl
+    miss, xp = 0, c - 40
+    for y in range(slab_top - 1, 0, -1):
+        if sum(stone(b[y, x]) for x in range(c - 40, c + 40)) < 50:
+            miss += 1                                       # an outline / mortar row, or the mosaic's frame
+            if miss > 3:
+                break
+        else:
+            miss, xp = 0, c - 40
+            while xp > x0 and (stone(b[y, xp - 1]) or stone(b[y, xp - 2])):
+                xp -= 1
+        b[y, x0:xp - 1, :3] = b[min(y, crown - 1), 1, :3]
+    yb = y + 4                                              # the frame's bottom edge
+    for yy in range(yb - 22, yb):
+        xe = pl + 2 + (yy - (yb - 22)) * 10 // 22
+        b[yy, x0:xe, :3] = b[min(yy, crown - 1), 1, :3]
+    b[:slab_top, x0, :3] = (40, 30, 26)                      # the end wall's edge
+    b[:slab_top, x0 + 1:x0 + 3, :3] = (b[:slab_top, x0 + 1:x0 + 3, :3] * 0.85).astype(np.uint8)
+    b[:, :x0] = 0
+    Image.fromarray(b, "RGBA").save(OUT / "zv_bay_end.png")
+    print(f"zv_bay_end: cut at x {x0}, slab top y {slab_top}")
 
 
 def wall_colour(canon):

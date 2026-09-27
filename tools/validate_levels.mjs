@@ -46,6 +46,7 @@ function decorOverhangs(level) {
     const below = d.row + 1;
     if (below >= level.rows) continue;
     for (let x = d.col; x < d.col + (d.w || 1); x++) {
+      if (x >= level.cols && /^zv_bay/.test(String(d.frame))) break;   // the metro arcade runs on past the level's edge
       if (x >= level.cols || !SOLID.has(level.tiles[below][x])) { bad.push(`${d.frame}@${d.col},${d.row}`); break; }
     }
   }

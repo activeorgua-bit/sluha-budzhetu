@@ -897,8 +897,8 @@ export class LevelScene extends Phaser.Scene {
   setupCamera() {
     const cam = this.cameras.main;
     // the last map row stays below the screen edge (pits read as bottomless)
-    // meta.viewBottomRow: the lowest map row the camera may show (the metro shows only one row below
-    // the platform, so the arcade and its mosaics sit lower on screen, clear of the HUD)
+    // meta.viewBottomRow (may be fractional): the lowest world row the camera may show (the metro
+    // tunes it so the floor clears the narration page and the mosaics stay below the HUD)
     const viewBottom = this.meta.viewBottomRow ? this.meta.viewBottomRow * TILE : this.heightPx - TILE * 2;
     cam.setBounds(0, 0, this.widthPx, Math.max(GAME_H, viewBottom));
     cam.startFollow(this.player, true, 0.12, 0.12, 0, 40);
