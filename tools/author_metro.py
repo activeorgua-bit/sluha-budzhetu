@@ -38,7 +38,7 @@ def metro():
     # platform hall
     # the Zoloti Vorota arcade: pillar-centred bays (6 cols) whose round arches meet; 8 different mosaics
     bays = "DFGIJLPR"                            # zv_bay_1 .. zv_bay_8
-    order = [4, 0, 6, 2, 5, 1, 7, 3, 0, 5, 2, 6]  # mixed, never the same panel twice in a row
+    order = [4, 0, 6, 5, 1, 7, 3, 2, 0, 5, 6, 1]  # mixed; the griffins (2) are on the end wall, so they return late
     c.dec(36, "W", GROUND - 1)                   # the first pier: the arcade starts at a wall, not a cut arch
     for k, col in enumerate(range(42, 110, 6)):  # the last bay runs past the level's right edge
         c.dec(col, bays[order[k % len(order)]], GROUND - 1)

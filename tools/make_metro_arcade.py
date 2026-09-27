@@ -129,7 +129,13 @@ def main():
             Image.fromarray(b, "RGBA").save(OUT / f"{name}.png")
             made.append(name)
     print("arcade bays:", made)
-    make_end(np.array(Image.open(OUT / f"{made[0]}.png")), int(px0 * s))
+    # the hall opens with just the ornamental half-arch: the end wall carries no mosaic panel
+    bay = canon.copy()
+    bay[cy0:cy1, cx0:cx1] = wall_colour(canon)
+    img = Image.fromarray(bay, "RGBA")
+    img = px.binarize_alpha(px.quantize(img.resize((BAY_W, round(img.height * BAY_W / img.width)), Image.BOX), palette))
+    empty = add_vault(cut_course(np.array(img)), int(cy0 * s), pl, pr, band=False)
+    make_end(empty, int(cx0 * s), int(cx1 * s))
     make_chandelier(np.array(Image.open(OUT / f"{made[0]}.png")))
 
 
@@ -186,7 +192,7 @@ def cut_course(b):
     return np.delete(b, range(m1, m2), axis=0)
 
 
-def make_end(bay, pl):
+def make_end(bay, pl, pr):
     """The first pier of the hall: a stone end wall (the pillar's own masonry, floor to vault) with the
     capital slab carried across it as a cornice; the right half-arch springs from it."""
     b = bay.copy()
@@ -208,15 +214,11 @@ def make_end(bay, pl):
     x0, slab_top, slab_bot = slab[0][1] + 1, slab[-1][0], slab[0][0]
     wall = np.zeros((h, w), bool)
     # above the slab: everything left of the mosaic (the left arch and its spandrel)
+    # above the slab: the left arch and its spandrel, and the empty panel field up to the right arch
+    rgb = b[..., :3].astype(int)
+    neutral = (rgb.max(axis=2) - rgb.min(axis=2) < 30) & (rgb.mean(axis=2) > 170) & al
     wall[:slab_top, xw:pl] = True
-    # above the mosaic: everything left of the transverse arch band
-    row_wall = b[2, xw, :3].astype(int)
-    band_l = next(x for x in range(xw, c) if np.abs(b[2, x, :3].astype(int) - row_wall).sum() > 40)
-    och = b[2, band_l + 3, :3].astype(int)
-    ptop = next(y for y in range(2, h) if np.abs(b[y, band_l + 3, :3].astype(int) - och).sum() > 90
-                and np.abs(b[y, band_l + 3, :3].astype(int) - b[y - 1, band_l + 3, :3].astype(int)).sum() > 0
-                and y > 20)
-    wall[:ptop, xw:band_l] = True
+    wall[:slab_top, pl:pr + 3] |= neutral[:slab_top, pl:pr + 3]
 
     # under the mosaic the plinth stands on the slab; the left arch's foot beside it becomes wall too
     def stone(px):
@@ -267,7 +269,7 @@ def make_end(bay, pl):
     b[:, xw + 1:xw + 4, :3] = (b[:, xw + 1:xw + 4, :3] * 0.82).astype(np.uint8)
     b[:, :xw] = 0
     Image.fromarray(b, "RGBA").save(OUT / "zv_bay_end.png")
-    print(f"zv_bay_end: wall from x {xw}, slab {slab_top}-{slab_bot}, band x {band_l}, mosaic top {ptop}")
+    print(f"zv_bay_end: wall from x {xw}, slab {slab_top}-{slab_bot}")
 
 
 def wall_colour(canon):
@@ -277,7 +279,7 @@ def wall_colour(canon):
     return np.median(top, axis=0).astype(np.uint8) if len(top) else np.array([240, 236, 226, 255], np.uint8)
 
 
-def add_vault(b, ptop, pl, pr):
+def add_vault(b, ptop, pl, pr, band=True):
     """Extend the bay upward to FULL_H: the transverse arch band rises from the panel into a vault
     that darkens in flat steps towards the top (a ceiling)."""
     h, w = b.shape[:2]
@@ -293,6 +295,8 @@ def add_vault(b, ptop, pl, pr):
     for i, f in enumerate((0.93, 0.87, 0.81)):
         y1 = int(pad * (0.34 - i * 0.11))
         top[:max(0, y1)] = (base[:3] * f).astype(np.uint8).tolist() + [255]
+    if not band:
+        return np.concatenate([top, b], axis=0)[-FULL_H:]
     # the transverse arch band rising from the panel (ochre brick edges, blue mosaic, red rosettes)
     OCH, OCH2, BLUE, RED, GOLD, OUT_ = (206, 150, 70), (166, 110, 48), (52, 92, 160), (182, 50, 40), (226, 182, 86), (40, 30, 26)
     bw = int((pr - pl) * 0.86)

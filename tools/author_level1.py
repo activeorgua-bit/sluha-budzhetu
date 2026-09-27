@@ -70,7 +70,7 @@ put(d, 13, 82, "U")                      # campaign poster
 put(d, 13, 89, "K")                      # tulip bed (cols 89-91)
 put(d, 13, 92, "M")                      # globe lamp
 put(d, 13, 94, "J")                      # bench (cols 94-96)
-put(d, 13, 98, "N")                      # bush
+put(d, 13, 98, "W")                      # bush, drawn in front: the stash box hides behind it
 fill(m, 12, 13, 101, 102, "e")           # hedge
 put(m, 9, 100, "c..c")
 put(d, 13, 104, "Q")                     # chess table step (cols 104-105)
@@ -113,7 +113,7 @@ put(m, 13, 85, "T")                      # chestnut tree at the end of the stree
 for col in (93, 100, 118, 132, 147, 161):
     put(m, 13, col, "o")
 
-put(m, 9, 109, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
+put(m, 13, 98, "+")   # voters' thank-you: +1 life, a box tucked behind the park bush (not on the monument)
 put(d, 13, 86, "D")                      # short pipe in the park (cols 86-87)
 put(d, 13, 120, "D")                     # short pipe by the tulips (cols 120-121)
 
@@ -143,7 +143,7 @@ meta = {
     "signs": [{"sprite": "plaque", "caption": "sign_reform"}, {"sprite": "lamp_leaflet", "caption": "sign_facts", "paper": [40, 123, 22, 27]}],
     "decor": {
         "A": "lamp_street", "B": "hydrant", "R": "cone_barrier", "U": "campaign_poster",
-        "K": {"frame": "tulip_bed", "w": 3}, "M": "lamp_park", "N": "bush", "S": "pigeon",
+        "K": {"frame": "tulip_bed", "w": 3}, "M": "lamp_park", "N": "bush", "W": {"frame": "bush", "front": True}, "S": "pigeon",
         "P": {"frame": "fountain", "w": 3},
         "C": {"frame": "trash_bin", "solid": "full", "w": 1, "top": 1.5},
         "D": {"frame": "pipe_short", "solid": "full", "w": 2, "top": 2},
