@@ -35,8 +35,6 @@ def metro():
     c.put(UPPER - 1, 25, "p")
     # escalator down (decor) with a few grating steps for a softer way down
     c.dec(28, "E", GROUND - 1)                   # escalator (7 tiles wide)
-    c.fill(UPPER + 1, UPPER + 1, 30, 32, "-")
-    c.fill(UPPER + 2, UPPER + 2, 33, 35, "-")
     # platform hall
     # the Zoloti Vorota arcade: pillar-centred bays (6 cols) whose round arches meet; 8 different mosaics
     bays = "DFGIJLPR"                            # zv_bay_1 .. zv_bay_8
@@ -54,8 +52,7 @@ def metro():
     c.put(GROUND - 1, 61, "K")                   # checkpoint
     c.dec(64, "A", GROUND - 1)                   # the busker's open accordion case
     c.put(GROUND - 1, 66, "z")                   # the busker (a choice: rob him or not)
-    c.fill(10, 10, 71, 75, "-")                  # a service catwalk above the crowd
-    c.put(9, 72, "c.c.c")
+    c.put(11, 72, "c.c.c")                       # coins within a jump from the platform
     c.put(GROUND - 1, 70, "p")
     c.dec(79, "B", GROUND - 1)                   # second bench
     c.put(GROUND - 1, 82, "p")
@@ -81,7 +78,7 @@ def metro():
             "Q": {"frame": "pipe_tall", "w": 2}, "S": "metro_sign", "T": {"frame": "ticket_booth", "w": 2},
             "V": {"frame": "metro_map", "w": 2}, "E": {"frame": "escalator", "w": 7}, "C": {"frame": "kyiv_pillar", "w": 6},
             **{ch: {"frame": f"zv_bay_{i + 1}", "w": 6} for i, ch in enumerate("DFGIJLPR")},
-            "H": {"frame": "kyiv_chandelier", "w": 2}, "K": {"frame": "flower_kiosk", "w": 3},
+            "H": {"frame": "zv_chandelier", "w": 2}, "K": {"frame": "flower_kiosk", "w": 3},
             "A": {"frame": "accordion_case", "w": 2}, "O": {"frame": "police_booth", "w": 2},
             "M": {"frame": "vending", "w": 2}, "N": "news_stand",
             "U": solid("turnstile", "full", 1),
