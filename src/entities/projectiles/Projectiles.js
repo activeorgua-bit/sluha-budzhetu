@@ -87,15 +87,15 @@ export class Projectiles {
   }
 
   /** Player's chestnut or 'Kapital' book: an arc that stuns (bosses: damage). */
-  throwNut(x, y, dir, kind = 'chestnut') {
+  throwNut(x, y, dir, kind = 'chestnut', opts = {}) {
     const n = BALANCE.nuts;
     const frame = kind === 'book' ? 'kapital_open' : 'chestnut';
     const [key, fr] = this.tex(frame, '__jar');
     const p = this.nuts.create(x, y, key, fr);
     p.kind = kind;
     p.setDepth(DEPTH.projectiles).setScale(kind === 'book' ? 0.75 : 0.6);
-    p.body.setVelocity(dir * n.speed, n.lift);
-    p.body.setGravityY(n.gravity - BALANCE.player.gravity);
+    p.body.setVelocity(dir * n.speed, opts.lift ?? n.lift);
+    p.body.setGravityY((opts.gravity ?? n.gravity) - BALANCE.player.gravity);
     p.body.setSize(p.width * 0.8, p.height * 0.8);
     p.setAngularVelocity(dir * 720);
     this.expire(p, 1600);

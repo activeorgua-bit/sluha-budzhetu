@@ -479,7 +479,12 @@ export class LevelScene extends Phaser.Scene {
     this.nutReadyAt = now + BALANCE.nuts.cooldownMs;
     P.throwLock = now + 250;
     audio.playThrowCash();
-    this.wobble(this.projectiles.throwNut(P.x + P.facing * 30, P.y - 60, P.facing, kind));
+    // a rat (or anything knee-high) close ahead: bowl the chestnut low along the floor, or it sails over
+    const low = this.enemies.getChildren().some((e) => e.active && !e.leaving && e.body && e.body.height < 50
+      && Math.sign(e.x - P.x) === P.facing && Math.abs(e.x - P.x) < 420 && Math.abs(e.body.bottom - P.body.bottom) < 40);
+    this.wobble(low
+      ? this.projectiles.throwNut(P.x + P.facing * 30, P.y - 26, P.facing, kind, { lift: -80, gravity: 350 })
+      : this.projectiles.throwNut(P.x + P.facing * 30, P.y - 60, P.facing, kind));
   }
 
   onNutHitEnemy(nut, enemy) {
