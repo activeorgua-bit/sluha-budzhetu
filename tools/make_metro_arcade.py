@@ -33,7 +33,6 @@ BAY_W = 288            # 6 tiles
 FULL_H = 672           # floor (row 14) to the top of the level
 CHANDELIER_ROW_BOTTOM = 11 * 48   # the chandelier's bottom in world px (decor row 10)
 PANEL_SCALE = 1.0     # full-size mosaics, in one piece with their ornament frame
-END_WALL_X = 24       # the end wall of zv_bay_end starts here (px from the bay's left edge)
 SHAFT_SCALE = 0.8     # pillar shafts a little narrower than generated (the capitals keep their width)
 
 
@@ -193,13 +192,13 @@ def cut_course(b):
 
 
 def make_end(bay, pl, pr):
-    """The first pier of the hall: a stone end wall (the pillar's own masonry, floor to vault) with the
-    capital slab carried across it as a cornice; the right half-arch springs from it."""
+    """The first pier of the hall: the pillar rises as masonry above its capital up to the vault (no
+    mosaic, no left arch); the right half-arch springs from the capital."""
     b = bay.copy()
     h, w = b.shape[:2]
     c = w // 2
-    xw = END_WALL_X
     al = b[..., 3] > 0
+    xw = run_left(al, h - 40, c) + 1                        # the wall rises straight up from the shaft
     ls = [(y, run_left(al, y, c)) for y in range(h - 30, 0, -1)]
     ls = [(y, l) for y, l in ls if l > 0]
     # the slab: the longest run of rows with the same left edge above the shaft (the shaft is the first run)
@@ -239,7 +238,6 @@ def make_end(bay, pl, pr):
     for yy in range(yb - 22, yb):
         wall[yy, xw:pl + 2 + (yy - (yb - 22)) * 10 // 22] = True
     # below the slab: the see-through arch opening left of the shaft
-    wall[slab_bot + 1:, xw:c] |= ~al[slab_bot + 1:, xw:c]
 
     # the masonry: the pillar shaft's own stone courses, repeated across and upward
     sl = run_left(al, h - 40, c) + 1
@@ -257,17 +255,12 @@ def make_end(bay, pl, pr):
     sx = tx0 + (xs - xw) % tw
     b[ys, xs] = b[sy, sx]
     b[ys, xs, 3] = 255
-    # the slab runs across the wall as a cornice (its left end cap moves to the wall's edge)
-    for y in range(slab_top, slab_bot + 1):
-        seg = b[y, x0 + 6:x0 + 26].copy()
-        for x in range(xw + 3, x0 + 6):
-            b[y, x] = seg[(x - xw - 3) % len(seg)]
-        b[y, xw:xw + 3] = bay[y, x0:x0 + 3]
+    # the capital keeps its own left overhang and bracket; only above it the arch gives way to the pier
     # the wall's edge: an outline and a shaded return
-    b[:, xw, :3] = (40, 30, 26)
-    b[:, xw, 3] = 255
-    b[:, xw + 1:xw + 4, :3] = (b[:, xw + 1:xw + 4, :3] * 0.82).astype(np.uint8)
-    b[:, :xw] = 0
+    b[:slab_top, xw, :3] = (40, 30, 26)
+    b[:slab_top, xw, 3] = 255
+    b[:slab_top, xw + 1:xw + 4, :3] = (b[:slab_top, xw + 1:xw + 4, :3] * 0.82).astype(np.uint8)
+    b[:slab_top, :xw] = 0
     Image.fromarray(b, "RGBA").save(OUT / "zv_bay_end.png")
     print(f"zv_bay_end: wall from x {xw}, slab {slab_top}-{slab_bot}")
 
