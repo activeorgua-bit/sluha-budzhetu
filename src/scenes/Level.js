@@ -43,6 +43,8 @@ export class LevelScene extends Phaser.Scene {
     const def = LEVELS[this.levelIndex];
     GameState.levelIndex = this.levelIndex;
     // reputation carries over from level to level; it is refilled when a life is lost (loseLife)
+    // and at the first level of each world (a new term, a new start)
+    if (!this.fromCheckpoint && !this.fromSubway && LEVELS.findIndex((l) => l.world === def.world) === this.levelIndex) GameState.reputation = BALANCE.reputation.max;
     // snapshot for save slots: saves restore the start of the level (pickups cannot be doubled)
     const resumed = this.fromCheckpoint || this.fromSubway;
     if (!resumed || !GameState.levelStartSnapshot || GameState.levelStartSnapshot.levelIndex !== this.levelIndex) {

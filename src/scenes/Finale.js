@@ -11,11 +11,11 @@ import { BALANCE } from '../config/balance.js';
  * The finale after the railway station. First the moral choice: West (leave) or East (the front).
  *   East -> heat below frontCaseHeat (or clean): front_serve; otherwise front_case (NABU at the front).
  *   West:
- *   too corrupt (heat >= trainBreakdownHeat)  -> the train breaks down in the fields ->
- *        50% NABU (train_nabu) / 50% a Shahed hits your compartment (train_karma)
+ *   the train breaks down in the fields with a chance growing with heat (0 up to heat 35, ~36 % at 55,
+ *        ~73 % at 75, at most 92 %) -> 50% NABU (train_nabu) / 50% a Shahed hits your compartment (train_karma)
  *   otherwise -> the train reaches Europe -> choose a country (interactive):
  *        clean run -> honest (holiday, then re-election, whatever the country)
- *        Austria   -> 85% austria_happy / 15% austria_mafia
+ *        Austria   -> 85% austria_happy / 15% austria_mafia (50/50 if you took the mafia's money)
  *        elsewhere -> 65% extradited / 35% abroad_happy
  * Every ending closes with the same ironic moral: corruption always has consequences.
  * data: { phase: 'start' | 'choose' | 'result', forced?: ending }
@@ -70,7 +70,10 @@ export class FinaleScene extends Phaser.Scene {
 
   west() {
     const rng = Math.random();
-    if (!GameState.cleanRun && GameState.heat >= BALANCE.world3.trainBreakdownHeat) {
+    // the more heat, the likelier the train never reaches the border (never certain: a slim chance)
+    const w = BALANCE.world3;
+    const pBreak = GameState.cleanRun ? 0 : Phaser.Math.Clamp((GameState.heat - w.breakdownFromHeat) / w.breakdownSpan, 0, w.breakdownMax);
+    if (Math.random() < pBreak) {
       return this.finish(rng < 0.5 ? 'train_nabu' : 'train_karma');
     }
     this.play(STORY.europe, t('cut_europe'), { scene: 'Finale', data: { phase: 'choose' } });
@@ -88,7 +91,8 @@ export class FinaleScene extends Phaser.Scene {
         const r = Math.random();
         let ending;
         if (GameState.cleanRun) ending = 'honest';
-        else if (country === 'austria') ending = r < 0.85 ? 'austria_happy' : 'austria_mafia';
+        // Austria is quiet, unless you owe the mafia: then they find you there half the time
+        else if (country === 'austria') ending = r < (GameState.mafiaChoice === 'yes' ? 0.5 : 0.85) ? 'austria_happy' : 'austria_mafia';
         else ending = r < 0.65 ? 'extradited' : 'abroad_happy';
         this.finish(ending);
       },

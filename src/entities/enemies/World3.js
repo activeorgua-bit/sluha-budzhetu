@@ -267,6 +267,13 @@ export class GangBoss extends Boss {
     }
   }
 
+  /** Knocked out, he drops the gang's takings: a way to pay the taxi for an MP the mafia robbed. */
+  defeat(how) {
+    const first = !this.defeated;
+    super.defeat(how);
+    if (first && how !== 'bribed') this.scene.spawnPickup('money_bag', this.x + this.dir * 40, this.y - 70, { falling: true });
+  }
+
   fight(now) {
     const c = this.cfg;
     const dx = this.player.x - this.x;

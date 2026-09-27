@@ -175,7 +175,7 @@ def district():
         "material": "asphalt", "material2": "grass", "tileset": "d1", "oneway": "ledge_plat", "timeLimit": 300,
         "bgColor": "#f7b27a", "goal": "taxi", "boss": {"type": "gopboss"},
         "materialZones": [{"ch": "@", "from": 60, "to": 96, "mat": "sport"}],
-        "bridgeStyle": "wave", "bridgeHostileOnly": True,
+        "bridgeStyle": "wave", "bridgeHostileOnly": True, "collapseMin": 1.0,   # the footbridge holds a moment even under the corrupt
         "backfill": [{"tile": "asphalt_c", "from": 0, "to": 142, "row": 14, "tint": "#7a5a4a"},
                      {"tile": "asphalt_c", "from": 158, "to": 230, "row": 14, "tint": "#7a5a4a"}],
         "narration": [{"col": 9, "key": "e32_debris"}, {"col": 60, "key": "e32_court"}, {"col": 97, "key": "e32_dogs"},

@@ -84,21 +84,22 @@ export const BALANCE = {
   // taxi and train cost bribes (a clean politician pays with his official salary).
   // frontCaseHeat: from this heat NABU finds you at the front (the case waits for the end of the war)
   // salaryMaxTier: up to this heat tier the MP salary covers the taxi and the ticket when the wallet is short
-  world3: { salaryMaxTier: 1, frontCaseHeat: 25, mafiaKnockoutHits: 3, taxiPrice: 5, ticketPrice: 5, salary: 5, trainBreakdownHeat: 55 },
+  world3: { salaryMaxTier: 1, frontCaseHeat: 25, mafiaKnockoutHits: 3, taxiPrice: 5, ticketPrice: 5, salary: 5, trainBreakdownHeat: 55,
+             breakdownFromHeat: 35, breakdownSpan: 55, breakdownMax: 0.92 },
 
   // Reputation: the politician's health. Hits cost reputation (by source); at 0 a life is lost and it
   // refills on respawn. It slowly recovers after a quiet spell. Karma: a corrupt reputation is more
   // fragile (damage x (1 + heat/100 * corruptDamage)) and recovers slower.
   reputation: {
-    max: 100, regenPerSec: 3, regenDelaySec: 4, regenCap: 60, checkpointBonus: 25, corruptDamage: 0.8, corruptRegen: 0.6,
+    max: 100, regenPerSec: 3, regenDelaySec: 4, regenCap: 70, checkpointBonus: 30, corruptDamage: 0.6, corruptRegen: 0.6,
     damage: {
       default: 9, hit: 9, flash: 7,
-      cop: 7, journalist: 7, detective: 12, warrant: 16, voter: 8, jar: 8,
+      cop: 7, journalist: 7, detective: 10, warrant: 12, voter: 8, jar: 8,
       oldlady: 8, kid: 5, chestnut: 5, rat: 4, oppmp: 8, chocolate: 7, seatedmp: 7, assistant: 4,
       passenger: 7, mcop: 12,
-      bandit: 12, gopnik: 7, bottle: 5, citizen: 7, egg: 7, dog: 9, dogwalker: 4,
-      hook: 27, debris: 27, shockwave: 7, papers: 5, note: 5,
-      animator: 11, ratboss: 8, speaker: 11, gopboss: 11, mafia: 0, mafioso: 0,
+      bandit: 12, gopnik: 7, bottle: 5, citizen: 7, egg: 6, dog: 9, dogwalker: 4,
+      hook: 27, debris: 27, shockwave: 6, papers: 4, note: 5,
+      animator: 11, ratboss: 8, speaker: 9, gopboss: 9, mafia: 0, mafioso: 0,
     },
   },
 

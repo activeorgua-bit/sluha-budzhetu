@@ -24,7 +24,7 @@ export class CrumblingBridge extends Phaser.GameObjects.TileSprite {
   onStep() {
     if (this.stepped || this.safe) return;
     this.stepped = true;
-    let secs = collapseSeconds(GameState.corruption);
+    let secs = Math.max(collapseSeconds(GameState.corruption), (this.scene.meta && this.scene.meta.collapseMin) || 0);
     if (this.scene.luckyBridges) {
       secs = Math.max(secs, BALANCE.collapse.luckyMin);   // a lucky day: real rebar
       if (GameState.corruption > 20 && !this.scene.luckySaid && this.scene.narrator) { this.scene.luckySaid = true; this.scene.narrator.say('bridge_lucky', { priority: 2 }); }

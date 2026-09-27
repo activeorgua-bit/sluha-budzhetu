@@ -22,6 +22,7 @@
   ],
   "bridgeStyle": "wave",
   "bridgeHostileOnly": true,
+  "collapseMin": 1.0,
   "backfill": [
     {
       "tile": "asphalt_c",
