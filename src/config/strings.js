@@ -1,6 +1,7 @@
 import { EXTRA } from './strings_extra.js';
 import { W2 } from './strings_w2.js';
 import { W3 } from './strings_w3.js';
+import { METRO } from './strings_metro.js';
 
 // All player-facing text. Keys are shared between languages; `t(key)` picks the active one.
 export const STRINGS = {
@@ -133,3 +134,4 @@ export const STRINGS = {
 for (const lang of Object.keys(EXTRA)) Object.assign(STRINGS[lang], EXTRA[lang]);
 for (const lang of Object.keys(W2)) Object.assign(STRINGS[lang], W2[lang]);
 for (const lang of Object.keys(W3)) Object.assign(STRINGS[lang], W3[lang]);
+for (const lang of Object.keys(METRO)) Object.assign(STRINGS[lang], METRO[lang]);

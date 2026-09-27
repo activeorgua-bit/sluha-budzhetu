@@ -43,6 +43,8 @@ export const BALANCE = {
     citizen:    { odds: 0.35, cost: 2 },
     dog:        { odds: 0.00, cost: 1 },
     dogwalker:  { odds: 0.50, cost: 1 },
+    passenger:  { odds: 0.55, cost: 1 },   // "for the fare"
+    mcop:       { odds: 0.80, cost: 3 },
     gopboss:    { odds: 1.00, cost: 8 },
     assistant:  { odds: 1.00, cost: 1 },
     animator:   { odds: 1.00, cost: 6 },   // a photo with the mascot: pay and he dances off
@@ -72,6 +74,10 @@ export const BALANCE = {
     bandit:     { speed: 110, aggroRange: 420, punchEverySec: 1.1, friendlyHeat: 25, friendlyWallet: 15 },
     citizen:    { speed: 70, throwRange: 480, throwEverySec: 2.4, eggSpeed: 420, hostileTier: 2 },
     dog:        { speed: 230, chaseRange: 360 },
+    // Kyiv metro: passengers are hostile from hostileHeat on; an honest MP is mostly ignored
+    passenger:  { speed: 85, speedOld: 55, hostileHeat: 12, aggroRange: 380, shoveEverySec: 1.4,
+                  autographChance: 0.1, moneyChance: 0.08, autographScore: 250 },
+    mcop:       { speed: 95, chaseRange: 460, grabEverySec: 1.3 },
   },
 
   // World 3: the mafia fight (after refusing the offer) ends with a knock-out after this many hits;
@@ -84,14 +90,15 @@ export const BALANCE = {
   // refills on respawn. It slowly recovers after a quiet spell. Karma: a corrupt reputation is more
   // fragile (damage x (1 + heat/100 * corruptDamage)) and recovers slower.
   reputation: {
-    max: 100, regenPerSec: 5, regenDelaySec: 3, corruptDamage: 0.8, corruptRegen: 0.6,
+    max: 100, regenPerSec: 3, regenDelaySec: 4, regenCap: 60, checkpointBonus: 25, corruptDamage: 0.8, corruptRegen: 0.6,
     damage: {
-      default: 7, hit: 7, flash: 5,
-      cop: 5, journalist: 5, detective: 9, warrant: 12, voter: 6, jar: 6,
-      oldlady: 6, kid: 4, chestnut: 4, rat: 3, oppmp: 6, chocolate: 5, seatedmp: 5, assistant: 3,
-      bandit: 9, gopnik: 5, bottle: 4, citizen: 5, egg: 5, dog: 7, dogwalker: 3,
-      hook: 20, debris: 20, shockwave: 5, papers: 4, note: 4,
-      animator: 8, ratboss: 6, speaker: 8, gopboss: 8, mafia: 0, mafioso: 0,
+      default: 9, hit: 9, flash: 7,
+      cop: 7, journalist: 7, detective: 12, warrant: 16, voter: 8, jar: 8,
+      oldlady: 8, kid: 5, chestnut: 5, rat: 4, oppmp: 8, chocolate: 7, seatedmp: 7, assistant: 4,
+      passenger: 7, mcop: 12,
+      bandit: 12, gopnik: 7, bottle: 5, citizen: 7, egg: 7, dog: 9, dogwalker: 4,
+      hook: 27, debris: 27, shockwave: 7, papers: 5, note: 5,
+      animator: 11, ratboss: 8, speaker: 11, gopboss: 11, mafia: 0, mafioso: 0,
     },
   },
 
@@ -136,18 +143,19 @@ export const BALANCE = {
     detectivePressureSec:  { 3: 30, 4: 22 },
     detectiveCap:          { 2: 1, 3: 2, 4: 3 },
     trapCoinRatio: 0.05, trapMaxPerLevel: 3, trapMinLevelIndex: 1, trapEmergeDelaySec: 1.5,
-    partyRaidSec: 20, partyRaidTier: 3,
+    partyRaidSec: 20, partyRaidTier: 3, subwayQuietSec: 60,
     checkpointAmbushTier: 4,
     offscreenMargin: 120,
   },
 
   // per 3-tile bridge segment: 2.6 s clean, ~1.6 s at 20 corruption, 0.55 s from ~40 (run, don't stop)
-  collapse: { base: 2.6, perCorruption: 0.05, min: 0.55, segment: 3, shakeAmp: 3, fallSpeed: 630,
+  // luckyChance: per attempt, the contractor happened to use real rebar: bridges hold at least luckyMin s
+  collapse: { luckyChance: 0.07, luckyMin: 1.3, base: 2.6, perCorruption: 0.05, min: 0.55, segment: 3, shakeAmp: 3, fallSpeed: 630,
               weakPlatformTier: 2 },
 
   hook: { swayDeg: 6, swayMs: 1600, dropSpeed: 780, holdMs: 350, retractSpeed: 240, triggerH: 300 },
 
-  lives: { start: 3, max: 9, extraEveryScore: 15000, kitInBlockChance: 0.15 },   // + a hidden first-aid kit in every level
+  lives: { start: 3, max: 6, extraEveryScore: 30000, kitInBlockChance: 0.15 },   // + a hidden first-aid kit in every level
   finale: { escapeMaxHeat: 55 },
 };
 

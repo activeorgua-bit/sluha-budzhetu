@@ -59,6 +59,7 @@ export class SpawnDirector {
 
   update(now) {
     const s = BALANCE.spawn;
+    if (this.quietUntil && now < this.quietUntil) return;   // lost in the metro: no pressure for a while
     const tier = GameState.tier.id;
     if (now >= this.nextJournalistAt) {
       this.nextJournalistAt = now + s.journalistPressureSec[tier] * 1000;

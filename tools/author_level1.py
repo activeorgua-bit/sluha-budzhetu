@@ -114,9 +114,14 @@ for col in (93, 100, 118, 132, 147, 161):
     put(m, 13, col, "o")
 
 put(m, 9, 109, "+")   # voters' thank-you: +1 life (honest-reachable, off the beaten track)
+put(d, 13, 86, "D")                      # short pipe in the park (cols 86-87)
+put(d, 13, 120, "D")                     # short pipe by the tulips (cols 120-121)
+
 meta = {
     "id": "l11", "world": 1, "label": "1-1",
     "material": "street", "material2": "park", "tileset": "k1", "oneway": "slab_plat", "timeLimit": 220,
+    # green pipes: two random ones (never the last) lead down into the metro (m11)
+    "subway": "m11", "subwayOpen": 2,
     # living sky (src/entities/world/Sky.js): soft gradient like the bridge mockup + drifting clouds
     "sky": {"top": "#4c9ad6", "bottom": "#a8d4ec", "clouds": 9, "horizon": 0.6},
     "parallax": [

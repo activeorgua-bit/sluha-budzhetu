@@ -1659,3 +1659,89 @@ assets:
         stash_box: [52, 44, fit]
         stash_box_open: [52, 50, fit]
         lamp_leaflet: [96, 240, fit]
+  # ---------------------------------------------------------------- Kyiv metro sub-level (m11), 2026-09-27
+  - id: m1_passengers_a
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: "metro passengers: young man, young woman, office man, woman with shopping bags"
+    post: {kind: sheet, atlas: chars,
+           groups: {ymale: {frame: 96, frame_h: 82, baseline: 90}, yfemale: {frame: 96, frame_h: 80, baseline: 90},
+                    mmale: {frame: 96, frame_h: 82, baseline: 90}, mfemale: {frame: 96, frame_h: 78, baseline: 90}},
+           names: [ymale_idle, ymale_walk1, ymale_walk2, ymale_angry, yfemale_idle, yfemale_walk1, yfemale_walk2, yfemale_angry,
+                   mmale_idle, mmale_walk1, mmale_walk2, mmale_angry, mfemale_idle, mfemale_walk1, mfemale_walk2, mfemale_angry]}
+  - id: m1_passengers_b
+    batch: V2
+    template: chars_4x4_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: "metro: old man, old woman with trolley, duty officer (man), escalator attendant (woman)"
+    post: {kind: sheet, atlas: chars,
+           groups: {omale: {frame: 96, frame_h: 76, baseline: 90}, ofemale: {frame: 96, frame_h: 74, baseline: 90},
+                    mworker: {frame: 96, frame_h: 82, baseline: 90}, wworker: {frame: 96, frame_h: 80, baseline: 90}},
+           names: [omale_idle, omale_walk1, omale_walk2, omale_angry, ofemale_idle, ofemale_walk1, ofemale_walk2, ofemale_angry,
+                   mworker_idle, mworker_walk1, mworker_walk2, mworker_signal, wworker_idle, wworker_walk1, wworker_walk2, wworker_talk]}
+  - id: m1_police
+    batch: V2
+    template: chars_4x2_256
+    resolution: 2k
+    references: [raw/l1_politician/v001.png, crops/palette_strip.png]
+    prompt: "the metro policeman"
+    post: {kind: sheet, atlas: chars,
+           groups: {mcop: {frame: 96, frame_h: 84, baseline: 90}},
+           names: [mcop_idle, mcop_walk1, mcop_walk2, mcop_whistle, mcop_grab, mcop_stunned, mcop_salute, mcop_bribed]}
+  - id: m1_props
+    batch: V2
+    template: props_4x4_256
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, crops/palette_strip.png]
+    prompt: "Kyiv metro props"
+    post:
+      kind: sheet
+      atlas: props
+      anchor: feet
+      names: [turnstile, metro_bench, ticket_booth, metro_map, marble_column, metro_chandelier, metro_sign, metro_bin,
+              vending, flower_kiosk, accordion_case, floor_lamp, escalator, police_booth, news_stand, stop_button]
+      sizes:
+        turnstile: [60, 84, fit]
+        metro_bench: [144, 56, fit]
+        ticket_booth: [96, 132, fit]
+        metro_map: [96, 96, fit]
+        marble_column: [72, 330, fit]
+        metro_chandelier: [96, 96, fit]
+        metro_sign: [48, 120, fit]
+        metro_bin: [40, 56, fit]
+        vending: [72, 110, fit]
+        flower_kiosk: [120, 110, fit]
+        accordion_case: [84, 40, fit]
+        floor_lamp: [96, 96, fit]
+        escalator: [336, 240, fit]
+        police_booth: [72, 136, fit]
+        news_stand: [48, 72, fit]
+        stop_button: [32, 64, fit]
+  - id: m1_tiles
+    batch: V2
+    template: tiles_8x8_128
+    resolution: 2k
+    references: [mockup_level_1-3_bridge.png, crops/palette_strip.png]
+    prompt: "Kyiv metro tileset (cut by tools/make_metro_tiles.py: the model ignored the grid)"
+    post: {kind: raw_only}
+  - id: m11_bg_far
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: "the grand hall of a Soviet-era Kyiv metro station"
+    post: {kind: bg, level: m11, layer: far, width: 1600, seamless: false, strip_sky: false, crop_bottom: false, quantize: 64}
+  - id: m1_train
+    batch: V2
+    aspect_ratio: film_horizontal_21_9
+    references: [mockup_level_1-3_bridge.png]
+    prompt: "a classic Kyiv metro train, two cars, side view"
+    post: {kind: single, atlas: props, anchor: feet, names: [metro_train], sizes: {metro_train: [720, 150, fit]}}
+  - id: card_subway
+    batch: V2
+    aspect_ratio: widescreen_16_9
+    references: [mockup_level_1-3_bridge.png, l1_politician v001]
+    prompt: "the politician confused at a metro turnstile, NABU lost at the escalator"
+    post: {kind: card, name: story_subway}

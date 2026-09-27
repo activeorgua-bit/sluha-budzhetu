@@ -14,6 +14,8 @@ export const LEVELS = [
   { id: 'e31', world: 3, label: '3-1', file: 'e31_party', nameKey: 'level_e31' },
   { id: 'e32', world: 3, label: '3-2', file: 'e32_district', nameKey: 'level_e32', cardsAfter: 'taxi' },
   { id: 'e33', world: 3, label: '3-3', file: 'e33_station', nameKey: 'level_e33', finale: true },
+  // sub-levels reached from inside another level (not part of the level-to-level order)
+  { id: 'm11', world: 1, label: '1-1M', file: 'm11_metro', nameKey: 'level_m11', bonus: true, subway: true },
 ];
 
 export function levelByIndex(i) { return LEVELS[i]; }
@@ -37,6 +39,7 @@ export const STORY = {
   epilogue: [{ image: 'story_epilogue', textKey: 'end_epilogue' }],
   // shown before a level (LEVELS[].cardsBefore)
   bridge: [{ image: 'story_bridge', textKey: 'cut_bridge' }],
+  subway: [{ image: 'story_subway', textKey: 'cut_subway' }],
   bunker: [{ image: 'story_bunker', textKey: 'cut_bunker' }],
   corridor: [{ image: 'story_corridor', textKey: 'cut_corridor' }],
   hall: [{ image: 'story_hall', textKey: 'cut_hall' }],

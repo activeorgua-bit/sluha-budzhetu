@@ -27,7 +27,7 @@ class GameStateClass {
     this.trapsTriggered = 0;
     this.chestnuts = BALANCE.nuts.start;   // honest ammo: never adds corruption
     this.books = 0;                       // 'Kapital' books from the bunker (stronger)
-    this.reputation = BALANCE.reputation.max;   // health bar; refilled at every (re)start of a level
+    this.reputation = BALANCE.reputation.max;   // health bar; carried between levels, refilled on a lost life
     this.conscience = 0;                  // inner judge 0..100 (see BALANCE.conscience)
     this.drunk = null;                    // { kind: 'whiskey'|'vodka', until: ms } while drunk
     this.drinks = 0;
@@ -150,6 +150,7 @@ class GameStateClass {
 
   loseLife() {
     this.lives -= 1;
+    this.reputation = BALANCE.reputation.max;   // the next life starts with a clean name
     this._stats().deaths += 1;
     this.emit();
     return this.lives;
@@ -193,6 +194,7 @@ class GameStateClass {
       levelStats: JSON.parse(JSON.stringify(this.levelStats)), guardPaid: !!this.guardPaid,
       chestnuts: this.chestnuts, books: this.books, conscience: this.conscience, drinks: this.drinks,
       mafiaChoice: this.mafiaChoice, jacketless: this.jacketless, hasTicket: this.hasTicket,
+      reputation: this.reputation,
     };
   }
 
@@ -205,6 +207,7 @@ class GameStateClass {
       levelStats: snap.levelStats || {}, guardPaid: !!snap.guardPaid,
       chestnuts: snap.chestnuts || 0, books: snap.books || 0, conscience: snap.conscience || 0, drinks: snap.drinks || 0,
       mafiaChoice: snap.mafiaChoice || null, jacketless: !!snap.jacketless, hasTicket: !!snap.hasTicket,
+      reputation: snap.reputation ?? BALANCE.reputation.max,
     });
     this.checkpoint = null;
     this._lastTier = this.tier.id;

@@ -18,7 +18,10 @@ import { ChestnutTree, SecretHatch } from '../entities/world/Park.js';
 import { Narrator } from '../core/Narrator.js';
 import { Bandit, MafiaBoss, Gopnik, Citizen, Dog, DogWalker, GangBoss, districtHostile, debrisHostile } from '../entities/enemies/World3.js';
 import { FallingDebris } from '../entities/world/Debris.js';
+import { Passenger, MetroWorker, MetroCop } from '../entities/enemies/Metro.js';
 import { Sky } from '../entities/world/Sky.js';
+
+const GROUND_Y_TRAIN = 14 * 48 + 22;   // wheels hidden behind the platform edge
 import { Pickup, QuestionBlock, Stash } from '../entities/items/Pickups.js';
 import { CrumblingBridge, MovingPlatform, HangingHook, waveDeckTexture, dressWaveBridge } from '../entities/world/Platforms.js';
 import { Projectiles } from '../entities/projectiles/Projectiles.js';
@@ -31,6 +34,7 @@ export class LevelScene extends Phaser.Scene {
   init(data) {
     this.levelIndex = data.levelIndex ?? GameState.levelIndex ?? 0;
     this.fromCheckpoint = !!data.fromCheckpoint;
+    this.fromSubway = !!data.fromSubway && !!GameState.subwayReturn;   // back up a pipe from the metro
   }
 
   tt(key, params) { return t(key, params); }
@@ -38,9 +42,10 @@ export class LevelScene extends Phaser.Scene {
   create() {
     const def = LEVELS[this.levelIndex];
     GameState.levelIndex = this.levelIndex;
-    GameState.reputation = BALANCE.reputation.max;   // a fresh start (level start or respawn)
+    // reputation carries over from level to level; it is refilled when a life is lost (loseLife)
     // snapshot for save slots: saves restore the start of the level (pickups cannot be doubled)
-    if (!this.fromCheckpoint || !GameState.levelStartSnapshot || GameState.levelStartSnapshot.levelIndex !== this.levelIndex) {
+    const resumed = this.fromCheckpoint || this.fromSubway;
+    if (!resumed || !GameState.levelStartSnapshot || GameState.levelStartSnapshot.levelIndex !== this.levelIndex) {
       GameState.levelStartSnapshot = GameState.serialize();
       Save.writeSlot('auto', { levelIndex: this.levelIndex, label: LEVELS[this.levelIndex].label, state: GameState.levelStartSnapshot });
     }
@@ -87,6 +92,8 @@ export class LevelScene extends Phaser.Scene {
     this.nutReadyAt = 0;
     this.shops = [];          // decor with "shop": sells whiskey
     this.stashes = [];        // hidden boxes to search (E): first-aid kits
+    // once per attempt: the bridges happen to be built properly (only matters to a corrupt politician)
+    this.luckyBridges = Math.random() < BALANCE.collapse.luckyChance;
     this.kitFromBlock = false;
     this.debris = [];         // falling balconies / panels (block district, corrupt only)
     // the scene object is reused between runs: the mafia fight and its cut scene must start fresh
@@ -109,6 +116,8 @@ export class LevelScene extends Phaser.Scene {
     const cp = GameState.checkpoint;
     if (this.fromCheckpoint && cp && cp.levelId === def.id) spawn = { x: cp.x, y: cp.y };
     if (!spawn) spawn = { x: 2 * TILE, y: 14 * TILE };
+    const back = this.fromSubway ? GameState.subwayReturn : null;
+    if (back) spawn = { x: (back.col + back.w / 2) * TILE, y: back.surf };
     this.player = new Player(this, spawn.x, spawn.y);
     if (this.fromCheckpoint) {
       // a moment of grace after a respawn: no death loops (a punch straight back into the water)
@@ -117,6 +126,9 @@ export class LevelScene extends Phaser.Scene {
     }
     this.director = new SpawnDirector(this, this.level);
     this.narrator = new Narrator(this);
+    this.setupPipes();
+    if (back) this.resumeFromSubway(back);
+    if (this.meta.train) this.setupTrain(this.meta.train);
 
     this.setupColliders();
     this.setupCamera();
@@ -128,13 +140,17 @@ export class LevelScene extends Phaser.Scene {
     if (this.scene.isActive('UI')) this.scene.stop('UI');
     this.scene.launch('UI', { label: def.label });
     this.scene.bringToTop('UI');
-    this.timeLeft = this.meta.timeLimit || 200;
+    this.timeLeft = back ? back.timeLeft : (this.meta.timeLimit || 200);
     this.timerEvent = this.time.addEvent({ delay: 1000, loop: true, callback: () => this.tick() });
     this.time.delayedCall(50, () => {
       this.ui = this.scene.get('UI');
       if (this.ui && this.ui.setTime) this.ui.setTime(this.timeLeft);
-      if (this.ui && this.ui.flash && !this.fromCheckpoint) this.ui.flash(`${t('level_start')} ${def.label}\n${t(def.nameKey)}`, '#f2c14e', 1600);
-      if (!this.fromCheckpoint) this.time.delayedCall(900, () => this.narrator.say(`start_${def.id}`, { priority: 2 }));
+      if (this.ui && this.ui.flash && !this.fromCheckpoint && !this.fromSubway) this.ui.flash(`${t('level_start')} ${def.label}\n${t(def.nameKey)}`, '#f2c14e', 1600);
+      if (!this.fromCheckpoint && !this.fromSubway) this.time.delayedCall(900, () => this.narrator.say(`start_${def.id}`, { priority: 2 }));
+      if (this.fromSubway) {
+        this.ui.flash(t('tail_lost'), '#7ddf7d', 1800);
+        this.time.delayedCall(700, () => this.narrator.say('subway_back', { priority: 2 }));
+      }
     });
 
     this.onPickupEv = ({ kind }) => {
@@ -373,6 +389,7 @@ export class LevelScene extends Phaser.Scene {
       case 'journalist': case 'detective': case 'cop': case 'voter': case 'guest': case 'guard':
       case 'oldlady': case 'kid': case 'rat': case 'assistant': case 'oppmp': case 'journalist_f': case 'seatedmp':
       case 'bandit': case 'gopnik': case 'citizen': case 'dog': case 'dogwalker': case 'mp':
+      case 'passenger': case 'mworker': case 'wworker': case 'mcop':
         if (o.gateTier === undefined) this.spawnEnemy(o.type, cx, feetY, o);
         return null;
       case 'tree':
@@ -422,6 +439,10 @@ export class LevelScene extends Phaser.Scene {
       case 'dog': e = new Dog(this, x, y, o); break;
       case 'dogwalker': e = new DogWalker(this, x, y, o); break;
       case 'mp': e = new Assistant(this, x, y, { ...o, skin: 'mp' }); break;
+      case 'passenger': e = new Passenger(this, x, y, o); break;
+      case 'mworker': e = new MetroWorker(this, x, y, { ...o, skin: 'mworker' }); break;
+      case 'wworker': e = new MetroWorker(this, x, y, { ...o, skin: 'wworker' }); break;
+      case 'mcop': e = new MetroCop(this, x, y, o); break;
       default: return null;
     }
     this.enemies.add(e);
@@ -524,6 +545,8 @@ export class LevelScene extends Phaser.Scene {
 
   interactWorld() {
     const P = this.player;
+    const pipe = this.pipeUnderPlayer();
+    if (pipe) { this.enterSubway(pipe); return true; }
     for (const h of this.secrets) if (h.near(P)) { this.enterSecret(); return true; }
     for (const tr of this.trees) if (tr.near(P) && tr.shake()) return true;
     for (const st of this.stashes) if (st.near(P) && st.search()) return true;
@@ -539,6 +562,8 @@ export class LevelScene extends Phaser.Scene {
     for (const tr of this.trees) if (!tr.hinted && tr.near(P)) { tr.hinted = true; this.ui.flash(t('hint_tree'), '#e8b06a', 1400); }
     for (const h of this.secrets) if (!h.hinted && h.near(P)) { h.hinted = true; this.ui.flash(t('hint_secret'), '#ffe66d', 1600); }
     for (const st of this.stashes) if (!st.hinted && st.near(P)) { st.hinted = true; this.ui.flash(t('hint_stash'), '#ffe66d', 1400); }
+    const pipe = this.pipeUnderPlayer();
+    if (pipe && !pipe.hinted) { pipe.hinted = true; this.ui.flash(t('hint_pipe'), '#7ddf7d', 1400); }
     for (const sh of this.shops) {
       if (!sh.hinted && Math.abs(P.x - sh.x) < BALANCE.alcohol.shopRange && Math.abs(P.y - sh.y) < 120) {
         sh.hinted = true;
@@ -832,7 +857,7 @@ export class LevelScene extends Phaser.Scene {
   setupKeys() {
     const kb = this.input.keyboard;
     const mk = (names) => names.map((n) => kb.addKey(Phaser.Input.Keyboard.KeyCodes[n]));
-    this.keys = { left: mk(KEYS.left), right: mk(KEYS.right), jump: mk(KEYS.jump), bribe: mk(KEYS.bribe), blackPR: mk(KEYS.blackPR), interact: mk(KEYS.interact), nut: mk(KEYS.nut) };
+    this.keys = { left: mk(KEYS.left), right: mk(KEYS.right), jump: mk(KEYS.jump), bribe: mk(KEYS.bribe), blackPR: mk(KEYS.blackPR), interact: mk(KEYS.interact), nut: mk(KEYS.nut), down: mk(['DOWN', 'S']) };
     kb.on('keydown-P', () => this.togglePause());
     kb.on('keydown-ESC', () => this.togglePause());
     kb.on('keydown-F1', () => this.togglePause(true));
@@ -866,6 +891,7 @@ export class LevelScene extends Phaser.Scene {
       if (this.keys.bribe.some((k) => Phaser.Input.Keyboard.JustDown(k))) this.bribes.throwCash(this.player);
       if (this.keys.blackPR.some((k) => Phaser.Input.Keyboard.JustDown(k))) this.bribes.throwPR(this.player);
       if (this.keys.nut.some((k) => Phaser.Input.Keyboard.JustDown(k))) this.throwNut();
+      if (this.keys.down.some((k) => Phaser.Input.Keyboard.JustDown(k))) { const pipe = this.pipeUnderPlayer(); if (pipe) this.enterSubway(pipe); }
       if (this.keys.interact.some((k) => Phaser.Input.Keyboard.JustDown(k))) { if (!this.interactWorld()) this.interact(); }
       this.worldHints();
       this.narrator.update();
@@ -915,6 +941,8 @@ export class LevelScene extends Phaser.Scene {
       if (z.flag) z.flag.setTint(0x7ddf7d);
       audio.playCheckpoint();
       this.ui.flash(t('checkpoint'), '#7ddf7d', 900);
+      GameState.reputation = Math.min(BALANCE.reputation.max, GameState.reputation + BALANCE.reputation.checkpointBonus);
+      GameState.emit();
       this.narrator.say('checkpoint', { priority: 0 });
       if (GameState.tier.id >= BALANCE.spawn.checkpointAmbushTier) this.director.sting(this.player.x, this.player.y, true);
     }
@@ -928,13 +956,108 @@ export class LevelScene extends Phaser.Scene {
     if (this.timeLeft <= 0) { this.ui.flash(t('time_up'), '#ff6b6b', 1200); this.killPlayer('time'); }
   }
 
+  // ------------------------------------------------------------------ green pipes and the metro
+  /**
+   * meta.subway: the metro level id. The solid green pipes of the level (decor 'pipe_*') are
+   * candidate entrances; meta.subwayOpen of them (never the last) open at random on every attempt.
+   * You come back up through the NEXT pipe along the street, with NABU off your trail.
+   */
+  setupPipes() {
+    this.pipes = (this.level.decor || []).filter((d) => /^pipe_/.test(d.frame) && d.solid)
+      .map((d) => ({ col: d.col, w: d.w || 2, surf: (d.row + 1) * TILE - (d.top || 2) * TILE }))
+      .sort((a, b) => a.col - b.col);
+    if (!this.meta.subway || this.pipes.length < 2) return;
+    const cand = this.pipes.slice(0, -1);
+    Phaser.Utils.Array.Shuffle(cand);
+    for (const p of cand.slice(0, this.meta.subwayOpen || 2)) {
+      p.open = true;
+      // a whiff of warm metro air now and then gives an open pipe away
+      this.time.addEvent({ delay: 2600 + Math.random() * 900, loop: true, callback: () => {
+        const puff = this.add.circle((p.col + p.w / 2) * TILE + Phaser.Math.Between(-8, 8), p.surf - 6, 7, 0xf4efe3, 0.55).setDepth(DEPTH.fx);
+        this.tweens.add({ targets: puff, y: puff.y - 46, scale: 2.2, alpha: 0, duration: 1100, onComplete: () => puff.destroy() });
+      } });
+    }
+  }
+
+  /** meta.train: a metro train rushes through behind the platform every few seconds (decor). */
+  setupTrain(cfg) {
+    if (!this.textures.get('props').has(cfg.frame)) return;
+    const run = () => {
+      const cam = this.cameras.main;
+      const tr = this.add.image(cam.scrollX + GAME_W + 60, GROUND_Y_TRAIN, 'props', cfg.frame).setOrigin(0, 1)
+        .setDepth(DEPTH.parallaxMid + 2);
+      const dist = tr.width + GAME_W + 200;
+      this.tweens.add({ targets: tr, x: tr.x - dist, duration: dist / cfg.speed * 1000, onComplete: () => tr.destroy() });
+      if (this.cameras.main.worldView.contains(this.player.x, this.player.y)) this.cameras.main.shake(dist / cfg.speed * 700, 0.0015);
+    };
+    this.time.addEvent({ delay: cfg.everySec * 1000, loop: true, callback: run });
+    this.time.delayedCall(2500, run);
+  }
+
+  /** The open pipe the politician is standing on, if any. */
+  pipeUnderPlayer() {
+    const P = this.player;
+    if (!this.pipes || P.dead || !(P.body.blocked.down || P.body.touching.down)) return null;
+    return this.pipes.find((p) => p.open && Math.abs(P.body.bottom - p.surf) < 8
+      && P.x > p.col * TILE + 6 && P.x < (p.col + p.w) * TILE - 6) || null;
+  }
+
+  enterSubway(pipe) {
+    if (this.finished) return;
+    const target = levelIndexById(this.meta.subway);
+    const next = this.pipes[this.pipes.indexOf(pipe) + 1];
+    if (target < 0 || !next) return;
+    this.finished = true;
+    GameState.subwayReturn = { levelIndex: this.levelIndex, col: next.col, w: next.w, surf: next.surf, timeLeft: this.timeLeft };
+    const P = this.player;
+    P.body.enable = false;
+    audio.playCheckpoint();
+    this.tweens.add({ targets: P, x: (pipe.col + pipe.w / 2) * TILE, y: P.y + 110, duration: 700, ease: 'Quad.easeIn' });
+    this.time.delayedCall(800, () => {
+      this.scene.stop('UI');
+      GameState.levelIndex = target;
+      const cards = GameState.subwaySeen ? null : STORY.subway;
+      GameState.subwaySeen = true;
+      if (cards) this.scene.start('Story', { cards, title: t(LEVELS[target].nameKey), next: { scene: 'Level', data: { levelIndex: target } } });
+      else this.scene.start('Level', { levelIndex: target });
+    });
+  }
+
+  /** The metro's exit pipe: back to the street at the pipe after the one you took. */
+  exitSubway() {
+    if (this.finished) return;
+    this.finished = true;
+    const back = GameState.subwayReturn;
+    const P = this.player;
+    P.body.enable = false;
+    audio.playCheckpoint();
+    this.tweens.add({ targets: P, y: P.y - 60, alpha: 0, duration: 600 });
+    this.time.delayedCall(700, () => {
+      this.scene.stop('UI');
+      if (!back) { this.scene.start('Level', { levelIndex: 0 }); return; }
+      GameState.levelIndex = back.levelIndex;
+      this.scene.start('Level', { levelIndex: back.levelIndex, fromSubway: true });
+    });
+  }
+
+  /** Back on the street: the skipped part is gone, and NABU lost the trail for a while. */
+  resumeFromSubway(back) {
+    const x0 = back.col * TILE;
+    for (const p of this.pickups.getChildren().slice()) if (p.x < x0) p.destroy();
+    for (const e of this.enemies.getChildren().slice()) if (e.x < x0 || e.type === 'detective') e.destroy();
+    this.director.quietUntil = this.time.now + BALANCE.spawn.subwayQuietSec * 1000;
+    this.player.body.setVelocityY(-420);            // pops out of the pipe
+    this.player.invulnUntil = this.time.now + 1500;
+    GameState.subwayReturn = null;
+  }
+
   /** Reputation slowly recovers after a quiet spell (slower the more corrupt you are). */
   regenReputation(now, delta) {
     const R = BALANCE.reputation;
     const G = GameState;
-    if (this.player.dead || G.reputation >= R.max || now - (this.player.repHitAt || 0) < R.regenDelaySec * 1000) return;
+    if (this.player.dead || G.reputation >= R.regenCap || now - (this.player.repHitAt || 0) < R.regenDelaySec * 1000) return;
     const before = Math.floor(G.reputation);
-    G.reputation = Math.min(R.max, G.reputation + R.regenPerSec * (1 - (G.heat / 100) * R.corruptRegen) * delta / 1000);
+    G.reputation = Math.min(R.regenCap, G.reputation + R.regenPerSec * (1 - (G.heat / 100) * R.corruptRegen) * delta / 1000);
     if (Math.floor(G.reputation) !== before) G.emit();
   }
 
@@ -976,6 +1099,7 @@ export class LevelScene extends Phaser.Scene {
   }
 
   completeLevel() {
+    if (this.meta && this.meta.subwayExit) { this.exitSubway(); return; }
     if (this.finished) return;
     this.finished = true;
     this.player.body.setVelocityX(0);

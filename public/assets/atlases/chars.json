@@ -3240,9 +3240,329 @@
     "h": 96
    }
   },
-  "mp_idle": {
+  "mcop_bribed": {
    "frame": {
     "x": 98,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mcop_grab": {
+   "frame": {
+    "x": 196,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mcop_idle": {
+   "frame": {
+    "x": 294,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mcop_salute": {
+   "frame": {
+    "x": 392,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mcop_stunned": {
+   "frame": {
+    "x": 490,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mcop_walk1": {
+   "frame": {
+    "x": 588,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mcop_walk2": {
+   "frame": {
+    "x": 686,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mcop_whistle": {
+   "frame": {
+    "x": 784,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mfemale_angry": {
+   "frame": {
+    "x": 882,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mfemale_idle": {
+   "frame": {
+    "x": 980,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mfemale_walk1": {
+   "frame": {
+    "x": 1078,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mfemale_walk2": {
+   "frame": {
+    "x": 1176,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mmale_angry": {
+   "frame": {
+    "x": 1274,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mmale_idle": {
+   "frame": {
+    "x": 1372,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mmale_walk1": {
+   "frame": {
+    "x": 1470,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mmale_walk2": {
+   "frame": {
+    "x": 1568,
+    "y": 1026,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mp_idle": {
+   "frame": {
+    "x": 1666,
     "y": 1026,
     "w": 96,
     "h": 96
@@ -3262,7 +3582,7 @@
   },
   "mp_stunned": {
    "frame": {
-    "x": 196,
+    "x": 1764,
     "y": 1026,
     "w": 96,
     "h": 96
@@ -3282,7 +3602,7 @@
   },
   "mp_walk1": {
    "frame": {
-    "x": 294,
+    "x": 1862,
     "y": 1026,
     "w": 96,
     "h": 96
@@ -3302,8 +3622,8 @@
   },
   "mp_walk2": {
    "frame": {
-    "x": 392,
-    "y": 1026,
+    "x": 0,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3322,8 +3642,8 @@
   },
   "mpshirt_drink": {
    "frame": {
-    "x": 490,
-    "y": 1026,
+    "x": 98,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3342,8 +3662,8 @@
   },
   "mpshirt_drunk_walk1": {
    "frame": {
-    "x": 588,
-    "y": 1026,
+    "x": 196,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3362,8 +3682,8 @@
   },
   "mpshirt_drunk_walk2": {
    "frame": {
-    "x": 686,
-    "y": 1026,
+    "x": 294,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3382,8 +3702,8 @@
   },
   "mpshirt_fall": {
    "frame": {
-    "x": 784,
-    "y": 1026,
+    "x": 392,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3402,8 +3722,8 @@
   },
   "mpshirt_hurt": {
    "frame": {
-    "x": 882,
-    "y": 1026,
+    "x": 490,
+    "y": 1124,
     "w": 128,
     "h": 96
    },
@@ -3422,8 +3742,8 @@
   },
   "mpshirt_idle": {
    "frame": {
-    "x": 1012,
-    "y": 1026,
+    "x": 620,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3442,8 +3762,8 @@
   },
   "mpshirt_idle2": {
    "frame": {
-    "x": 1110,
-    "y": 1026,
+    "x": 718,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3462,8 +3782,8 @@
   },
   "mpshirt_jump": {
    "frame": {
-    "x": 1208,
-    "y": 1026,
+    "x": 816,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3482,8 +3802,8 @@
   },
   "mpshirt_remorse1": {
    "frame": {
-    "x": 1306,
-    "y": 1026,
+    "x": 914,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3502,8 +3822,8 @@
   },
   "mpshirt_stunned": {
    "frame": {
-    "x": 1404,
-    "y": 1026,
+    "x": 1012,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3522,8 +3842,8 @@
   },
   "mpshirt_throw1": {
    "frame": {
-    "x": 1502,
-    "y": 1026,
+    "x": 1110,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3542,8 +3862,8 @@
   },
   "mpshirt_throw2": {
    "frame": {
-    "x": 1600,
-    "y": 1026,
+    "x": 1208,
+    "y": 1124,
     "w": 128,
     "h": 96
    },
@@ -3562,8 +3882,8 @@
   },
   "mpshirt_walk1": {
    "frame": {
-    "x": 1730,
-    "y": 1026,
+    "x": 1338,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3582,8 +3902,8 @@
   },
   "mpshirt_walk2": {
    "frame": {
-    "x": 1828,
-    "y": 1026,
+    "x": 1436,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3602,8 +3922,8 @@
   },
   "mpshirt_walk3": {
    "frame": {
-    "x": 1926,
-    "y": 1026,
+    "x": 1534,
+    "y": 1124,
     "w": 96,
     "h": 96
    },
@@ -3622,8 +3942,168 @@
   },
   "mpshirt_walk4": {
    "frame": {
-    "x": 0,
+    "x": 1632,
     "y": 1124,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mworker_idle": {
+   "frame": {
+    "x": 1730,
+    "y": 1124,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mworker_signal": {
+   "frame": {
+    "x": 1828,
+    "y": 1124,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mworker_walk1": {
+   "frame": {
+    "x": 1926,
+    "y": 1124,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "mworker_walk2": {
+   "frame": {
+    "x": 0,
+    "y": 1222,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "ofemale_angry": {
+   "frame": {
+    "x": 98,
+    "y": 1222,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "ofemale_idle": {
+   "frame": {
+    "x": 196,
+    "y": 1222,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "ofemale_walk1": {
+   "frame": {
+    "x": 294,
+    "y": 1222,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "ofemale_walk2": {
+   "frame": {
+    "x": 392,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3642,8 +4122,8 @@
   },
   "oldlady_angry": {
    "frame": {
-    "x": 98,
-    "y": 1124,
+    "x": 490,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3662,8 +4142,8 @@
   },
   "oldlady_bribed": {
    "frame": {
-    "x": 196,
-    "y": 1124,
+    "x": 588,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3682,8 +4162,8 @@
   },
   "oldlady_idle": {
    "frame": {
-    "x": 294,
-    "y": 1124,
+    "x": 686,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3702,8 +4182,8 @@
   },
   "oldlady_raise": {
    "frame": {
-    "x": 392,
-    "y": 1124,
+    "x": 784,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3722,8 +4202,8 @@
   },
   "oldlady_strike": {
    "frame": {
-    "x": 490,
-    "y": 1124,
+    "x": 882,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3742,8 +4222,8 @@
   },
   "oldlady_stunned": {
    "frame": {
-    "x": 588,
-    "y": 1124,
+    "x": 980,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3762,8 +4242,8 @@
   },
   "oldlady_walk1": {
    "frame": {
-    "x": 686,
-    "y": 1124,
+    "x": 1078,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3782,8 +4262,8 @@
   },
   "oldlady_walk2": {
    "frame": {
-    "x": 784,
-    "y": 1124,
+    "x": 1176,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3802,8 +4282,8 @@
   },
   "oligarch_dance1": {
    "frame": {
-    "x": 882,
-    "y": 1124,
+    "x": 1274,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3822,8 +4302,8 @@
   },
   "oligarch_dance2": {
    "frame": {
-    "x": 980,
-    "y": 1124,
+    "x": 1372,
+    "y": 1222,
     "w": 120,
     "h": 96
    },
@@ -3842,8 +4322,8 @@
   },
   "oligarch_dance3": {
    "frame": {
-    "x": 1102,
-    "y": 1124,
+    "x": 1494,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3862,8 +4342,8 @@
   },
   "oligarch_drink": {
    "frame": {
-    "x": 1200,
-    "y": 1124,
+    "x": 1592,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3882,8 +4362,8 @@
   },
   "oligarch_idle": {
    "frame": {
-    "x": 1298,
-    "y": 1124,
+    "x": 1690,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3902,8 +4382,8 @@
   },
   "oligarch_idle2": {
    "frame": {
-    "x": 1396,
-    "y": 1124,
+    "x": 1788,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3922,8 +4402,8 @@
   },
   "oligarch_laugh": {
    "frame": {
-    "x": 1494,
-    "y": 1124,
+    "x": 1886,
+    "y": 1222,
     "w": 96,
     "h": 96
    },
@@ -3942,8 +4422,88 @@
   },
   "oligarch_offer": {
    "frame": {
-    "x": 1592,
-    "y": 1124,
+    "x": 0,
+    "y": 1320,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "omale_angry": {
+   "frame": {
+    "x": 98,
+    "y": 1320,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "omale_idle": {
+   "frame": {
+    "x": 196,
+    "y": 1320,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "omale_walk1": {
+   "frame": {
+    "x": 294,
+    "y": 1320,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "omale_walk2": {
+   "frame": {
+    "x": 392,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -3962,8 +4522,8 @@
   },
   "oppmp_bribed": {
    "frame": {
-    "x": 1690,
-    "y": 1124,
+    "x": 490,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -3982,8 +4542,8 @@
   },
   "oppmp_idle": {
    "frame": {
-    "x": 1788,
-    "y": 1124,
+    "x": 588,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4002,8 +4562,8 @@
   },
   "oppmp_shout": {
    "frame": {
-    "x": 1886,
-    "y": 1124,
+    "x": 686,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4022,8 +4582,8 @@
   },
   "oppmp_stunned": {
    "frame": {
-    "x": 0,
-    "y": 1222,
+    "x": 784,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4042,8 +4602,8 @@
   },
   "oppmp_throw": {
    "frame": {
-    "x": 98,
-    "y": 1222,
+    "x": 882,
+    "y": 1320,
     "w": 128,
     "h": 96
    },
@@ -4062,8 +4622,8 @@
   },
   "oppmp_walk1": {
    "frame": {
-    "x": 228,
-    "y": 1222,
+    "x": 1012,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4082,8 +4642,8 @@
   },
   "oppmp_walk2": {
    "frame": {
-    "x": 326,
-    "y": 1222,
+    "x": 1110,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4102,8 +4662,8 @@
   },
   "oppmp_walk3": {
    "frame": {
-    "x": 424,
-    "y": 1222,
+    "x": 1208,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4122,8 +4682,8 @@
   },
   "politician_bag": {
    "frame": {
-    "x": 522,
-    "y": 1222,
+    "x": 1306,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4142,8 +4702,8 @@
   },
   "politician_drink": {
    "frame": {
-    "x": 620,
-    "y": 1222,
+    "x": 1404,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4162,8 +4722,8 @@
   },
   "politician_drunk_idle": {
    "frame": {
-    "x": 718,
-    "y": 1222,
+    "x": 1502,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4182,8 +4742,8 @@
   },
   "politician_drunk_walk1": {
    "frame": {
-    "x": 816,
-    "y": 1222,
+    "x": 1600,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4202,8 +4762,8 @@
   },
   "politician_drunk_walk2": {
    "frame": {
-    "x": 914,
-    "y": 1222,
+    "x": 1698,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4222,8 +4782,8 @@
   },
   "politician_fall": {
    "frame": {
-    "x": 1012,
-    "y": 1222,
+    "x": 1796,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4242,8 +4802,8 @@
   },
   "politician_hiccup": {
    "frame": {
-    "x": 1110,
-    "y": 1222,
+    "x": 1894,
+    "y": 1320,
     "w": 96,
     "h": 96
    },
@@ -4262,8 +4822,8 @@
   },
   "politician_hurt": {
    "frame": {
-    "x": 1208,
-    "y": 1222,
+    "x": 0,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4282,8 +4842,8 @@
   },
   "politician_idle": {
    "frame": {
-    "x": 1306,
-    "y": 1222,
+    "x": 98,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4302,8 +4862,8 @@
   },
   "politician_idle2": {
    "frame": {
-    "x": 1404,
-    "y": 1222,
+    "x": 196,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4322,8 +4882,8 @@
   },
   "politician_idle_c": {
    "frame": {
-    "x": 1502,
-    "y": 1222,
+    "x": 294,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4342,8 +4902,8 @@
   },
   "politician_idle_c2": {
    "frame": {
-    "x": 1600,
-    "y": 1222,
+    "x": 392,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4362,8 +4922,8 @@
   },
   "politician_jump": {
    "frame": {
-    "x": 1698,
-    "y": 1222,
+    "x": 490,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4382,8 +4942,8 @@
   },
   "politician_jump_c": {
    "frame": {
-    "x": 1796,
-    "y": 1222,
+    "x": 588,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4402,8 +4962,8 @@
   },
   "politician_jump_c2": {
    "frame": {
-    "x": 1894,
-    "y": 1222,
+    "x": 686,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4422,8 +4982,8 @@
   },
   "politician_nervous": {
    "frame": {
-    "x": 0,
-    "y": 1320,
+    "x": 784,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4442,8 +5002,8 @@
   },
   "politician_remorse1": {
    "frame": {
-    "x": 98,
-    "y": 1320,
+    "x": 882,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4462,8 +5022,8 @@
   },
   "politician_remorse2": {
    "frame": {
-    "x": 196,
-    "y": 1320,
+    "x": 980,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4482,8 +5042,8 @@
   },
   "politician_stunned": {
    "frame": {
-    "x": 294,
-    "y": 1320,
+    "x": 1078,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4502,8 +5062,8 @@
   },
   "politician_throw1": {
    "frame": {
-    "x": 392,
-    "y": 1320,
+    "x": 1176,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4522,8 +5082,8 @@
   },
   "politician_throw2": {
    "frame": {
-    "x": 490,
-    "y": 1320,
+    "x": 1274,
+    "y": 1418,
     "w": 128,
     "h": 96
    },
@@ -4542,8 +5102,8 @@
   },
   "politician_victory": {
    "frame": {
-    "x": 620,
-    "y": 1320,
+    "x": 1404,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4562,8 +5122,8 @@
   },
   "politician_walk1": {
    "frame": {
-    "x": 718,
-    "y": 1320,
+    "x": 1502,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4582,8 +5142,8 @@
   },
   "politician_walk1_c": {
    "frame": {
-    "x": 816,
-    "y": 1320,
+    "x": 1600,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4602,8 +5162,8 @@
   },
   "politician_walk1_c2": {
    "frame": {
-    "x": 914,
-    "y": 1320,
+    "x": 1698,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4622,8 +5182,8 @@
   },
   "politician_walk2": {
    "frame": {
-    "x": 1012,
-    "y": 1320,
+    "x": 1796,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4642,8 +5202,8 @@
   },
   "politician_walk2_c": {
    "frame": {
-    "x": 1110,
-    "y": 1320,
+    "x": 1894,
+    "y": 1418,
     "w": 96,
     "h": 96
    },
@@ -4662,8 +5222,8 @@
   },
   "politician_walk2_c2": {
    "frame": {
-    "x": 1208,
-    "y": 1320,
+    "x": 0,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4682,8 +5242,8 @@
   },
   "politician_walk3": {
    "frame": {
-    "x": 1306,
-    "y": 1320,
+    "x": 98,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4702,8 +5262,8 @@
   },
   "politician_walk4": {
    "frame": {
-    "x": 1404,
-    "y": 1320,
+    "x": 196,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4722,8 +5282,8 @@
   },
   "politician_wave": {
    "frame": {
-    "x": 1502,
-    "y": 1320,
+    "x": 294,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4742,8 +5302,8 @@
   },
   "politician_wipe": {
    "frame": {
-    "x": 1600,
-    "y": 1320,
+    "x": 392,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4762,8 +5322,8 @@
   },
   "rat_angry": {
    "frame": {
-    "x": 1698,
-    "y": 1320,
+    "x": 490,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4782,8 +5342,8 @@
   },
   "rat_bribed": {
    "frame": {
-    "x": 1796,
-    "y": 1320,
+    "x": 588,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4802,8 +5362,8 @@
   },
   "rat_idle": {
    "frame": {
-    "x": 1894,
-    "y": 1320,
+    "x": 686,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4822,8 +5382,8 @@
   },
   "rat_run": {
    "frame": {
-    "x": 0,
-    "y": 1418,
+    "x": 784,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4842,8 +5402,8 @@
   },
   "rat_stunned": {
    "frame": {
-    "x": 98,
-    "y": 1418,
+    "x": 882,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4862,8 +5422,8 @@
   },
   "rat_walk1": {
    "frame": {
-    "x": 196,
-    "y": 1418,
+    "x": 980,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4882,8 +5442,8 @@
   },
   "rat_walk2": {
    "frame": {
-    "x": 294,
-    "y": 1418,
+    "x": 1078,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4902,8 +5462,8 @@
   },
   "rat_walk3": {
    "frame": {
-    "x": 392,
-    "y": 1418,
+    "x": 1176,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4922,8 +5482,8 @@
   },
   "ratboss_defeated": {
    "frame": {
-    "x": 490,
-    "y": 1418,
+    "x": 1274,
+    "y": 1516,
     "w": 128,
     "h": 96
    },
@@ -4942,8 +5502,8 @@
   },
   "ratboss_hurt": {
    "frame": {
-    "x": 620,
-    "y": 1418,
+    "x": 1404,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -4962,8 +5522,8 @@
   },
   "ratboss_idle": {
    "frame": {
-    "x": 718,
-    "y": 1418,
+    "x": 1502,
+    "y": 1516,
     "w": 128,
     "h": 96
    },
@@ -4982,8 +5542,8 @@
   },
   "ratboss_jump": {
    "frame": {
-    "x": 848,
-    "y": 1418,
+    "x": 1632,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -5002,8 +5562,8 @@
   },
   "ratboss_strum1": {
    "frame": {
-    "x": 946,
-    "y": 1418,
+    "x": 1730,
+    "y": 1516,
     "w": 128,
     "h": 96
    },
@@ -5022,8 +5582,8 @@
   },
   "ratboss_strum2": {
    "frame": {
-    "x": 1076,
-    "y": 1418,
+    "x": 1860,
+    "y": 1516,
     "w": 96,
     "h": 96
    },
@@ -5042,8 +5602,8 @@
   },
   "ratboss_swing": {
    "frame": {
-    "x": 1174,
-    "y": 1418,
+    "x": 0,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5062,8 +5622,8 @@
   },
   "ratboss_walk": {
    "frame": {
-    "x": 1272,
-    "y": 1418,
+    "x": 98,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5082,8 +5642,8 @@
   },
   "seatedmp_clap": {
    "frame": {
-    "x": 1370,
-    "y": 1418,
+    "x": 196,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5102,8 +5662,8 @@
   },
   "seatedmp_sit": {
    "frame": {
-    "x": 1468,
-    "y": 1418,
+    "x": 294,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5122,8 +5682,8 @@
   },
   "seatedmp_sleep": {
    "frame": {
-    "x": 1566,
-    "y": 1418,
+    "x": 392,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5142,8 +5702,8 @@
   },
   "seatedmp_throw": {
    "frame": {
-    "x": 1664,
-    "y": 1418,
+    "x": 490,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5162,8 +5722,8 @@
   },
   "tracksuit_angry": {
    "frame": {
-    "x": 1762,
-    "y": 1418,
+    "x": 588,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5182,8 +5742,8 @@
   },
   "tracksuit_bribed": {
    "frame": {
-    "x": 1860,
-    "y": 1418,
+    "x": 686,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5202,8 +5762,8 @@
   },
   "tracksuit_idle": {
    "frame": {
-    "x": 0,
-    "y": 1516,
+    "x": 784,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5222,8 +5782,8 @@
   },
   "tracksuit_throw": {
    "frame": {
-    "x": 98,
-    "y": 1516,
+    "x": 882,
+    "y": 1614,
     "w": 120,
     "h": 96
    },
@@ -5242,8 +5802,8 @@
   },
   "tracksuit_walk1": {
    "frame": {
-    "x": 220,
-    "y": 1516,
+    "x": 1004,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5262,8 +5822,8 @@
   },
   "tracksuit_walk2": {
    "frame": {
-    "x": 318,
-    "y": 1516,
+    "x": 1102,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5282,8 +5842,8 @@
   },
   "tracksuit_walk3": {
    "frame": {
-    "x": 416,
-    "y": 1516,
+    "x": 1200,
+    "y": 1614,
     "w": 96,
     "h": 96
    },
@@ -5302,8 +5862,248 @@
   },
   "tracksuit_wave": {
    "frame": {
-    "x": 514,
-    "y": 1516,
+    "x": 1298,
+    "y": 1614,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "wworker_idle": {
+   "frame": {
+    "x": 1396,
+    "y": 1614,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "wworker_talk": {
+   "frame": {
+    "x": 1494,
+    "y": 1614,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "wworker_walk1": {
+   "frame": {
+    "x": 1592,
+    "y": 1614,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "wworker_walk2": {
+   "frame": {
+    "x": 1690,
+    "y": 1614,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "yfemale_angry": {
+   "frame": {
+    "x": 1788,
+    "y": 1614,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "yfemale_idle": {
+   "frame": {
+    "x": 1886,
+    "y": 1614,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "yfemale_walk1": {
+   "frame": {
+    "x": 0,
+    "y": 1712,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "yfemale_walk2": {
+   "frame": {
+    "x": 98,
+    "y": 1712,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "ymale_angry": {
+   "frame": {
+    "x": 196,
+    "y": 1712,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "ymale_idle": {
+   "frame": {
+    "x": 294,
+    "y": 1712,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "ymale_walk1": {
+   "frame": {
+    "x": 392,
+    "y": 1712,
+    "w": 96,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 96,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 96,
+    "h": 96
+   }
+  },
+  "ymale_walk2": {
+   "frame": {
+    "x": 490,
+    "y": 1712,
     "w": 96,
     "h": 96
    },
@@ -5328,7 +6128,7 @@
   "format": "RGBA8888",
   "size": {
    "w": 2044,
-   "h": 1614
+   "h": 1810
   },
   "scale": "1"
  }

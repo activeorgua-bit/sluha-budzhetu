@@ -1,0 +1,90 @@
+"""Author the Kyiv metro sub-level (m11) reached through the green pipes of 1-1.
+
+  python tools/author_metro.py && node tools/validate_levels.mjs
+
+  vestibule (upper floor): the arrival pipe, the ticket office, turnstiles to jump, the escalator attendant
+  escalator down to the platform hall: marble columns, chandeliers, a busker's case with coins (take it or
+  not), passengers, the duty officer, the one metro policeman, a train passing behind the platform
+  exit: a green pipe back up to the street (1-1 continues at the next pipe)
+
+Rows 0-17 (48 px tiles). The vestibule floor surface is row 11, the platform row 14.
+"""
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from author_world2 import Canvas, ROWS, GROUND, solid  # noqa: E402
+
+UPPER = 11          # vestibule floor surface row
+
+
+def metro():
+    c = Canvas(110)
+    # vestibule: a raised granite floor (cols 0-29); platform hall below (cols 30-109, yellow edge line)
+    c.fill(UPPER, ROWS - 1, 0, 29, "#")
+    c.fill(GROUND, ROWS - 1, 30, 109, "@")
+    c.put(UPPER - 1, 3, "P")
+    c.dec(1, "Q", UPPER - 1)                     # the pipe he came down (decor)
+    c.dec(5, "S", UPPER - 1)                     # the red M
+    c.dec(7, "T", UPPER - 1)                     # ticket office (cols 7-8)
+    c.put(UPPER - 1, 10, "p")
+    c.dec(13, "U", UPPER - 1); c.dec(14, "U", UPPER - 1); c.dec(15, "U", UPPER - 1)   # turnstiles: jump them
+    c.put(UPPER - 6, 14, "c")                    # a coin high above the turnstiles
+    c.dec(18, "V", UPPER - 1)                    # metro map
+    c.put(UPPER - 1, 21, "f")                    # escalator attendant
+    c.put(UPPER - 1, 25, "p")
+    # escalator down (decor) with a few grating steps for a softer way down
+    c.dec(28, "E", GROUND - 1)                   # escalator (7 tiles wide)
+    c.fill(UPPER + 1, UPPER + 1, 30, 32, "-")
+    c.fill(UPPER + 2, UPPER + 2, 33, 35, "-")
+    # platform hall
+    for col in (40, 52, 64, 76, 88, 100):
+        c.dec(col, "C", GROUND - 1)              # marble columns
+    for col in (45, 57, 69, 81, 93):
+        c.dec(col, "H", 6)                       # chandeliers under the vault
+    c.put(GROUND - 1, 43, "p")
+    c.dec(46, "B", GROUND - 1)                   # bench (cols 46-48), standable
+    c.put(GROUND - 1, 50, "p")
+    c.dec(54, "K", GROUND - 1)                   # flower kiosk
+    c.put(GROUND - 1, 58, "a")                   # duty officer with the signal disc
+    c.put(GROUND - 1, 61, "K")                   # checkpoint
+    c.dec(66, "A", GROUND - 1)                   # the busker's accordion case
+    c.put(GROUND - 1, 67, "c")                   # ...and the change in it (jump over it, or take it)
+    c.fill(10, 10, 71, 75, "-")                  # a service catwalk above the crowd
+    c.put(9, 72, "c.c.c")
+    c.put(GROUND - 1, 70, "p")
+    c.dec(78, "B", GROUND - 1)                   # second bench
+    c.put(GROUND - 1, 82, "p")
+    c.put(GROUND - 1, 86, "q")                   # the one metro policeman
+    c.dec(89, "O", GROUND - 1)                   # his booth
+    c.put(10, 91, "?")
+    c.dec(94, "M", GROUND - 1)                   # vending machine
+    c.put(GROUND - 1, 96, "p")
+    c.dec(98, "N", GROUND - 1)                   # newspaper stand
+    c.put(GROUND - 1, 99, "p")
+    # exit: the pipe back up to the street
+    c.dec(104, "Q", GROUND - 1)
+    c.put(GROUND - 1, 107, "G")
+    meta = {
+        "id": "m11", "world": 1, "label": "1-1M",
+        "material": "metro", "material2": "platf", "tileset": "m1", "oneway": "grate_plat", "timeLimit": 120,
+        "bgColor": "#1b1712",
+        "subwayExit": True,
+        "train": {"frame": "metro_train", "everySec": 11, "speed": 520},
+        "narration": [{"col": 11, "key": "m11_turnstile"}, {"col": 63, "key": "m11_busker"}, {"col": 84, "key": "m11_cop"}],
+        "parallax": [{"key": "m11_far", "scroll": 0.3, "bottomRow": 14, "lift": 0}],
+        "decor": {
+            "Q": {"frame": "pipe_tall", "w": 2}, "S": "metro_sign", "T": {"frame": "ticket_booth", "w": 2},
+            "V": {"frame": "metro_map", "w": 2}, "E": {"frame": "escalator", "w": 7}, "C": {"frame": "marble_column", "w": 2},
+            "H": {"frame": "metro_chandelier", "w": 2}, "K": {"frame": "flower_kiosk", "w": 3},
+            "A": {"frame": "accordion_case", "w": 2}, "O": {"frame": "police_booth", "w": 2},
+            "M": {"frame": "vending", "w": 2}, "N": "news_stand",
+            "U": solid("turnstile", "full", 1),
+            "B": solid("metro_bench", "top", 3),
+        },
+    }
+    c.write("m11_metro", meta)
+
+
+if __name__ == "__main__":
+    metro()

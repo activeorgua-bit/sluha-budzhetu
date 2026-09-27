@@ -1,0 +1,41 @@
+// Kyiv metro sub-level (m11): level name, pipe hints, cut scene and the passengers' lines.
+export const METRO = {
+  uk: {
+    level_m11: 'КИЇВСЬКЕ МЕТРО',
+    hint_pipe: '↓ / E — У МЕТРО',
+    pipe_exit: 'ВИХІД НА ПОВЕРХНЮ',
+    tail_lost: 'СТЕЖЕННЯ НАБУ ЗАГУБИЛОСЯ',
+    cut_subway: 'Метро. Востаннє я був тут, коли перерізав стрічку на відкритті станції — і то з охороною. '
+      + 'Ідеальне місце, щоб зникнути: НАБУ шукатиме мене де завгодно, тільки не тут. Хто ж повірить, що депутат їздить метро?',
+    hurt_passenger: 'ШТОВХАНИНА!', hurt_mcop: 'ЗАТРИМАННЯ!',
+    bubble_pax_angry1: 'Злодій! Прямо в метро!', bubble_pax_angry2: 'Ганьба! Віддай мою пенсію!',
+    bubble_pax_angry3: 'Ану вийди з вагона!', bubble_pax_angry4: 'Ти ж нас обікрав!',
+    bubble_pax_autograph: 'Ой, це ви! Можна автограф? Для мами…',
+    bubble_pax_money1: 'Пане депутате, позичте двадцятку на проїзд?', bubble_pax_money2: 'Добродію, на хліб не вистачає…',
+    bubble_passenger_bribed: 'Ну… дякую. Я нікого не бачив.', bubble_passenger_refuse: 'Хабар?! У метро?!',
+    bubble_passenger_stunned: 'Ай!',
+    bubble_mworker_edge: 'Відійдіть від краю платформи!', bubble_mworker_corrupt: 'Громадянине, у вас на обличчі все написано.',
+    bubble_wworker_rail: 'Тримайтеся за поручень!', bubble_wworker_corrupt: 'Алло, поліція? У нас тут… депутат.',
+    bubble_mcop_salute: 'Доброго дня! Бажаю здоров’я!', bubble_mcop_stop: 'Стояти! Документи!',
+    bubble_mcop_bribed: 'Проходьте, проходьте…', bubble_mcop_refuse: 'Це вже друга стаття!', bubble_mcop_stunned: 'Ох…',
+  },
+  en: {
+    level_m11: 'KYIV METRO',
+    hint_pipe: '↓ / E — INTO THE METRO',
+    pipe_exit: 'BACK TO THE SURFACE',
+    tail_lost: 'NABU LOST YOUR TRAIL',
+    cut_subway: 'The metro. The last time I was here I was cutting the ribbon at a station opening, with bodyguards. '
+      + 'The perfect place to vanish: NABU will look for me anywhere but here. Who would believe an MP takes the metro?',
+    hurt_passenger: 'SHOVED!', hurt_mcop: 'DETAINED!',
+    bubble_pax_angry1: 'A thief! In the metro!', bubble_pax_angry2: 'Shame! Give back my pension!',
+    bubble_pax_angry3: 'Get off this train!', bubble_pax_angry4: 'You robbed us!',
+    bubble_pax_autograph: 'Oh, it’s you! An autograph? For my mum…',
+    bubble_pax_money1: 'Mr MP, could you lend me twenty for the fare?', bubble_pax_money2: 'Kind sir, I’m short for bread…',
+    bubble_passenger_bribed: 'Well… thanks. I saw nothing.', bubble_passenger_refuse: 'A bribe?! In the metro?!',
+    bubble_passenger_stunned: 'Ouch!',
+    bubble_mworker_edge: 'Step back from the platform edge!', bubble_mworker_corrupt: 'Citizen, it’s written all over your face.',
+    bubble_wworker_rail: 'Hold the handrail!', bubble_wworker_corrupt: 'Hello, police? We have… an MP here.',
+    bubble_mcop_salute: 'Good day, sir!', bubble_mcop_stop: 'Stop! Papers!',
+    bubble_mcop_bribed: 'Move along, move along…', bubble_mcop_refuse: 'That’s a second charge!', bubble_mcop_stunned: 'Oof…',
+  },
+};

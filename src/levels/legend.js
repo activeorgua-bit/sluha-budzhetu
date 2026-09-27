@@ -43,6 +43,8 @@ export const ENTITY_CHARS = {
   y: 'whiskey', u: 'vodka',
   // world 3: party and block district
   N: 'bandit', R: 'mp', h: 'gopnik', i: 'citizen', Y: 'dog', I: 'dogwalker', '!': 'debris',
+  // Kyiv metro (m11): p passenger (random look), a duty officer, f escalator attendant, q metro policeman
+  p: 'passenger', a: 'mworker', f: 'wworker', q: 'mcop',
   '+': 'stash',         // hidden stash (a cardboard box): E to search, a first-aid kit inside (+1 life)
 };
 

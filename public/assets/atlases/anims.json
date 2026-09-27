@@ -1587,5 +1587,289 @@
   ],
   "fps": 1,
   "repeat": -1
+ },
+ "ymale_idle": {
+  "atlas": "chars",
+  "frames": [
+   "ymale_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "ymale_walk": {
+  "atlas": "chars",
+  "frames": [
+   "ymale_walk1",
+   "ymale_idle",
+   "ymale_walk2",
+   "ymale_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "ymale_angry": {
+  "atlas": "chars",
+  "frames": [
+   "ymale_angry",
+   "ymale_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "yfemale_idle": {
+  "atlas": "chars",
+  "frames": [
+   "yfemale_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "yfemale_walk": {
+  "atlas": "chars",
+  "frames": [
+   "yfemale_walk1",
+   "yfemale_idle",
+   "yfemale_walk2",
+   "yfemale_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "yfemale_angry": {
+  "atlas": "chars",
+  "frames": [
+   "yfemale_angry",
+   "yfemale_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "mmale_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mmale_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mmale_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mmale_walk1",
+   "mmale_idle",
+   "mmale_walk2",
+   "mmale_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "mmale_angry": {
+  "atlas": "chars",
+  "frames": [
+   "mmale_angry",
+   "mmale_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "mfemale_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mfemale_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mfemale_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mfemale_walk1",
+   "mfemale_idle",
+   "mfemale_walk2",
+   "mfemale_idle"
+  ],
+  "fps": 6,
+  "repeat": -1
+ },
+ "mfemale_angry": {
+  "atlas": "chars",
+  "frames": [
+   "mfemale_angry",
+   "mfemale_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "omale_idle": {
+  "atlas": "chars",
+  "frames": [
+   "omale_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "omale_walk": {
+  "atlas": "chars",
+  "frames": [
+   "omale_walk1",
+   "omale_idle",
+   "omale_walk2",
+   "omale_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "omale_angry": {
+  "atlas": "chars",
+  "frames": [
+   "omale_angry",
+   "omale_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "ofemale_idle": {
+  "atlas": "chars",
+  "frames": [
+   "ofemale_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "ofemale_walk": {
+  "atlas": "chars",
+  "frames": [
+   "ofemale_walk1",
+   "ofemale_idle",
+   "ofemale_walk2",
+   "ofemale_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "ofemale_angry": {
+  "atlas": "chars",
+  "frames": [
+   "ofemale_angry",
+   "ofemale_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "mworker_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mworker_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mworker_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mworker_walk1",
+   "mworker_idle",
+   "mworker_walk2",
+   "mworker_idle"
+  ],
+  "fps": 5,
+  "repeat": -1
+ },
+ "mworker_signal": {
+  "atlas": "chars",
+  "frames": [
+   "mworker_signal",
+   "mworker_idle"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "wworker_idle": {
+  "atlas": "chars",
+  "frames": [
+   "wworker_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "wworker_walk": {
+  "atlas": "chars",
+  "frames": [
+   "wworker_walk1",
+   "wworker_idle",
+   "wworker_walk2",
+   "wworker_idle"
+  ],
+  "fps": 5,
+  "repeat": -1
+ },
+ "wworker_talk": {
+  "atlas": "chars",
+  "frames": [
+   "wworker_talk",
+   "wworker_idle"
+  ],
+  "fps": 2,
+  "repeat": -1
+ },
+ "mcop_idle": {
+  "atlas": "chars",
+  "frames": [
+   "mcop_idle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mcop_walk": {
+  "atlas": "chars",
+  "frames": [
+   "mcop_walk1",
+   "mcop_idle",
+   "mcop_walk2",
+   "mcop_idle"
+  ],
+  "fps": 7,
+  "repeat": -1
+ },
+ "mcop_whistle": {
+  "atlas": "chars",
+  "frames": [
+   "mcop_whistle"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mcop_grab": {
+  "atlas": "chars",
+  "frames": [
+   "mcop_grab",
+   "mcop_idle"
+  ],
+  "fps": 4,
+  "repeat": -1
+ },
+ "mcop_stunned": {
+  "atlas": "chars",
+  "frames": [
+   "mcop_stunned"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mcop_salute": {
+  "atlas": "chars",
+  "frames": [
+   "mcop_salute"
+  ],
+  "fps": 1,
+  "repeat": -1
+ },
+ "mcop_bribed": {
+  "atlas": "chars",
+  "frames": [
+   "mcop_bribed"
+  ],
+  "fps": 1,
+  "repeat": -1
  }
 }
