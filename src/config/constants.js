@@ -27,7 +27,6 @@ export const KEYS = {
   right: ['RIGHT', 'D'],
   jump: ['SPACE', 'W', 'UP'],
   bribe: ['J', 'Z'],
-  blackPR: ['L', 'X'],     // throw kompromat (scares journalists)
   nut: ['K', 'C'],          // throw a chestnut (or a 'Kapital' book when you carry one)
   interact: ['E', 'ENTER'],
   restart: ['R'],

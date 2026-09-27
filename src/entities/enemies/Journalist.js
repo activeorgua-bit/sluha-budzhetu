@@ -68,11 +68,4 @@ export class Journalist extends Enemy {
     this.playIf(Math.abs(this.body.velocity.x) > 5 ? this.anim('walk') : this.anim('idle'));
   }
 
-  onBlackPR() {
-    if (this.bribed) return false;
-    this.fleeUntil = this.scene.time.now + BALANCE.bribe.blackPRFleeSec * 1000;
-    this.stateName = 'patrol';
-    this.say('bubble_journalist_flee', 1200, '#f2c14e');
-    return true;
-  }
 }

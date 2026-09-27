@@ -97,11 +97,6 @@ class SoundEngine {
     noise.start(now);
   }
 
-  playBlackPR() {
-    if (!this._ready()) return;
-    this._tone('sawtooth', 280, 70, 0.18, 0.25);
-  }
-
   playCopBribed() {
     if (!this._ready()) return;
     this._arpeggio('sine', [523.25, 659.25, 783.99, 1046.5], 0.06, 0.15, 0.18);

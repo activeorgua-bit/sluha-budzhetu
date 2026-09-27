@@ -6,7 +6,7 @@ import { t, textStyle, hasText } from '../../core/i18n.js';
 
 /**
  * Base enemy: patrol / alert / chase / attack / stunned / bribed / enraged / flee.
- * Subclasses override think(), onCashHit(), onBlackPR(), onPlayerContact().
+ * Subclasses override think(), onCashHit(), onNutHit(), onPlayerContact().
  */
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, type, frame, opts = {}) {
@@ -136,7 +136,7 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
   /** Cash hit resolved by BribeSystem: returns 'bribed' | 'refused'. */
   onCashHit(rng) {
     if (this.bribed) return 'bribed';
-    const cfg = BALANCE.bribe[this.type] || { odds: 0 };
+    const cfg = BALANCE.bribe[this.bribeKey] || { odds: 0 };
     const odds = (cfg.odds ?? 0) * Math.pow(BALANCE.bribe.failOddsMult, this.failedAttempts);
     if (rng.chance(odds)) {
       this.becomeBribed();
@@ -147,20 +147,46 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     return 'refused';
   }
 
+  /** Bribe odds / cost entry: a skin may have its own (journalist_f), else the type's. */
+  get bribeKey() { return BALANCE.bribe[this.skin] ? this.skin : this.type; }
+
   becomeBribed() {
     this.bribed = true;
     this.stateName = 'bribed';
     const key = `${this.type}_bribed`;
     if (this.scene.anims.exists(key)) this.play(key, true);
     this.say(`bubble_${this.type}_bribed`, 1800, '#7ddf7d');
+    if (!this.staysWhenBribed) this.vanish(1500);
+  }
+
+  /** A bribed enemy stays where it is (seated MPs keep their seats, they just stop throwing). */
+  get staysWhenBribed() { return false; }
+
+  /**
+   * Leave the level: fade out after `delayMs` and switch off (the object stays, inactive, so any
+   * reference to it stays valid). Bribed enemies and knocked-out rats go, so the screen stays tidy.
+   */
+  vanish(delayMs = 0, opts = {}) {
+    if (this.leaving) return;
+    this.leaving = true;
+    this.scene.time.delayedCall(delayMs, () => {
+      if (!this.active) return;
+      this.scene.tweens.add({
+        targets: this, alpha: 0, y: this.y + (opts.sink || 0), duration: 500,
+        onComplete: () => {
+          if (this.bubble) { this.bubble.destroy(); this.bubble = null; }
+          if (this.stars) { this.stars.destroy(); this.stars = null; }
+          if (this.label) this.label.setVisible(false);
+          this.disableBody(true, true);
+        },
+      });
+    });
   }
 
   enrage() {
     this.enragedUntil = this.scene.time.now + BALANCE.bribe.enragedSec * 1000;
     this.say(`bubble_${this.type}_refuse`, 1400, '#ff6b6b');
   }
-
-  onBlackPR() { return false; }
 
   /**
    * Hit by the player's chestnut / 'Kapital' book: dizzy for a while (harmless, frozen).

@@ -37,7 +37,7 @@ export class HelpScene extends Phaser.Scene {
     this.title.setText(t('help_title_controls'));
     const rows = [
       ['← → / A D', 'help_move'], ['SPACE / W / ↑', 'help_jump'], ['J / Z', 'help_bribe'],
-      ['K / C', 'help_nut'], ['L / X', 'help_pr'], ['E / ENTER', 'help_interact'], ['P / ESC', 'help_pause'],
+      ['K / C', 'help_nut'], ['E / ENTER', 'help_interact'], ['P / ESC', 'help_pause'],
       ['R', 'help_restart'], ['M', 'help_mute'], ['F1 / H', 'help_help'],
     ];
     rows.forEach(([key, desc], i) => {

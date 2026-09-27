@@ -893,7 +893,6 @@ export class LevelScene extends Phaser.Scene {
     this.physics.add.collider(this.projectiles.nuts, this.layer, (c) => c.destroy());
     this.physics.add.overlap(this.projectiles.nuts, this.enemies, (n, e) => this.onNutHitEnemy(n, e));
     this.physics.add.overlap(this.projectiles.cash, this.enemies, (c, e) => this.bribes.onCashHitEnemy(c, e));
-    this.physics.add.overlap(this.projectiles.pr, this.enemies, (c, e) => this.bribes.onPRHitEnemy(c, e));
     this.physics.add.overlap(P, this.projectiles.hostile, (p, proj) => { if (proj.active && p.hurt(proj.x, proj.kind)) proj.destroy(); });
     this.physics.add.overlap(P, this.enemies, (p, e) => this.onEnemyContact(p, e));
     this.physics.add.overlap(P, this.pickups, (p, pk) => pk.collect(p));
@@ -919,7 +918,7 @@ export class LevelScene extends Phaser.Scene {
   setupKeys() {
     const kb = this.input.keyboard;
     const mk = (names) => names.map((n) => kb.addKey(Phaser.Input.Keyboard.KeyCodes[n]));
-    this.keys = { left: mk(KEYS.left), right: mk(KEYS.right), jump: mk(KEYS.jump), bribe: mk(KEYS.bribe), blackPR: mk(KEYS.blackPR), interact: mk(KEYS.interact), nut: mk(KEYS.nut), down: mk(['DOWN', 'S']) };
+    this.keys = { left: mk(KEYS.left), right: mk(KEYS.right), jump: mk(KEYS.jump), bribe: mk(KEYS.bribe), interact: mk(KEYS.interact), nut: mk(KEYS.nut), down: mk(['DOWN', 'S']) };
     kb.on('keydown-P', () => this.togglePause());
     kb.on('keydown-ESC', () => this.togglePause());
     kb.on('keydown-F1', () => this.togglePause(true));
@@ -952,7 +951,6 @@ export class LevelScene extends Phaser.Scene {
     if (!this.player.dead) {
       this.player.handleInput(this.keys, time, delta);
       if (this.keys.bribe.some((k) => Phaser.Input.Keyboard.JustDown(k))) this.bribes.throwCash(this.player);
-      if (this.keys.blackPR.some((k) => Phaser.Input.Keyboard.JustDown(k))) this.bribes.throwPR(this.player);
       if (this.keys.nut.some((k) => Phaser.Input.Keyboard.JustDown(k))) this.throwNut();
       if (this.keys.down.some((k) => Phaser.Input.Keyboard.JustDown(k))) { const pipe = this.pipeUnderPlayer(); if (pipe) this.enterSubway(pipe); }
       if (this.keys.interact.some((k) => Phaser.Input.Keyboard.JustDown(k))) { if (!this.interactWorld()) this.interact(); }

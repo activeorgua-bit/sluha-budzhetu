@@ -10,7 +10,6 @@ import { audio } from './Audio.js';
 export class BribeSystem {
   constructor(scene) {
     this.scene = scene;
-    this.prReadyAt = 0;
   }
 
   throwCash(player) {
@@ -26,21 +25,11 @@ export class BribeSystem {
     if (this.scene.wobble) this.scene.wobble(cash);
   }
 
-  throwPR(player) {
-    if (player.dead) return;
-    const now = this.scene.time.now;
-    if (now < this.prReadyAt) return;
-    this.prReadyAt = now + BALANCE.bribe.blackPRCooldownSec * 1000;
-    audio.playBlackPR();
-    player.throwLock = now + 250;
-    this.scene.projectiles.throwPR(player.x + player.facing * 30, player.y - 66, player.facing);
-  }
-
   onCashHitEnemy(cash, enemy) {
     if (!cash.active) return;
+    if (enemy.bribed || enemy.leaving || enemy.bribeProof) return;   // the bill flies past (rats take no bribes)
     cash.destroy();
-    if (enemy.bribed) return;
-    const cfg = BALANCE.bribe[enemy.type];
+    const cfg = BALANCE.bribe[enemy.bribeKey];
     const extra = cfg && cfg.cost !== undefined ? cfg.cost - 1 : 0;
     if (extra > 0 && !GameState.spendWallet(extra)) {
       // not enough to complete the bribe: counts as a refused attempt
@@ -68,11 +57,4 @@ export class BribeSystem {
     if (!enemy.enragedUntil || enemy.enragedUntil < this.scene.time.now) enemy.enrage();
   }
 
-  onPRHitEnemy(pr, enemy) {
-    if (!pr.active) return;
-    if (enemy.onBlackPR()) {
-      pr.destroy();
-      this.scene.projectiles.burst(enemy.x, enemy.y - 30, 0xffffff, 6);
-    }
-  }
 }

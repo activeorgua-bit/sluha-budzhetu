@@ -31,11 +31,11 @@ export const BALANCE = {
   bribe: {
     cop:        { odds: 1.00, cost: 1 },
     journalist: { odds: 0.22, cost: 3 },
+    journalist_f: { odds: 0.10, cost: 3 },   // the female reporter is much harder to buy
     voter:      { odds: 0.18, cost: 2 },
     detective:  { odds: 0.14, cost: 5 },
     oldlady:    { odds: 0.45, cost: 2 },   // a pension top-up
     kid:        { odds: 0.70, cost: 1 },   // pocket money
-    rat:        { odds: 0.90, cost: 1 },
     oppmp:      { odds: 0.30, cost: 4 },
     seatedmp:   { odds: 0.60, cost: 2 },
     bandit:     { odds: 0.80, cost: 3 },
@@ -44,6 +44,7 @@ export const BALANCE = {
     dog:        { odds: 0.00, cost: 1 },
     dogwalker:  { odds: 0.50, cost: 1 },
     passenger:  { odds: 0.55, cost: 1 },   // "for the fare"
+    worker:     { odds: 0.40, cost: 2 },   // metro staff
     mcop:       { odds: 0.80, cost: 3 },
     gopboss:    { odds: 1.00, cost: 8 },
     assistant:  { odds: 1.00, cost: 1 },
@@ -54,7 +55,6 @@ export const BALANCE = {
     failOddsMult: 0.75,      // odds × this per failed attempt on the same enemy
     enragedSec: 3, enragedSpeedMult: 1.3,
     cashSpeed: 570, cashGravity: 675,
-    blackPRCooldownSec: 0.8, blackPRFleeSec: 4, blackPRSpeed: 630,
   },
 
   enemies: {

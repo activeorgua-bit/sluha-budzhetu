@@ -27,9 +27,9 @@ export class BriefingScene extends Phaser.Scene {
     const lx = 40;
     this.add.text(lx, 70, t('brief_keys'), textStyle(10, '#9fd1ff'));
     const rows = IS_TOUCH
-      ? [['◀ ▶', 'brief_t_move'], ['▲', 'brief_t_jump'], ['icon:ui:hud_chestnut', 'brief_nut'], ['icon:props:newspaper', 'brief_pr'],
+      ? [['◀ ▶', 'brief_t_move'], ['▲', 'brief_t_jump'], ['icon:ui:hud_chestnut', 'brief_nut'],
         ['icon:ui:hud_bag', 'brief_bribe'], [t('brief_t_act').toUpperCase(), 'brief_act'], ['II', 'brief_pause']]
-      : [['← → / A D', 'brief_move'], ['SPACE / ↑', 'brief_jump'], ['K', 'brief_nut'], ['L', 'brief_pr'],
+      : [['← → / A D', 'brief_move'], ['SPACE / ↑', 'brief_jump'], ['K', 'brief_nut'],
         ['J', 'brief_bribe'], ['E', 'brief_act'], ['P / ESC', 'brief_pause']];
     rows.forEach(([key, label], i) => {
       const y = 104 + i * 40;

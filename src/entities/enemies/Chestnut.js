@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { Enemy } from './Enemy.js';
 import { BALANCE } from '../../config/balance.js';
 import { audio } from '../../core/Audio.js';
+import { GameState } from '../../core/GameState.js';
 
 /**
  * World 2 cast (Mariinsky park, the Stalin-era bunker, the Rada corridor and session hall).
@@ -133,15 +134,34 @@ export class Kid extends Enemy {
   }
 }
 
-/** Bunker rat in an ushanka: scurries about, bites on touch, chases you when you're close. */
+/**
+ * Bunker rat in an ushanka: scurries about, bites on touch, chases you when you're close.
+ * Rats take no bribes (the bill flies past them); a chestnut or a book knocks one out for good.
+ */
 export class Rat extends Enemy {
   constructor(scene, x, y, opts = {}) {
     super(scene, x, y, 'rat', 'rat_idle', { speed: BALANCE.enemies.rat.speed, hitbox: { w: 40, h: 36, oy: 54 }, ...opts });
   }
 
+  get bribeProof() { return true; }
+  get harmless() { return this.leaving || super.harmless; }
+  onCashHit() { return 'refused'; }
+
+  onNutHit() {
+    if (this.leaving) return false;
+    this.body.setVelocity(0, -180);
+    this.body.checkCollision.none = true;
+    this.setFlipY(true);
+    this.anims.stop();
+    this.say('bubble_rat_stunned', 700, '#e8b06a');
+    GameState.addScore(BALANCE.score.rat_knocked ?? 100);
+    this.vanish(350, { sink: 30 });
+    return true;
+  }
+
   think() {
     const c = BALANCE.enemies.rat;
-    if (this.bribed) { this.body.setVelocityX(0); this.playIf(this.anim('bribed')); return; }
+    if (this.leaving) return;
     const dx = this.player.x - this.x;
     if (Math.abs(dx) < c.chaseRange && Math.abs(this.player.y - this.y) < 60 && !(this.onGround && this.ledgeAhead())) {
       this.dir = Math.sign(dx) || this.dir;
@@ -198,6 +218,7 @@ export class SeatedMP extends Enemy {
   }
 
   get harmless() { return true; }
+  get staysWhenBribed() { return true; }
   onPlayerContact() {}
 
   /** The speaker calls a vote: everybody throws at once (after a short random delay). */

@@ -4,7 +4,7 @@ import { BALANCE } from '../../config/balance.js';
 
 /**
  * All thrown things live in three Arcade groups: cash (player → enemies),
- * blackPR (player → journalists) and hostile (warrants, jars → player).
+ * hostile (warrants, jars → player).
  * Placeholder textures are generated if the atlas lacks a frame.
  */
 export class Projectiles {
@@ -12,7 +12,6 @@ export class Projectiles {
     this.scene = scene;
     this.ensureTextures();
     this.cash = scene.physics.add.group({ allowGravity: true });
-    this.pr = scene.physics.add.group({ allowGravity: false });
     this.hostile = scene.physics.add.group({ allowGravity: true });
     this.nuts = scene.physics.add.group({ allowGravity: true });    // chestnuts / books (player -> enemies)
   }
@@ -58,16 +57,6 @@ export class Projectiles {
     p.body.setGravityY(BALANCE.bribe.cashGravity - BALANCE.player.gravity);
     p.setAngularVelocity(dir * 360);
     this.expire(p, 1800);
-    return p;
-  }
-
-  throwPR(x, y, dir) {
-    const [key, frame] = this.tex('newspaper', '__pr');
-    const p = this.pr.create(x, y, key, frame);
-    p.setDepth(DEPTH.projectiles);
-    p.body.setVelocity(dir * BALANCE.bribe.blackPRSpeed, 0);
-    p.setAngularVelocity(dir * 540);
-    this.expire(p, 1200);
     return p;
   }
 
