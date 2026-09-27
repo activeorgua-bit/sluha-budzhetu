@@ -1667,6 +1667,7 @@ assets:
     references: [raw/l1_politician/v001.png, crops/palette_strip.png]
     prompt: "metro passengers: young man, young woman, office man, woman with shopping bags"
     post: {kind: sheet, atlas: chars, fixup: make_passenger_variants,
+           grow: {mfemale_idle: [0, 40, 0, 0], mfemale_walk1: [0, 40, 0, 0], mfemale_walk2: [0, 40, 0, 0], mfemale_angry: [0, 40, 0, 0]},   # her curls poke above the cell
            groups: {ymale: {frame: 96, frame_h: 82, baseline: 90}, yfemale: {frame: 96, frame_h: 80, baseline: 90},
                     mmale: {frame: 96, frame_h: 82, baseline: 90}, mfemale: {frame: 96, frame_h: 78, baseline: 90}},
            names: [ymale_idle, ymale_walk1, ymale_walk2, ymale_angry, yfemale_idle, yfemale_walk1, yfemale_walk2, yfemale_angry,

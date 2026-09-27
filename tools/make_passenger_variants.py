@@ -17,8 +17,9 @@ ROOT = Path(__file__).resolve().parent.parent
 CHARS = ROOT / "assets_src" / "frames" / "chars"
 # skin: ((hue shift of variant 2, variant 3) in degrees, keep skin tones?)
 SKINS = {
-    "ymale": ((150, 250), True), "yfemale": ((300, 150), True), "mmale": ((190, 330), False),
-    "mfemale": ((140, 220), True), "omale": ((180, 90), False), "ofemale": ((120, 250), True),
+    # the two older men keep their original coats (recolouring their beige / brown looked off)
+    "ymale": ((150, 250), True), "yfemale": ((300, 150), True),
+    "mfemale": ((140, 220), True), "ofemale": ((120, 250), True),
 }
 POSES = ["idle", "walk1", "walk2", "angry"]
 SAMPLE = (0.46, 0.62)  # rows where the coat colour is measured (below the face, above the legs)

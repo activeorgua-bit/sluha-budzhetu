@@ -2058,62 +2058,6 @@
   "fps": 4,
   "repeat": -1
  },
- "mmale2_idle": {
-  "atlas": "chars",
-  "frames": [
-   "mmale2_idle"
-  ],
-  "fps": 1,
-  "repeat": -1
- },
- "mmale2_walk": {
-  "atlas": "chars",
-  "frames": [
-   "mmale2_walk1",
-   "mmale2_idle",
-   "mmale2_walk2",
-   "mmale2_idle"
-  ],
-  "fps": 6,
-  "repeat": -1
- },
- "mmale2_angry": {
-  "atlas": "chars",
-  "frames": [
-   "mmale2_angry",
-   "mmale2_idle"
-  ],
-  "fps": 4,
-  "repeat": -1
- },
- "mmale3_idle": {
-  "atlas": "chars",
-  "frames": [
-   "mmale3_idle"
-  ],
-  "fps": 1,
-  "repeat": -1
- },
- "mmale3_walk": {
-  "atlas": "chars",
-  "frames": [
-   "mmale3_walk1",
-   "mmale3_idle",
-   "mmale3_walk2",
-   "mmale3_idle"
-  ],
-  "fps": 6,
-  "repeat": -1
- },
- "mmale3_angry": {
-  "atlas": "chars",
-  "frames": [
-   "mmale3_angry",
-   "mmale3_idle"
-  ],
-  "fps": 4,
-  "repeat": -1
- },
  "mfemale2_idle": {
   "atlas": "chars",
   "frames": [
@@ -2166,62 +2110,6 @@
   "frames": [
    "mfemale3_angry",
    "mfemale3_idle"
-  ],
-  "fps": 4,
-  "repeat": -1
- },
- "omale2_idle": {
-  "atlas": "chars",
-  "frames": [
-   "omale2_idle"
-  ],
-  "fps": 1,
-  "repeat": -1
- },
- "omale2_walk": {
-  "atlas": "chars",
-  "frames": [
-   "omale2_walk1",
-   "omale2_idle",
-   "omale2_walk2",
-   "omale2_idle"
-  ],
-  "fps": 4,
-  "repeat": -1
- },
- "omale2_angry": {
-  "atlas": "chars",
-  "frames": [
-   "omale2_angry",
-   "omale2_idle"
-  ],
-  "fps": 4,
-  "repeat": -1
- },
- "omale3_idle": {
-  "atlas": "chars",
-  "frames": [
-   "omale3_idle"
-  ],
-  "fps": 1,
-  "repeat": -1
- },
- "omale3_walk": {
-  "atlas": "chars",
-  "frames": [
-   "omale3_walk1",
-   "omale3_idle",
-   "omale3_walk2",
-   "omale3_idle"
-  ],
-  "fps": 4,
-  "repeat": -1
- },
- "omale3_angry": {
-  "atlas": "chars",
-  "frames": [
-   "omale3_angry",
-   "omale3_idle"
   ],
   "fps": 4,
   "repeat": -1
