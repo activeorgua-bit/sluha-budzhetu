@@ -84,7 +84,7 @@ export const BALANCE = {
   // taxi and train cost bribes (a clean politician pays with his official salary).
   // frontCaseHeat: from this heat NABU finds you at the front (the case waits for the end of the war)
   // salaryMaxTier: up to this heat tier the MP salary covers the taxi and the ticket when the wallet is short
-  world3: { salaryMaxTier: 1, frontCaseHeat: 25, mafiaKnockoutHits: 3, taxiPrice: 5, ticketPrice: 5, salary: 5, trainBreakdownHeat: 55,
+  world3: { salaryMaxTier: 1, frontCaseHeat: 25, mafiaKnockoutHits: 3, taxiPrice: 3, ticketPrice: 5, salary: 5, trainBreakdownHeat: 55,
              breakdownFromHeat: 35, breakdownSpan: 55, breakdownMax: 0.92 },
 
   // Reputation: the politician's health. Hits cost reputation (by source); at 0 a life is lost and it

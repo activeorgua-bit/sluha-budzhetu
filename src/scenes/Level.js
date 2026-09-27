@@ -689,10 +689,10 @@ export class LevelScene extends Phaser.Scene {
   goalAllowed() {
     const goal = this.meta.goal;
     const w = BALANCE.world3;
-    const nag = (key) => {
+    const nag = (key, params) => {
       if (this.lockedHintAt && this.time.now < this.lockedHintAt) return false;
       this.lockedHintAt = this.time.now + 2000;
-      this.ui.flash(t(key), '#ff6b6b', 1400);
+      this.ui.flash(t(key, params), '#ff6b6b', 1400);
       return false;
     };
     if (goal === 'taxi') {
@@ -703,7 +703,7 @@ export class LevelScene extends Phaser.Scene {
         this.narrator.say('taxi_salary', { priority: 2 });
         return true;
       }
-      if (!GameState.spendWallet(w.taxiPrice)) { this.narrator.say('taxi_no_money'); return nag('taxi_need_money'); }
+      if (!GameState.spendWallet(w.taxiPrice)) { this.narrator.say('taxi_no_money'); return nag('taxi_need_money', { price: w.taxiPrice }); }
       this.narrator.say('taxi_paid', { priority: 2 });
       return true;
     }
@@ -925,6 +925,7 @@ export class LevelScene extends Phaser.Scene {
 
   onTrigger(z) {
     if (z.kind === 'goal') {
+      if (this.finished) return;          // the overlap fires every frame: pay the taxi / show the ticket once
       if (this.boss && !this.boss.defeated) {
         if (!this.lockedHintAt || this.time.now > this.lockedHintAt) {
           this.lockedHintAt = this.time.now + 2000;
