@@ -33,6 +33,7 @@ BAY_W = 288            # 6 tiles
 FULL_H = 672           # floor (row 14) to the top of the level
 CHANDELIER_ROW_BOTTOM = 11 * 48   # the chandelier's bottom in world px (decor row 10)
 PANEL_SCALE = 1.0     # full-size mosaics, in one piece with their ornament frame
+END_WALL_X = 24       # the end wall of zv_bay_end starts here (px from the bay's left edge)
 SHAFT_SCALE = 0.8     # pillar shafts a little narrower than generated (the capitals keep their width)
 
 
@@ -186,10 +187,12 @@ def cut_course(b):
 
 
 def make_end(bay, pl):
-    """The first pier of the hall: the bay cut at the capital slab's left edge, plain wall above it."""
+    """The first pier of the hall: a stone end wall (the pillar's own masonry, floor to vault) with the
+    capital slab carried across it as a cornice; the right half-arch springs from it."""
     b = bay.copy()
     h, w = b.shape[:2]
     c = w // 2
+    xw = END_WALL_X
     al = b[..., 3] > 0
     ls = [(y, run_left(al, y, c)) for y in range(h - 30, 0, -1)]
     ls = [(y, l) for y, l in ls if l > 0]
@@ -202,14 +205,20 @@ def make_end(bay, pl):
             runs.append(cur); cur = [(y, l)]
     runs.append(cur)
     slab = max(runs[1:], key=len)
-    x0, slab_top = slab[0][1] + 1, slab[-1][0]
-    # the wall colour just above the left arch's crown (column 1 = arch apex)
-    base = b[4, 1, :3].astype(int)
-    crown = next(y for y in range(4, h) if np.abs(b[y, 1, :3].astype(int) - base).sum() > 60)
-    for y in range(slab_top):
-        b[y, x0:pl, :3] = b[min(y, crown - 1), 1, :3]
-        b[y, x0:pl, 3] = 255
-    # under the panel the plinth stands on the slab; the left arch's foot beside it becomes wall too
+    x0, slab_top, slab_bot = slab[0][1] + 1, slab[-1][0], slab[0][0]
+    wall = np.zeros((h, w), bool)
+    # above the slab: everything left of the mosaic (the left arch and its spandrel)
+    wall[:slab_top, xw:pl] = True
+    # above the mosaic: everything left of the transverse arch band
+    row_wall = b[2, xw, :3].astype(int)
+    band_l = next(x for x in range(xw, c) if np.abs(b[2, x, :3].astype(int) - row_wall).sum() > 40)
+    och = b[2, band_l + 3, :3].astype(int)
+    ptop = next(y for y in range(2, h) if np.abs(b[y, band_l + 3, :3].astype(int) - och).sum() > 90
+                and np.abs(b[y, band_l + 3, :3].astype(int) - b[y - 1, band_l + 3, :3].astype(int)).sum() > 0
+                and y > 20)
+    wall[:ptop, xw:band_l] = True
+
+    # under the mosaic the plinth stands on the slab; the left arch's foot beside it becomes wall too
     def stone(px):
         r, g, bl = int(px[0]), int(px[1]), int(px[2])
         return r > 200 and g > 175 and bl > 110 and r >= bl
@@ -223,16 +232,42 @@ def make_end(bay, pl):
             miss, xp = 0, c - 40
             while xp > x0 and (stone(b[y, xp - 1]) or stone(b[y, xp - 2])):
                 xp -= 1
-        b[y, x0:xp - 1, :3] = b[min(y, crown - 1), 1, :3]
-    yb = y + 4                                              # the frame's bottom edge
+        wall[y, xw:xp - 1] = True
+    yb = y + 4                                              # the frame's bottom edge: chamfer its corner
     for yy in range(yb - 22, yb):
-        xe = pl + 2 + (yy - (yb - 22)) * 10 // 22
-        b[yy, x0:xe, :3] = b[min(yy, crown - 1), 1, :3]
-    b[:slab_top, x0, :3] = (40, 30, 26)                      # the end wall's edge
-    b[:slab_top, x0 + 1:x0 + 3, :3] = (b[:slab_top, x0 + 1:x0 + 3, :3] * 0.85).astype(np.uint8)
-    b[:, :x0] = 0
+        wall[yy, xw:pl + 2 + (yy - (yb - 22)) * 10 // 22] = True
+    # below the slab: the see-through arch opening left of the shaft
+    wall[slab_bot + 1:, xw:c] |= ~al[slab_bot + 1:, xw:c]
+
+    # the masonry: the pillar shaft's own stone courses, repeated across and upward
+    sl = run_left(al, h - 40, c) + 1
+    sr = sl
+    while al[h - 40, sr]:
+        sr += 1
+    tx0, tw = sl + 6, (sr - sl) - 12
+    lum = b[:, tx0:tx0 + tw, :3].astype(int).mean(axis=2).mean(axis=1)
+    top = slab_bot + 30
+    mortar = [y for y in range(top, h - 30) if lum[y] < 170 and lum[y - 1] >= 170]
+    period = 2 * int(np.median(np.diff(mortar)))
+    m0 = mortar[0]
+    ys, xs = np.where(wall)
+    sy = np.where(ys >= m0, ys, m0 + (ys - m0) % period)
+    sx = tx0 + (xs - xw) % tw
+    b[ys, xs] = b[sy, sx]
+    b[ys, xs, 3] = 255
+    # the slab runs across the wall as a cornice (its left end cap moves to the wall's edge)
+    for y in range(slab_top, slab_bot + 1):
+        seg = b[y, x0 + 6:x0 + 26].copy()
+        for x in range(xw + 3, x0 + 6):
+            b[y, x] = seg[(x - xw - 3) % len(seg)]
+        b[y, xw:xw + 3] = bay[y, x0:x0 + 3]
+    # the wall's edge: an outline and a shaded return
+    b[:, xw, :3] = (40, 30, 26)
+    b[:, xw, 3] = 255
+    b[:, xw + 1:xw + 4, :3] = (b[:, xw + 1:xw + 4, :3] * 0.82).astype(np.uint8)
+    b[:, :xw] = 0
     Image.fromarray(b, "RGBA").save(OUT / "zv_bay_end.png")
-    print(f"zv_bay_end: cut at x {x0}, slab top y {slab_top}")
+    print(f"zv_bay_end: wall from x {xw}, slab {slab_top}-{slab_bot}, band x {band_l}, mosaic top {ptop}")
 
 
 def wall_colour(canon):

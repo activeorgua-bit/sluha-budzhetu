@@ -72,7 +72,7 @@ def metro():
         "material": "metro", "material2": "platf", "tileset": "m1", "oneway": "grate_plat", "timeLimit": 120,
         "bgColor": "#1b1712",
         "subwayExit": True, "viewBottomRow": 15.875,   # the floor clears the narration page
-        "train": {"frame": "metro_train", "everySec": 10, "speed": 300,
+        "train": {"frame": "metro_train_long", "everySec": 12, "speed": 330,   # five cars (make_metro_train.py)
                   "far": {"layer": "m11_far", "bottomY": 606, "scale": 1}},   # along the far wall, full size
         "narration": [{"col": 11, "key": "m11_turnstile"}, {"col": 84, "key": "m11_cop"}, {"col": 32, "key": "m11_hall"}],
         "parallax": [{"key": "m11_far", "scroll": 0.3, "bottomRow": 14, "lift": 0},

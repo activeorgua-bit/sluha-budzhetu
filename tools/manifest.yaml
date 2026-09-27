@@ -1739,7 +1739,7 @@ assets:
     aspect_ratio: film_horizontal_21_9
     references: [mockup_level_1-3_bridge.png]
     prompt: "a classic Kyiv metro train, two cars, side view"
-    post: {kind: single, atlas: props, anchor: feet, names: [metro_train], sizes: {metro_train: [720, 150, fit]}}
+    post: {kind: single, atlas: props, anchor: feet, names: [metro_train], sizes: {metro_train: [720, 150, fit]}, fixup: make_metro_train}
   - id: card_subway
     batch: V2
     aspect_ratio: widescreen_16_9

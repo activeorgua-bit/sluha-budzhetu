@@ -11,9 +11,9 @@
   "subwayExit": true,
   "viewBottomRow": 15.875,
   "train": {
-    "frame": "metro_train",
-    "everySec": 10,
-    "speed": 300,
+    "frame": "metro_train_long",
+    "everySec": 12,
+    "speed": 330,
     "far": {
       "layer": "m11_far",
       "bottomY": 606,
