@@ -5,7 +5,7 @@ import { audio } from '../../core/Audio.js';
 
 /**
  * NABU detective: relentless. Chases within range, throws warrants, jumps small walls.
- * Speed and warrant rate scale with heat. Bribe 14%. Immune to black PR.
+ * Speed and warrant rate scale with heat. Bribe 22%.
  */
 export class Detective extends Enemy {
   constructor(scene, x, y, opts = {}) {
@@ -50,7 +50,7 @@ export class Detective extends Enemy {
     this.playIf(Math.abs(this.body.velocity.x) > 5 ? 'detective_walk' : 'detective_idle');
 
     if (Math.abs(dx) > d.warrantMin && Math.abs(dx) < d.warrantMax && now >= this.nextWarrantAt) {
-      const every = Math.max(1.2, d.warrantBaseSec - d.warrantPerHeat * GameState.heat);
+      const every = Math.max(d.warrantMinSec, d.warrantBaseSec - d.warrantPerHeat * GameState.heat);
       this.nextWarrantAt = now + every * 1000;
       this.scene.projectiles.throwWarrant(this.x + this.dir * 24, this.y - 60, this.dir);
       this.playIf('detective_throw');

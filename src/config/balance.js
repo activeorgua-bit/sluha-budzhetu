@@ -33,7 +33,7 @@ export const BALANCE = {
     journalist: { odds: 0.22, cost: 3 },
     journalist_f: { odds: 0.10, cost: 3 },   // the female reporter is much harder to buy
     voter:      { odds: 0.18, cost: 2 },
-    detective:  { odds: 0.14, cost: 5 },
+    detective:  { odds: 0.22, cost: 5 },
     oldlady:    { odds: 0.45, cost: 2 },   // a pension top-up
     kid:        { odds: 0.70, cost: 1 },   // pocket money
     oppmp:      { odds: 0.30, cost: 4 },
@@ -59,7 +59,7 @@ export const BALANCE = {
 
   enemies: {
     journalist: { speed: 105, los: 330, losTier1: 390, losHeight: 90, flashCooldownSec: 3.0, flashWindupSec: 0.45 },
-    detective:  { speedBase: 165, speedPerHeat: 0.9, chaseRange: 840, warrantBaseSec: 3.2, warrantPerHeat: 0.012,
+    detective:  { speedBase: 165, speedPerHeat: 0.9, chaseRange: 840, warrantBaseSec: 3.6, warrantPerHeat: 0.012, warrantMinSec: 1.8,
                   warrantMin: 135, warrantMax: 630, warrantSpeed: 450, emergeSec: 0.8 },
     cop:        { speed: 90 },
     voter:      { speed: 120, hostileTier: 2, throwEverySec: 2.4, jarSpeed: 390, jarGravity: 750, range: 540 },
@@ -149,9 +149,9 @@ export const BALANCE = {
     offscreenMargin: 120,
   },
 
-  // per 3-tile bridge segment: 2.6 s clean, ~1.6 s at 20 corruption, 0.55 s from ~40 (run, don't stop)
+  // per 3-tile bridge segment: 2.6 s clean, ~1.6 s at 20 corruption, 0.75 s from ~37 (run, don't stop)
   // luckyChance: per attempt, the contractor happened to use real rebar: bridges hold at least luckyMin s
-  collapse: { luckyChance: 0.07, luckyMin: 1.3, base: 2.6, perCorruption: 0.05, min: 0.55, segment: 3, shakeAmp: 3, fallSpeed: 630,
+  collapse: { luckyChance: 0.15, luckyMin: 1.3, base: 2.6, perCorruption: 0.05, min: 0.75, segment: 3, shakeAmp: 3, fallSpeed: 630,
               weakPlatformTier: 2 },
 
   hook: { swayDeg: 6, swayMs: 1600, dropSpeed: 780, holdMs: 350, retractSpeed: 240, triggerH: 300 },
