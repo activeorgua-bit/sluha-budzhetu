@@ -168,16 +168,23 @@ for (const idx of __LEVELS__) {
     const offMover = (c) => staticSupport(c.x, c.y) || !moverFor(c.x, c.y);
     if (riding && !offMover(nxt)) {
       let k = i; while (k < path.length && !offMover(path[k])) k++;
-      const gapX = k < path.length ? path[k].x * 48 + 24 - P.x : 9999;
-      if (Math.abs(gapX) < 230) {
-        // solid ground within a jump: leap off the platform towards it
-        i = k; lastProgress = now;
-        const d = Math.sign(gapX) || 1;
-        press('jump', true); setTimeout(() => press('jump', false), 460); jumpUntil = now + 460;
-        press('right', d > 0); press('left', d < 0); rec.moverJumps = (rec.moverJumps || 0) + 1;
-        continue;
+      if (k >= path.length) { releaseAll(); lastProgress = now; continue; }
+      // like a player: walk to the platform's front edge, then jump when it reaches the far end of its run
+      const rm = L.movers.getChildren().find((m) => Math.abs(P.body.bottom - m.body.top) < 6 && P.x > m.body.left - 10 && P.x < m.body.right + 10);
+      const d = Math.sign(path[k].x * 48 + 24 - P.x) || 1;
+      if (rm) {
+        const endX = d > 0 ? Math.max(rm.from.x, rm.to.x) : Math.min(rm.from.x, rm.to.x);
+        const edge = d > 0 ? rm.body.right - 24 : rm.body.left + 24;
+        lastProgress = now;
+        if ((edge - P.x) * d > 20) { press('right', d > 0); press('left', d < 0); continue; }
+        if (Math.abs(rm.x - endX) < 30) {
+          i = k;
+          press('jump', true); setTimeout(() => press('jump', false), 460); jumpUntil = now + 460;
+          press('right', d > 0); press('left', d < 0); rec.moverJumps = (rec.moverJumps || 0) + 1;
+          continue;
+        }
       }
-      else { releaseAll(); lastProgress = now; continue; }
+      releaseAll(); lastProgress = now; continue;
     }
     const nxt2 = path[i];
     if (nxt2 !== nxt) { continue; }
