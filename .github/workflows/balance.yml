@@ -1,0 +1,61 @@
+# Balance test: plays whole campaigns with the play-test bot in headless Chrome on a GitHub runner
+# (tools/balance/run.mjs), so it runs without a laptop. Start it by hand: Actions -> Balance test ->
+# Run workflow. Results: the run's summary page (a table) and the "balance-results" artifact (JSON).
+# It never deploys anything.
+name: Balance test
+
+on:
+  workflow_dispatch:
+    inputs:
+      campaigns:
+        description: 'Campaigns: mode:wallet:name, comma-separated (mode = honest | corrupt | greedy)'
+        default: 'honest:0:honest1,greedy:12:light1,greedy:30:heavy1,honest:0:honest2,greedy:12:light2,greedy:30:heavy2,honest:0:honest3,greedy:12:light3,greedy:30:heavy3,honest:0:honest4'
+      levels:
+        description: 'Level indices (0-8 = the whole game)'
+        default: '0,1,2,3,4,5,6,7,8'
+      maxsec:
+        description: 'Real seconds the bot gets per level'
+        default: '300'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: balance
+  cancel-in-progress: false
+
+jobs:
+  balance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      # the prebuild step checks the packed assets (verify_assets.py) and the level routes
+      - run: pip install -r tools/requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      # headless Chrome for the bot (kept out of package.json so the Pages deploy stays light)
+      - run: npm install --no-save puppeteer@24
+      - name: Serve the build
+        run: |
+          nohup npx vite preview --port 4173 --strictPort > preview.log 2>&1 &
+          for i in $(seq 1 60); do curl -sf http://localhost:4173/ > /dev/null && exit 0; sleep 1; done
+          cat preview.log; exit 1
+      - name: Play the campaigns
+        env:
+          CAMPAIGNS: ${{ inputs.campaigns }}
+          LEVELS: ${{ inputs.levels }}
+          MAXSEC: ${{ inputs.maxsec }}
+        run: node tools/balance/run.mjs --campaigns "$CAMPAIGNS" --levels "$LEVELS" --maxsec "$MAXSEC" --out balance-results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: balance-results
+          path: balance-results

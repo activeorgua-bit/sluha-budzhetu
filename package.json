@@ -16,7 +16,8 @@
     "assets:pack": "python tools/pack_atlas.py",
     "assets:parallax": "python tools/make_parallax.py",
     "assets:verify": "python tools/verify_assets.py",
-    "levels:validate": "node tools/validate_levels.mjs"
+    "levels:validate": "node tools/validate_levels.mjs",
+    "balance": "node tools/balance/run.mjs"
   },
   "dependencies": {
     "phaser": "3.90.0"

@@ -9,6 +9,7 @@ assets_src/.cache/
 __pycache__/
 *.pyc
 .vite/
+balance-results/
 
 # private reference photos (real people and places) — stay on this machine only
 assets_src/reference/photos/
