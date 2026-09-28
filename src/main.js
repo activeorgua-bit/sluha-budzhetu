@@ -16,8 +16,11 @@ import { ChoiceScene } from './scenes/Choice.js';
 import { BriefingScene } from './scenes/Briefing.js';
 import { IS_TOUCH, touchPad } from './core/touch.js';
 
+// ?renderer=canvas forces the 2D canvas renderer (headless test machines without a GPU run it faster)
+const RENDERER = new URLSearchParams(location.search).get('renderer') === 'canvas' ? Phaser.CANVAS : Phaser.AUTO;
+
 const config = {
-  type: Phaser.AUTO,
+  type: RENDERER,
   parent: 'game',
   width: GAME_W,
   height: GAME_H,

@@ -12,6 +12,7 @@
 //   --url        where the game runs (default http://localhost:4173)
 //   --out        results folder (default balance-results): <name>.json per campaign + summary.md
 //   --shots      also save a screenshot at the end of every level
+//   --renderer   canvas: force the 2D canvas renderer (faster on a machine without a GPU)
 // Chrome: the `puppeteer` package if installed (CI), else `puppeteer-core` resolved from
 // PUPPETEER_CORE_FROM with the browser at CHROME_PATH (a local Chrome install).
 import fs from 'fs';
@@ -35,6 +36,8 @@ const maxsec = Number(args.maxsec || 260);
 const url = String(args.url || 'http://localhost:4173');
 const out = path.resolve(String(args.out || 'balance-results'));
 const shots = !!args.shots;
+const renderer = args.renderer === 'canvas' ? '&renderer=canvas' : '';
+const fpsSeen = {};
 fs.mkdirSync(out, { recursive: true });
 const LEVEL_IDS = ['l11', 'l12', 'p21', 'p21b', 'p22', 'p23', 'e31', 'e32', 'e33', 'm11'];
 const LEVEL_LABELS = ['1-1', '1-2', '2-1', '2-1B', '2-2', '2-3', '3-1', '3-2', '3-3', '1-1M'];
@@ -70,8 +73,15 @@ async function playCampaign(puppeteer, c) {
       fs.writeFileSync(path.join(out, `${name.replace(/^res_/, '')}.json`), text);
       return true;
     });
-    await page.goto(`${url}/?dev=1`, { waitUntil: 'load', timeout: 120000 });
+    await page.goto(`${url}/?dev=1${renderer}`, { waitUntil: 'load', timeout: 120000 });
     await page.waitForFunction(() => window.__game && window.__game.scene.isActive('Menu') && window.__dev, { timeout: 120000 });
+    // how fast the game really runs here: the bot needs ~30+ fps to hit its jumps
+    fpsSeen[c.name] = await page.evaluate(async () => {
+      __dev.start(0);
+      await new Promise((r) => setTimeout(r, 5000));
+      return Math.round(__game.loop.actualFps);
+    });
+    console.log(`  game runs at ${fpsSeen[c.name]} fps (${renderer ? 'canvas' : 'auto'} renderer)`);
     await page.evaluate(`(async () => {
       const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       const shot = (n) => window.__shot(n);
@@ -105,7 +115,10 @@ function summarize() {
     const last = recs[recs.length - 1];
     rows.push({ c, recs, won: !!last && last.level === LAST_ID && last.done, lives: last ? last.livesLeft : 0 });
   }
-  const lines = ['# Balance test', '', `Levels ${levels}, ${maxsec} s per level. ✔ finished · ✘ where the run ended · † deaths (cause).`, '',
+  const fps = Object.values(fpsSeen);
+  const fpsNote = fps.length ? ` Game speed ${Math.min(...fps)}–${Math.max(...fps)} fps${renderer ? ' (canvas renderer)' : ''}.` : '';
+  const slow = fps.length && Math.min(...fps) < 40 ? ['', '> ⚠ The game ran slowly on this machine: the bot misses jumps below ~40 fps, so deaths may be the bot, not the game.'] : [];
+  const lines = ['# Balance test', '', `Levels ${levels}, ${maxsec} s per level.${fpsNote} ✔ finished · ✘ where the run ended · † deaths (cause).`, ...slow, '',
     '| campaign | mode | start wallet | result | lives left | levels |', '|---|---|---|---|---|---|'];
   for (const r of rows) {
     const where = r.recs.length ? describe(r.recs[r.recs.length - 1]).split(' ')[0] : '—';
