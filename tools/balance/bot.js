@@ -86,7 +86,8 @@ for (const idx of __LEVELS__) {
     if (B && !B.defeated && B.awake && Math.abs(B.x - P.x) < 620) {
       const ammo = G.chestnuts + G.books;
       // a corrupt politician out of chestnuts simply pays the boss off (when the boss takes bribes)
-      if (MODE !== 'honest' && ammo === 0 && G.wallet >= 8 && now > throwAt && onGround && Math.abs(B.x - P.x) < 400) {
+      const bossPrice = { speaker: 25, animator: 6, ratboss: 3, gopboss: 8 }[B.type] || 8;   // BALANCE.bribe costs
+      if (MODE !== 'honest' && ammo === 0 && G.wallet >= bossPrice && now > throwAt && onGround && Math.abs(B.x - P.x) < 400) {
         const dir = Math.sign(B.x - P.x) || 1;
         press('left', dir < 0); press('right', dir > 0); await sleep(40); press('left', false); press('right', false);
         await tap('cash'); throwAt = now + 900; rec.bossBribes = (rec.bossBribes || 0) + 1;
@@ -112,7 +113,7 @@ for (const idx of __LEVELS__) {
         const ammo = G.chestnuts + G.books;
         // keep a reserve for the bosses; a rat at your heels is always worth a chestnut
         // (an honest player only bothers with rats; the rest of the ammo is for the bosses)
-        const spare = threat.type === 'rat' ? ammo > 0 && Math.abs(threat.x - P.x) < 160 : MODE !== 'honest' && ammo > 12;
+        const spare = threat.type === 'rat' ? ammo > 0 && Math.abs(threat.x - P.x) < 160 : MODE !== 'honest' && ammo > 18;   // the Speaker takes 14 chestnut hits
         if (pay || spare) {
           if (P.facing !== dir) { press('left', dir < 0); press('right', dir > 0); await sleep(40); press('left', false); press('right', false); }
           threat.__botThrows = (threat.__botThrows || 0) + 1;
