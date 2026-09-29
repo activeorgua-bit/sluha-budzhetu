@@ -85,9 +85,9 @@ for (const idx of __LEVELS__) {
     const B = L.boss;
     if (B && !B.defeated && B.awake && Math.abs(B.x - P.x) < 620) {
       const ammo = G.chestnuts + G.books;
-      // a corrupt politician out of chestnuts simply pays the boss off (when the boss takes bribes)
+      // a corrupt politician pays the boss off whenever he can afford it (chestnuts only when the money runs out)
       const bossPrice = { speaker: 25, animator: 6, ratboss: 3, gopboss: 8 }[B.type] || 8;   // BALANCE.bribe costs
-      if (MODE !== 'honest' && ammo === 0 && G.wallet >= bossPrice && now > throwAt && onGround && Math.abs(B.x - P.x) < 400) {
+      if (MODE !== 'honest' && G.wallet >= bossPrice && now > throwAt && onGround && Math.abs(B.x - P.x) < 400) {
         const dir = Math.sign(B.x - P.x) || 1;
         press('left', dir < 0); press('right', dir > 0); await sleep(40); press('left', false); press('right', false);
         await tap('cash'); throwAt = now + 900; rec.bossBribes = (rec.bossBribes || 0) + 1;
