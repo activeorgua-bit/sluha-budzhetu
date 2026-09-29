@@ -1679,6 +1679,7 @@ assets:
     references: [raw/l1_politician/v001.png, crops/palette_strip.png]
     prompt: "metro: old man, old woman with trolley, duty officer (man), escalator attendant (woman)"
     post: {kind: sheet, atlas: chars, fixup: make_passenger_variants,
+           grow: {mworker_signal: [0, 60, 0, 0]},   # the raised signal disc pokes above the cell
            groups: {omale: {frame: 96, frame_h: 76, baseline: 90}, ofemale: {frame: 96, frame_h: 74, baseline: 90},
                     mworker: {frame: 96, frame_h: 82, baseline: 90}, wworker: {frame: 96, frame_h: 80, baseline: 90}},
            names: [omale_idle, omale_walk1, omale_walk2, omale_angry, ofemale_idle, ofemale_walk1, ofemale_walk2, ofemale_angry,

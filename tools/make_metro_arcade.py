@@ -158,7 +158,7 @@ def narrow_shaft(bay, c):
         rr = c
         while rr < bay.shape[1] - 1 and al[yy, rr]:
             rr += 1
-        if rr - ll > w * 1.15:
+        if rr - ll > w * 1.03:        # the whole corbel stays; only the plain shaft below is narrowed
             cap = yy + 1
             break
     shaft = Image.fromarray(bay[cap:, l:r], "RGBA")
