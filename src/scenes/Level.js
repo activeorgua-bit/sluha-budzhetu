@@ -279,7 +279,8 @@ export class LevelScene extends Phaser.Scene {
     }
     const bottom = (d.row + 1) * TILE;
     const cx = d.w ? (d.col + d.w / 2) * TILE : d.col * TILE + TILE / 2;
-    const img = this.add.image(cx, bottom, 'props', d.frame).setOrigin(0.5, 1)
+    // `sink`: px the art sits down into the ground (a thin boot or bucket edge would otherwise float)
+    const img = this.add.image(cx, bottom + (d.sink || 0), 'props', d.frame).setOrigin(0.5, 1)
       .setDepth(d.front ? DEPTH.player + 1 : (d.solid ? DEPTH.props : DEPTH.decorBack));
     if (d.flip) img.setFlipX(true);
     if (d.solid) {
@@ -323,8 +324,9 @@ export class LevelScene extends Phaser.Scene {
       }
       case 'sting': {
         const frame = this.textures.get('props').has('manhole') ? 'manhole' : 'metal_block';
-        // the manhole art has empty rows under the lid: anchor on the lid's lower edge and sink it into the pavement
-        this.add.image(cx, feetY + 3, 'props', frame).setOrigin(0.5, frame === 'manhole' ? 38 / 48 : 1).setDepth(DEPTH.decorBack).setScale(1, 0.35);
+        // a lid lying in the ground: drawn over the ground tiles, its lower edge a few px into the surface
+        // (the manhole art has empty rows under the lid, so anchor on the lid's lower edge)
+        this.add.image(cx, feetY + 4, 'props', frame).setOrigin(0.5, frame === 'manhole' ? 38 / 48 : 1).setDepth(DEPTH.tiles + 0.5).setScale(1, 0.35);
         return null;
       }
       case 'sign': {

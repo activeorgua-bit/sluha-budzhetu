@@ -154,7 +154,7 @@ meta = {
     "signs": [{"sprite": "plaque", "caption": "sign_bridges"}, {"sprite": "plaque", "caption": "sign_facts"}],
     "decor": {
         "A": "caution_sign", "B": "barrel", "C": "traffic_cone", "I": "tv_camera",
-        "K": "fisherman", "L": {"frame": "rebar_bundle", "w": 3},
+        "K": {"frame": "fisherman", "sink": 5},   # his boots and bucket rest on the planks "L": {"frame": "rebar_bundle", "w": 3},
         "D": {"frame": "pipe_short", "solid": "full", "w": 2, "top": 2},
         "E": {"frame": "pipe_tall", "solid": "full", "w": 2, "top": 3},
         "F": solid("pipe_stack", "top", 3),

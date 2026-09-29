@@ -63,10 +63,9 @@
     "B": "barrel",
     "C": "traffic_cone",
     "I": "tv_camera",
-    "K": "fisherman",
-    "L": {
-      "frame": "rebar_bundle",
-      "w": 3
+    "K": {
+      "frame": "fisherman",
+      "sink": 5
     },
     "D": {
       "frame": "pipe_short",

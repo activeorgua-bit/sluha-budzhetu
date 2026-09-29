@@ -123,9 +123,11 @@ export class QuestionBlock extends Phaser.Physics.Arcade.Sprite {
       kit.body.setVelocity(0, -450);
       return;
     }
-    // pop a coin worth 3 (question_block value) that lands on the block
+    // pop a coin worth 3 (question_block value): it hops off the row of blocks, away from the player, and
+    // lands on the ground (a high row of blocks would otherwise keep it out of reach); take it or leave it
     const coin = scene.spawnPickup('question_block', this.x, this.y - 60, { falling: true });
-    coin.body.setVelocity(0, -450);
+    const away = Math.sign(this.x - scene.player.x) || 1;
+    coin.body.setVelocity(away * 210, -430).setDragX(110);
     coin.setFrame('coin');
     coin.setTint(0xffe066);
     audio.playCoin();

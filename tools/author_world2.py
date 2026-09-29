@@ -144,7 +144,7 @@ def mariinsky():
         ],
         "signs": [{"sprite": "plaque", "caption": "sign_park"}, {"sprite": "plaque", "caption": "sign_rada"}],
         "decor": {
-            "A": "lamp_rada", "C": {"frame": "flowerbed", "w": 3}, "D": {"frame": "vase_stone", "w": 1},
+            "A": "lamp_rada", "C": {"frame": "tulip_bed", "w": 3},   # a side-view raised bed (the round top-down bed looked flat on the path) "D": {"frame": "vase_stone", "w": 1},
             "F": {"frame": "icecream_cart", "w": 3}, "H": {"frame": "thuja", "w": 1},
             "I": {"frame": "fence_iron", "w": 3}, "L": {"frame": "flagpole", "w": 2},
             "M": {"frame": "rada_door", "w": 4},
@@ -235,8 +235,7 @@ def corridor():
     c.put(13, 6, "1")                        # QUIET! VOTING IN PROGRESS
     for col in (10, 34, 58, 82, 106, 130, 152):
         c.dec(col, "A")                      # marble columns (decor, behind)
-    for col in (22, 70, 118):
-        c.dec(col, "W", 11)                  # tall windows with curtains
+    # no separate curtained windows: the painted wall has its own (the sprites floated over its doors)
     for col in (16, 46, 94, 140):
         c.dec(col, "H", 8)                   # chandeliers
     c.put(13, 14, "J")
@@ -294,7 +293,7 @@ def corridor():
         "parallax": [{"key": "p22_wall", "scroll": 0.35, "y": 0}],
         "signs": [{"sprite": "plaque", "caption": "sign_corridor"}, {"sprite": "plaque", "caption": "sign_hall"}],
         "decor": {
-            "A": {"frame": "column_marble", "w": 2}, "W": {"frame": "window_curtain", "w": 3}, "H": {"frame": "chandelier", "w": 3},
+            "A": {"frame": "column_marble", "w": 2}, "H": {"frame": "chandelier", "w": 3},
             "B": {"frame": "palm_pot", "w": 2}, "D": "water_cooler", "E": {"frame": "door_wood", "w": 3},
             "G": {"frame": "exhibit_stand", "w": 4}, "I": {"frame": "press_wall", "w": 4}, "J": "flag_stand",
             "C": solid("velvet_bench", "top", 3, 0.8),

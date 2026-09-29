@@ -1075,6 +1075,7 @@ assets:
       kind: sheet
       atlas: props
       anchor: feet
+      fixup: fix_rada_props   # the sofa's left end was cut by its cell
       names: [column_marble, chandelier, door_wood, press_wall, palm_pot, exhibit_stand, velvet_bench, water_cooler,
               rostrum, mp_desks, flag_stand, trident_panel, vote_screen, window_curtain, presidium_desk, velvet_chair]
       sizes:
@@ -1138,6 +1139,7 @@ assets:
               metal_block: 32, wood_box: 33, velvet_block: 34, hazard_barrier: 35}
       degrid: [balus_plat_l, balus_plat_m, balus_plat_r, shelf_plat_l, shelf_plat_m, shelf_plat_r, ladder_mid]
       align_top: [balus_plat_l, balus_plat_m, balus_plat_r, shelf_plat_l, shelf_plat_m, shelf_plat_r]
+      fixup: fix_rada_balus   # the generated ends were brown blocks at another scale
   - id: p21_bg_far
     batch: V2
     aspect_ratio: film_horizontal_21_9
