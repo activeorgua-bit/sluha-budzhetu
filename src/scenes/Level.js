@@ -323,7 +323,8 @@ export class LevelScene extends Phaser.Scene {
       }
       case 'sting': {
         const frame = this.textures.get('props').has('manhole') ? 'manhole' : 'metal_block';
-        this.add.image(cx, feetY, 'props', frame).setOrigin(0.5, 1).setDepth(DEPTH.decorBack).setScale(1, 0.35);
+        // the manhole art has empty rows under the lid: anchor on the lid's lower edge and sink it into the pavement
+        this.add.image(cx, feetY + 3, 'props', frame).setOrigin(0.5, frame === 'manhole' ? 38 / 48 : 1).setDepth(DEPTH.decorBack).setScale(1, 0.35);
         return null;
       }
       case 'sign': {
