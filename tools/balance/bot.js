@@ -132,6 +132,11 @@ for (const idx of __LEVELS__) {
         while (tr.shakesLeft > 0 && tr.near(L.player) && G.chestnuts < 20 && !L.player.dead) { releaseAll(); await tap('e'); await sleep(1300); }
       }
     }
+    // a corrupt politician jumps for a money bag hanging right above the way
+    if (MODE !== 'honest' && onGround && now > jumpUntil) {
+      const bag = L.pickups.getChildren().find((p) => p.active && p.kind === 'money_bag' && Math.abs(p.x - P.x) < 30 && p.y < P.y && P.y - p.y < 170);
+      if (bag) { press('jump', true); setTimeout(() => press('jump', false), 460); jumpUntil = now + 460; rec.bagJumps = (rec.bagJumps || 0) + 1; continue; }
+    }
     // search a hidden stash on the way (E): a first-aid kit pops out
     for (const st of L.stashes || []) if (st.near(P) && onGround) { releaseAll(); await tap('e'); await sleep(900); }
     // buy a ticket at the station

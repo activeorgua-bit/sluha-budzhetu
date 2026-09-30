@@ -159,6 +159,9 @@ def district():
     c.put(13, 172, "K")
     # --- street: a chestnut tree before the gang, so an honest politician can restock for the boss
     c.put(13, 175, "T"); c.put(13, 178, "o"); c.put(13, 190, "o")
+    # a money bag on the pavement before the gang: after the mafia deal a corrupt politician arrives broke,
+    # and this is enough to buy the gang off (8); it hangs a jump up, so an honest one walks under it
+    c.put(11, 182, "$")                      # just above head height: jump for it
     c.dec(180, "M"); c.dec(192, "M"); c.dec(204, "M")      # soviet street lamps
     c.put(13, 184, "C")
     c.put(13, 188, "J")
