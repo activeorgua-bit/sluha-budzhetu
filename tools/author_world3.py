@@ -169,6 +169,8 @@ def district():
     c.put(13, 198, "d")
     c.put(10, 200, "t")
     c.put(13, 208, "X")                      # the gopnik gang
+    # a second bag past the gang, before the taxi: the fare (3) and the train ticket at the station (5)
+    c.put(11, 211, "$")
     c.dec(214, "T")                          # the taxi
     c.put(13, 221, "2")                      # plaque: taxi rank
     c.put(13, 224, "G")
