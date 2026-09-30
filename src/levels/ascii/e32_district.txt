@@ -12,6 +12,7 @@
   "boss": {
     "type": "gopboss"
   },
+  "detectivePressure": 1.35,
   "materialZones": [
     {
       "ch": "@",

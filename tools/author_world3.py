@@ -174,6 +174,7 @@ def district():
         "id": "e32", "world": 3, "label": "3-2",
         "material": "asphalt", "material2": "grass", "tileset": "d1", "oneway": "ledge_plat", "timeLimit": 300,
         "bgColor": "#f7b27a", "goal": "taxi", "boss": {"type": "gopboss"},
+        "detectivePressure": 1.35,   # fewer NABU detectives in the district (the late-game wall for a corrupt run)
         "materialZones": [{"ch": "@", "from": 60, "to": 96, "mat": "sport"}],
         "bridgeStyle": "wave", "bridgeHostileOnly": True, "collapseMin": 1.0,   # the footbridge holds a moment even under the corrupt
         "backfill": [{"tile": "asphalt_c", "from": 0, "to": 142, "row": 14, "tint": "#7a5a4a"},

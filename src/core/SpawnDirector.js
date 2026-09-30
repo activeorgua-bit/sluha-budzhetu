@@ -54,7 +54,12 @@ export class SpawnDirector {
     const s = BALANCE.spawn;
     const now = this.scene.time.now;
     this.nextJournalistAt = s.journalistPressureSec[tier] ? now + s.journalistPressureSec[tier] * 1000 : Infinity;
-    this.nextDetectiveAt = s.detectivePressureSec[tier] ? now + s.detectivePressureSec[tier] * 1000 : Infinity;
+    this.nextDetectiveAt = s.detectivePressureSec[tier] ? now + this.detectiveEvery(tier) : Infinity;
+  }
+
+  /** ms between pressure detectives; meta.detectivePressure > 1 spaces them out (the Speaker's hall, the district). */
+  detectiveEvery(tier) {
+    return BALANCE.spawn.detectivePressureSec[tier] * 1000 * (this.level.meta.detectivePressure || 1);
   }
 
   update(now) {
@@ -66,7 +71,7 @@ export class SpawnDirector {
       if (this.count('journalist') < (s.journalistCap[tier] || 0)) this.ambush('journalist');
     }
     if (now >= this.nextDetectiveAt) {
-      this.nextDetectiveAt = now + s.detectivePressureSec[tier] * 1000;
+      this.nextDetectiveAt = now + this.detectiveEvery(tier);
       if (this.count('detective') < (s.detectiveCap[tier] || 0)) this.sting(this.scene.player.x, this.scene.player.y, true);
     }
     if (this.level.meta.party && !this.raidDone && tier >= s.partyRaidTier && now > this.scene.levelStartMs + s.partyRaidSec * 1000) {

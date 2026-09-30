@@ -66,6 +66,10 @@
       "frame": "tulip_bed",
       "w": 3
     },
+    "D": {
+      "frame": "vase_stone",
+      "w": 1
+    },
     "F": {
       "frame": "icecream_cart",
       "w": 3

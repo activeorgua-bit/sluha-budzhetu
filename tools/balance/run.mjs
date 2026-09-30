@@ -103,7 +103,8 @@ function describe(rec) {
   const causes = (rec.deathsAt || []).map((d) => d.split('@')[0]);
   const died = causes.length ? ` †${causes.length} (${[...new Set(causes)].join(', ')})` : '';
   const end = rec.done ? '✔' : rec.note === 'game over' ? '✘ game over' : `✘ ${rec.note || 'out of time (bot)'}`;
-  return `${label} ${end}${died}`;
+  const money = rec.walletAtBoss !== undefined ? ` [$${rec.walletStart}→boss $${rec.walletAtBoss}${rec.bossBribes ? `, paid ×${rec.bossBribes}` : ''}]` : '';
+  return `${label} ${end}${died}${money}`;
 }
 
 function summarize() {

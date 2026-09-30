@@ -156,7 +156,7 @@ export const BALANCE = {
 
   hook: { swayDeg: 6, swayMs: 1600, dropSpeed: 780, holdMs: 350, retractSpeed: 240, triggerH: 300 },
 
-  lives: { start: 3, max: 6, extraEveryScore: 30000, kitInBlockChance: 0.15 },   // + a hidden first-aid kit in every level
+  lives: { start: 3, max: 6, extraEveryScore: 30000, kitInBlockChance: 0.08 },   // + a hidden first-aid kit in every level
   finale: { escapeMaxHeat: 55 },
 };
 

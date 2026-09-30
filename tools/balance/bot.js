@@ -32,6 +32,7 @@ for (const idx of __LEVELS__) {
   const livesAt = G.lives;
   const rec = { level: L.def.id, mode: MODE, deaths: 0, hits: 0, stuck: 0, replans: 0, done: false, secs: 0, note: '' };
   rec.livesAtStart = G.lives;
+  rec.walletStart = G.wallet;
   const origHurt = L.player.constructor.prototype.hurt;
   rec.hitBy = {}; rec.deathsAt = [];
   L.player.constructor.prototype.hurt = function (...a) { const r = origHurt.apply(this, a); if (r) { rec.hits += 1; rec.hitBy[a[1] || 'hit'] = (rec.hitBy[a[1] || 'hit'] || 0) + 1; } return r; };
@@ -84,6 +85,7 @@ for (const idx of __LEVELS__) {
     // boss: stand and throw chestnuts while in range
     const B = L.boss;
     if (B && !B.defeated && B.awake && Math.abs(B.x - P.x) < 620) {
+      if (rec.walletAtBoss === undefined) { rec.walletAtBoss = G.wallet; rec.ammoAtBoss = G.chestnuts + G.books; }
       const ammo = G.chestnuts + G.books;
       // a corrupt politician pays the boss off whenever he can afford it (chestnuts only when the money runs out)
       const bossPrice = { speaker: 25, animator: 6, ratboss: 3, gopboss: 8 }[B.type] || 8;   // BALANCE.bribe costs
@@ -242,6 +244,7 @@ for (const idx of __LEVELS__) {
   rec.secs = Math.round((performance.now() - t0) / 1000);
   try { rec.gone = L.enemies.getChildren().filter((e) => !e.active).length; } catch (e) { rec.gone = '?'; }
   try { rec.endCol = Math.floor(level().player.x / 48); } catch (e) { rec.endCol = '?'; }
+  rec.walletEnd = G.wallet; rec.bossBeaten = L && L.boss ? !!L.boss.defeated : null;
   rec.livesLeft = G.lives; rec.heat = G.heat; rec.corruption = G.corruption; rec.timeLeft = L && L.timeLeft;
   if (MODE === 'greedy') globalThis.__carry = { corruption: G.corruption, wallet: G.wallet, mafiaChoice: G.mafiaChoice };
   globalThis.__ammo = { chestnuts: G.chestnuts, books: G.books };

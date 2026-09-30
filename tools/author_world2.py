@@ -144,7 +144,7 @@ def mariinsky():
         ],
         "signs": [{"sprite": "plaque", "caption": "sign_park"}, {"sprite": "plaque", "caption": "sign_rada"}],
         "decor": {
-            "A": "lamp_rada", "C": {"frame": "tulip_bed", "w": 3},   # a side-view raised bed (the round top-down bed looked flat on the path) "D": {"frame": "vase_stone", "w": 1},
+            "A": "lamp_rada", "C": {"frame": "tulip_bed", "w": 3}, "D": {"frame": "vase_stone", "w": 1},   # C: a side-view raised bed (the top-down one looked flat)
             "F": {"frame": "icecream_cart", "w": 3}, "H": {"frame": "thuja", "w": 1},
             "I": {"frame": "fence_iron", "w": 3}, "L": {"frame": "flagpole", "w": 2},
             "M": {"frame": "rada_door", "w": 4},
@@ -332,6 +332,7 @@ def hall():
         "material": "parquet", "material2": "seats", "tileset": "r1", "oneway": "balus_plat", "timeLimit": 240,
         "bgColor": "#e6dcc0",
         "boss": {"type": "speaker"},
+        "detectivePressure": 1.35,   # a corrupt run faces the Speaker and NABU at once: fewer detectives here
         "parallax": [{"key": "p23_wall", "scroll": 0.15, "y": -40}],
         "signs": [],
         "decor": {
