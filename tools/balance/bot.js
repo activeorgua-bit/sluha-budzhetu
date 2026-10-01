@@ -115,7 +115,7 @@ for (const idx of __LEVELS__) {
         const price = { cop: 1, journalist: 3, journalist_f: 3, detective: 5, voter: 2, oldlady: 2, kid: 1, oppmp: 4, bandit: 3,
           gopnik: 1, citizen: 2, dogwalker: 1, passenger: 1, mcop: 3, worker: 2, assistant: 1 }[threat.bribeKey] || 3;
         const bossLeft = B && !B.defeated ? ({ speaker: 25, animator: 6, ratboss: 3, gopboss: 8 }[B.type] || 8) : 0;
-        const reserve = bossLeft + (L.meta.goal === 'train' && !G.hasTicket ? 5 : 0) + (L.meta.goal === 'taxi' ? 3 : 0);
+        const reserve = bossLeft + (L.meta.goal === 'train' && !G.hasTicket ? 3 : 0) + (L.meta.goal === 'taxi' ? 3 : 0);
         const pay = MODE !== 'honest' && !threat.bribeProof && G.wallet - price >= reserve;
         const ammo = G.chestnuts + G.books;
         // keep a reserve for the bosses; a rat at your heels is always worth a chestnut

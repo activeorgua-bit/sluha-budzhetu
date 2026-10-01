@@ -156,6 +156,8 @@ export class Gopnik extends Kid {
     this.nuts = 99;
   }
 
+  get bribeProof() { return !!this.inGang; }   // the boss's boys: pay the boss
+
   think(now) {
     this.nuts = 99;
     if (!this.player) return;
@@ -261,9 +263,11 @@ export class GangBoss extends Boss {
   wake() {
     if (this.awake) return;
     super.wake();
+    // his boys: a bill thrown at the gang flies through them to the boss (you pay the one in charge)
+    this.gang = [];
     for (const dx of [-120, 140]) {
       const g = this.scene.spawnEnemy('gopnik', this.x + dx, this.y);
-      if (g) g.say('bubble_gopnik_gang', 1200, '#ff6b6b');
+      if (g) { g.say('bubble_gopnik_gang', 1200, '#ff6b6b'); g.inGang = true; this.gang.push(g); }
     }
   }
 
@@ -272,6 +276,8 @@ export class GangBoss extends Boss {
     const first = !this.defeated;
     super.defeat(how);
     if (first && how !== 'bribed') this.scene.spawnPickup('money_bag', this.x + this.dir * 40, this.y - 70, { falling: true });
+    // paid off: the whole gang goes with him
+    if (first && how === 'bribed') for (const g of this.gang || []) if (g.active && !g.leaving) { g.bribed = true; g.vanish(600); }
   }
 
   fight(now) {

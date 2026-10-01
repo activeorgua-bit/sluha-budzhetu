@@ -84,7 +84,7 @@ export const BALANCE = {
   // taxi and train cost bribes (a clean politician pays with his official salary).
   // frontCaseHeat: from this heat NABU finds you at the front (the case waits for the end of the war)
   // salaryMaxTier: up to this heat tier the MP salary covers the taxi and the ticket when the wallet is short
-  world3: { salaryMaxTier: 1, frontCaseHeat: 25, mafiaKnockoutHits: 3, taxiPrice: 3, ticketPrice: 5, salary: 5, trainBreakdownHeat: 55,
+  world3: { salaryMaxTier: 1, frontCaseHeat: 25, mafiaKnockoutHits: 3, taxiPrice: 3, ticketPrice: 3, salary: 5, trainBreakdownHeat: 55,
              breakdownFromHeat: 35, breakdownSpan: 55, breakdownMax: 0.92 },
 
   // Reputation: the politician's health. Hits cost reputation (by source); at 0 a life is lost and it
@@ -149,9 +149,9 @@ export const BALANCE = {
     offscreenMargin: 120,
   },
 
-  // per 3-tile bridge segment: 2.6 s clean, ~1.6 s at 20 corruption, 0.75 s from ~37 (run, don't stop)
+  // per 3-tile bridge segment: 2.6 s clean, ~1.6 s at 20 corruption, 0.62 s from ~40 (run, don't stop)
   // luckyChance: per attempt, the contractor happened to use real rebar: bridges hold at least luckyMin s
-  collapse: { luckyChance: 0.15, luckyMin: 1.3, base: 2.6, perCorruption: 0.05, min: 0.75, segment: 3, shakeAmp: 3, fallSpeed: 630,
+  collapse: { luckyChance: 0.15, luckyMin: 1.3, base: 2.6, perCorruption: 0.05, min: 0.62, segment: 3, shakeAmp: 3, fallSpeed: 630,
               weakPlatformTier: 2 },
 
   hook: { swayDeg: 6, swayMs: 1600, dropSpeed: 780, holdMs: 350, retractSpeed: 240, triggerH: 300 },
