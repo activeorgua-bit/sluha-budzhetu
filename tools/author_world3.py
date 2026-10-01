@@ -219,18 +219,16 @@ def station():
     c.put(13, 18, "C")
     c.dec(21, "D")                           # seats (standable)
     c.put(10, 22, "c")
-    c.put(13, 26, "C")
     c.dec(29, "E")                           # vending machine
     c.dec(33, "F")                           # turnstiles (solid)
     c.put(13, 38, "C")
-    c.put(13, 42, "s"); c.put(13, 44, "d")
+    c.put(13, 42, "s")                       # a manhole for NABU (the gated detective here is gone: fewer for a corrupt run)
     c.put(13, 49, "J")
     c.dec(52, "G")                           # luggage trolley (standable)
     c.put(10, 53, "$")
     c.put(13, 56, "C")
     c.put(13, 60, "K")
     c.dec(63, "H")                           # suitcases (solid)
-    c.put(13, 68, "C")
     c.dec(71, "I")                           # news kiosk (standable)
     c.put(9, 72, "c")
     c.dec(76, "L")                           # platform lamp
@@ -248,6 +246,7 @@ def station():
         "id": "e33", "world": 3, "label": "3-3",
         "material": "platform", "tileset": "v1", "oneway": "foot_plat", "timeLimit": 200, "bgColor": "#f0a870",
         "goal": "train",
+        "detectivePressure": 1.35,   # fewer NABU detectives at the station (5 cops instead of 7, too)
         "narration": [{"col": 13, "key": "e33_board"}, {"col": 100, "key": "e33_boss"}],
         "parallax": [
             {"key": "e33_sky", "scroll": 0.05, "y": 0},
