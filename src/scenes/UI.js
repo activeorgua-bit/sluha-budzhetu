@@ -52,7 +52,7 @@ export class UIScene extends Phaser.Scene {
 
     // the inner voice: a small parchment note in the top-left corner under the HUD, clear of the action;
     // its height follows the text, and [x] closes it (and drops the lines still waiting)
-    const bw = IS_TOUCH ? 300 : 340;
+    const bw = IS_TOUCH ? 300 : 400;
     this.bookW = bw;
     // (on touch screens the pause / fullscreen buttons hold the corner: the note starts right of them)
     this.bookX = IS_TOUCH ? 120 : 8;
@@ -60,7 +60,8 @@ export class UIScene extends Phaser.Scene {
     this.bookPage = this.add.rectangle(0, 0, bw, 48, 0xf4e6c4, 0.95).setOrigin(0).setStrokeStyle(2, 0x6b4a2b);
     this.bookSpine = this.add.rectangle(10, 4, 4, 40, 0xc9a66b).setOrigin(0);
     this.bookIcon = this.textures.get('props').has('book_open') ? this.add.image(30, 24, 'props', 'book_open').setScale(0.42) : null;
-    this.bookText = this.add.text(48, 8, '', textStyle(7, '#3b2412', { wordWrap: { width: bw - 48 - 26 }, lineSpacing: 5 })).setOrigin(0);
+    // 8 px is the pixel font's own grid and resolution 1 keeps every glyph on whole pixels: sharp, not smeared
+    this.bookText = this.add.text(48, 8, '', textStyle(8, '#3b2412', { wordWrap: { width: bw - 48 - 26 }, lineSpacing: 5, resolution: 1 })).setOrigin(0);
     const closeBg = this.add.rectangle(bw - 13, 4, 18, 18, 0xe2cfa3).setOrigin(0.5, 0).setStrokeStyle(1, 0x6b4a2b)
       .setInteractive({ useHandCursor: true });
     const closeX = this.add.text(bw - 13, 13, 'x', textStyle(8, '#6b4a2b')).setOrigin(0.5);
