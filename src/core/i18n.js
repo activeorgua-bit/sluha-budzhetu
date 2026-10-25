@@ -28,12 +28,24 @@ export function toggleLang() {
 /** Shared text style helpers (Press Start 2P with a Cyrillic subset). */
 export const FONT = 'PressStart2P, monospace';
 
+/**
+ * The pixel font is drawn on an 8 px grid: any other size (or a 2x text texture squeezed into the
+ * 960x540 canvas) smears its glyphs once the canvas is scaled up. Every size snaps to 8 / 16 / 24 / 32
+ * and renders 1:1, so each stroke sits on whole pixels.
+ */
+export function crispSize(size) {
+  if (size < 12) return 8;
+  if (size < 20) return 16;
+  if (size < 28) return 24;
+  return 32;
+}
+
 export function textStyle(size = 12, color = '#ffffff', extra = {}) {
   return {
     fontFamily: FONT,
-    fontSize: `${size}px`,
     color,
-    resolution: 2,
     ...extra,
+    fontSize: `${crispSize(size)}px`,
+    resolution: 1,
   };
 }
