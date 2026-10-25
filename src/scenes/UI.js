@@ -50,18 +50,23 @@ export class UIScene extends Phaser.Scene {
     this.drunkIcon = icon(930, 'hud_drunk', 22);
     if (this.drunkIcon) this.drunkIcon.setY(26).setVisible(false);   // right of the conscience bar it silences
 
-    // the inner voice: a parchment page at the bottom of the screen (over the underground rows)
-    this.book = this.add.container(0, 0).setDepth(DEPTH.ui).setVisible(false);
-    // on touch screens the page sits between the thumb controls (d-pad left, jump right)
-    const pw = IS_TOUCH ? Math.round(GAME_W * 0.58) : GAME_W - 40;
-    const ph = IS_TOUCH ? 84 : 76;
-    const py = IS_TOUCH ? 490 : 494;
-    const px0 = GAME_W / 2 - pw / 2;
-    const page = this.add.rectangle(GAME_W / 2, py, pw, ph, 0xf4e6c4, 0.96).setStrokeStyle(3, 0x6b4a2b);
-    const spine = this.add.rectangle(px0 + 20, py, 6, ph - 6, 0xc9a66b);
-    const bookIcon = this.textures.get('props').has('book_open') ? this.add.image(px0 + 46, py, 'props', 'book_open').setScale(0.75) : null;
-    this.bookText = this.add.text(px0 + 80, py, '', textStyle(8, '#3b2412', { wordWrap: { width: pw - 100 }, lineSpacing: 6 })).setOrigin(0, 0.5);
-    this.book.add([page, spine, ...(bookIcon ? [bookIcon] : []), this.bookText]);
+    // the inner voice: a small parchment note in the top-left corner under the HUD, clear of the action;
+    // its height follows the text, and [x] closes it (and drops the lines still waiting)
+    const bw = IS_TOUCH ? 300 : 340;
+    this.bookW = bw;
+    // (on touch screens the pause / fullscreen buttons hold the corner: the note starts right of them)
+    this.bookX = IS_TOUCH ? 120 : 8;
+    this.book = this.add.container(this.bookX, 56).setDepth(DEPTH.ui).setVisible(false);
+    this.bookPage = this.add.rectangle(0, 0, bw, 48, 0xf4e6c4, 0.95).setOrigin(0).setStrokeStyle(2, 0x6b4a2b);
+    this.bookSpine = this.add.rectangle(10, 4, 4, 40, 0xc9a66b).setOrigin(0);
+    this.bookIcon = this.textures.get('props').has('book_open') ? this.add.image(30, 24, 'props', 'book_open').setScale(0.42) : null;
+    this.bookText = this.add.text(48, 8, '', textStyle(7, '#3b2412', { wordWrap: { width: bw - 48 - 26 }, lineSpacing: 5 })).setOrigin(0);
+    const closeBg = this.add.rectangle(bw - 13, 4, 18, 18, 0xe2cfa3).setOrigin(0.5, 0).setStrokeStyle(1, 0x6b4a2b)
+      .setInteractive({ useHandCursor: true });
+    const closeX = this.add.text(bw - 13, 13, 'x', textStyle(8, '#6b4a2b')).setOrigin(0.5);
+    closeBg.on('pointerdown', (ptr, lx, ly, ev) => { if (ev) ev.stopPropagation(); this.closeBook(); });
+    this.bookClose = [closeBg, closeX];
+    this.book.add([this.bookPage, this.bookSpine, ...(this.bookIcon ? [this.bookIcon] : []), this.bookText, closeBg, closeX]);
     this.bookQueue = [];
     this.bookBusyUntil = 0;
     this.bookPriority = -1;
@@ -158,6 +163,14 @@ export class UIScene extends Phaser.Scene {
   showPage(text, priority) {
     if (this.bookTimer) this.bookTimer.remove();
     if (this.bookHide) this.bookHide.remove();
+    // size the note to the whole line before it types out; stay below the boss bar when one is up
+    this.bookText.setText(text);
+    const h = Math.max(36, Math.ceil(this.bookText.height) + 16);
+    this.bookText.setText('');
+    this.bookPage.setSize(this.bookW, h);
+    this.bookSpine.setSize(4, h - 8);
+    if (this.bookIcon) this.bookIcon.setY(h / 2);
+    this.book.setY(this.bossBox && this.bossBox.visible ? 106 : 56);
     this.book.setVisible(true).setAlpha(1);
     this.bookPriority = priority;
     this.bookShownAt = this.sys.time.now;
@@ -178,6 +191,17 @@ export class UIScene extends Phaser.Scene {
       this.bookPriority = -1;
       this.tweens.add({ targets: this.book, alpha: 0, duration: 300, onComplete: () => this.book && this.book.setVisible(false) });
     });
+  }
+
+  /** [x] on the note: hide it now and drop the lines still waiting. */
+  closeBook() {
+    if (!this.book) return;
+    if (this.bookTimer) this.bookTimer.remove();
+    if (this.bookHide) this.bookHide.remove();
+    this.bookQueue = [];
+    this.bookBusyUntil = 0;
+    this.bookPriority = -1;
+    this.book.setVisible(false);
   }
 
   /** Big centred message that fades out. */
