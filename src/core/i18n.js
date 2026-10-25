@@ -29,23 +29,21 @@ export function toggleLang() {
 export const FONT = 'PressStart2P, monospace';
 
 /**
- * The pixel font is drawn on an 8 px grid: any other size (or a 2x text texture squeezed into the
- * 960x540 canvas) smears its glyphs once the canvas is scaled up. Every size snaps to 8 / 16 / 24 / 32
- * and renders 1:1, so each stroke sits on whole pixels.
+ * The pixel font is drawn on an 8 px grid. Small text (8 px and below) snaps to 8 px and renders 1:1, so
+ * its glyphs stay on whole pixels (6-7 px text smeared once the canvas was scaled up). Bigger text keeps
+ * its own size and a 2x texture, as it always had.
  */
 export function crispSize(size) {
-  if (size < 12) return 8;
-  if (size < 20) return 16;
-  if (size < 28) return 24;
-  return 32;
+  return size <= 8 ? 8 : size;
 }
 
 export function textStyle(size = 12, color = '#ffffff', extra = {}) {
+  const small = size <= 8;
   return {
     fontFamily: FONT,
     color,
+    resolution: small ? 1 : 2,
     ...extra,
     fontSize: `${crispSize(size)}px`,
-    resolution: 1,
   };
 }
